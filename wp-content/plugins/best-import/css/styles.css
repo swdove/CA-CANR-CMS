@@ -1,0 +1,145 @@
+/* FORM */
+
+    #bi input[type="text"]{
+        width: 400px;
+    }
+
+    #bi textarea{
+        width: 400px;
+    }
+
+    #bi td:first-of-type input{
+        width: 200px;
+        margin-right: 10px;
+    }
+
+    #bi .bar{
+        background: #fff;
+        width: 320px;
+        height: 20px;
+        margin: 10px 0;
+        padding: 5px;
+        display: none;
+        border: 1px solid #aaa;
+    }
+
+    #bi .bar div{
+        background: #ad6;
+        text-align: right;
+        height: 100%;
+        width: 0%;
+        padding: 5px;
+        margin: -5px;
+    }
+
+    #bi .form-table td:first-of-type{
+        width: 400px;
+    }
+
+/* TABLE */
+
+    #bi .widefat td{
+        border-bottom: 1px solid #e1e1e1;
+    }
+
+    #bi .widefat th{
+        font-weight: bold;
+    }
+
+    #bi .widefat .tag td:first-of-type{
+        padding-left: 40px!important;
+    }
+
+    #bi .widefat img{
+        max-width: 150px;
+        max-height: 150px;
+        display: block;
+        margin: 10px;
+    }
+
+/* ZIP TABLE */
+
+    #bi .ziptable{
+        width: 400px!important;
+        height: 300px;
+        margin-bottom: 10px;
+        display: block;
+    }
+
+    #bi .ziptable ~ input[type=text]{
+        width: 265px!important;
+    }
+
+/* OTHERS */
+
+    #bi h3{
+        margin-top: 40px;   
+        color: #000;
+        cursor: pointer;
+    }
+
+    #bi h3:hover{
+        color: #28b;   
+    }
+
+    #bi p{
+        margin-left: 40px;
+        width: 650px;   
+        text-align: justify;
+    }
+
+    #bi p + h4{
+        margin-left: 40px;
+    }
+
+    #bi code{
+        margin: 5px 10px 5px 0;
+        display: inline-block;
+    }
+
+    #bi *[id^="tab-"]{
+        padding: 0 20px;   
+        display: none;
+    }
+
+    #bi .tag-content input{
+        margin: 0 20px;
+    }
+
+    #bi .td-tag{
+        width: 450px;   
+    }
+
+    #bi .td-tag .attributes{
+        color: #aaa;
+    }
+
+    #bi .h4error{
+        color: #c22;
+    }
+
+    #bi h4 span:first-of-type{
+        display: inline-block;
+        margin-top: 40px;
+        width: 100px;
+    }
+
+    #bi input[type=button]{
+        min-width: 50px;
+    }
+
+    #bi-menu .nav-tab{
+        width: 130px;
+        text-align: center;
+    }
+
+    #bi-import-number{
+        width: 40px!important;
+    }
+
+    .ac_results{
+        width: 398px;
+        height: 200px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
