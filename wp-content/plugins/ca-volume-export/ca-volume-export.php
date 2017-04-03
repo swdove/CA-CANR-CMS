@@ -9,7 +9,7 @@ Author URI: https://github.com/swdove
  
 */
 /*
-Developed for Schlager Group to export CA and CANR entries as SGML files. Base export plugin code borrowed and modified from "Advanced Export" plugin by Ron Rennick.
+Developed for Schlager Group to export CA and CANR entries as custom SGML files. Base export plugin code borrowed and modified from "Advanced Export" plugin by Ron Rennick.
 */
 
 if(!defined('ABSPATH')) {
@@ -336,37 +336,9 @@ function parse_export_values($post) {
 			case "adaptations":
 				$post->adaptations = $field->value;
 				break;									
-
-			// case "biocrit_entry_list":
-			// 	$post->biocritEntries = $field->value;
-			// case "bib_loc_entries":
-			// 	$post->loc_entries = format_LOC($field->value);	
-			// case "biocrit_test":
-			// 	$post->biocritTest = format_biocrit($field->value);		
-			// case "biocrit_generated":
-			// 	$post->biocrit_periodicals = $field->value;
 			default:
 				//exclude "field identifier" fields
-				if(!(preg_match('/^_/', $field->name))) {
-					//if VARIANT NAME
-					// if(stristr($field->name, "var_prefix")) {
-					// 	$varName = new VariantName();
-					// 	$varName->prefix = $field->value;
-					// 	array_push($post->variantName, $varName);
-					// }
-					//if WRITINGS
-					// if(stristr($field->name, "writings_entry")) {
-					// 	array_push($post->writings, $field->value);
-					// }
-					// if(stristr($field->name, "collected_writings")) {
-					// 	array_push($post->writings, $field->value);
-					// }					
-					// if(stristr($field->name, "biocrit_generated")) {
-					// 	array_push($post->biocrit_periodicals, $field->value);
-					// }
-					// if(stristr($field->name, "online_biocrit_entries")) {
-					// 	array_push($post->biocrit_online, $field->value);
-					// }					
+				if(!(preg_match('/^_/', $field->name))) {				
 				};
 				break;
 		}
@@ -766,16 +738,6 @@ function build_SGML_file($post) {
 	$export .= "<works>" . PHP_EOL;
 	$export .= "<workgroup>" . PHP_EOL;
 	$export .= '<grouptitle level="1">WRITINGS:</grouptitle>' . PHP_EOL;
-	// if($post->loc_entries) {
-	// 	foreach($post->loc_entries as $entry) {
-	// 		$export .= "<bibcitation>" . PHP_EOL;
-	// 		$export .= "<bibcit.composed>" . PHP_EOL;
-	// 		$export .= $entry->title . PHP_EOL;
-	// 		$export .= $entry->pubInfo . PHP_EOL;
-	// 		$export .= "</bibcit.composed>" . PHP_EOL;
-	// 		$export .= "</bibcitation>" . PHP_EOL;
-	// 	}
-	// }
 	foreach($post->writings as $writing) {
 		if($writing->id == "subhead") {
 			$subhead_title = WYSIWYG_conversion($writing->title, false);
@@ -1067,13 +1029,6 @@ function convert_wyswig_punctuation($text) {
 
 	return $text;
 }
-
-// class LOC_citation {
-// 	public $title;
-// 	public $pubInfo;
-// 	public $publisher;
-// 	public $pubyear;
-// }
 
 class Citation {
 	public $periodicalTitle;
