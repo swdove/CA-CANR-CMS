@@ -1,0 +1,903 @@
+<biography>
+<galedata>
+<infobase>
+<pen>0000183784</pen>
+</infobase>
+<project>
+<projectname>
+&lt;strong&gt;Contemporary Authors&lt;/strong&gt;
+</projectname>
+<update>
+<action type="other">Exported</action>
+<date>
+<year year="2015">
+</year>
+<month month="10"></month>
+<day day="29"></day>
+</date>
+</update>
+</project>
+</galedata>
+<bio_head>
+<bioname atlasuid="21225968">
+<mainname gender="he">
+<first>Jesse</first>
+<last>Ball</last>
+</mainname>
+</bioname>
+</bio_head>
+<bio_body>
+<personal>
+<birth>
+<birthdate>
+
+<year year="1978">
+</year>
+<month month="6"></month>
+<day day="7"></day>
+</birthdate>
+<birthlocation>
+<city>Long Island</city>
+<state>NY</state>
+<country>United States</country>
+</birthlocation>
+</birth>
+<heritage>
+<nationality>American</nationality>
+</heritage>
+<educate>
+<composed_educate>Vassar College, B_A_, 2000; Columbia University, M_F_A_,
+2004_</composed_educate>
+</educate>
+<career>
+<workhistory>
+<composed_workhist>
+&lt;p&gt;Writer, poet, and artist_ School of the Art Institute
+of Chicago, assistant professor_ Has worked as an editor, croupier, tutor,
+and photographer_ Former visiting artist at the School of the Art Institute
+of Chicago_&lt;/p&gt;
+</composed_workhist>
+</workhistory>
+</career>
+<award>
+<composed_award>
+&lt;p&gt;Recipient of fellowships, including fellowships from
+Vassar College, Columbia University, Hawthornden Castle, Nyhil, and Oberon;
+National Endowment for the Arts Creative Writing Fellowship, 2014; National
+Book Award longlist, 2015, for &lt;em&gt;A Cure for Suicide_&lt;/em&gt;
+&lt;/p&gt;
+</composed_award>
+</award>
+<composed_personal>Born June 7, 1978, on Long Island, NY; son of Robert and
+Catherine Ball; married Thordis Bjornsdottir (a poet and author); children:
+stepdaughter_</composed_personal>
+</personal>
+<address addresstype="home">
+<geo>
+<geoother>United States; Reykjavik, Iceland_</geoother>
+</geo>
+</address>
+<works>
+<workgroup>
+<grouptitle level="1">WRITINGS:</grouptitle>
+<grouptitle level="2">NOVELS</grouptitle>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;Samedi the Deafness,&lt;/em&gt;
+&lt;/strong&gt; Vintage
+Contemporaries (New York, NY),
+
+<year year="2007">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;The Way through Doors,&lt;/em&gt;
+&lt;/strong&gt; Vintage
+Books (New York, NY),
+
+<year year="2009">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;The Curfew,&lt;/em&gt;
+&lt;/strong&gt; Vintage
+Books (New York, NY),
+
+<year year="2011">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;Silence Once Begun,&lt;/em&gt;
+&lt;/strong&gt; Pantheon
+Books (New York, NY),
+
+<year year="2013">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;A Cure for Suicide,&lt;/em&gt;
+&lt;/strong&gt; Pantheon
+Books (New York, NY),
+
+<year year="2015">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;How to Set a Fire and Why,&lt;/em&gt;
+&lt;/strong&gt; Pantheon
+Books (New York, NY),
+
+<year year="2016">
+</year>_</bibcit_composed>
+</bibcitation>
+<grouptitle level="2">OTHER</grouptitle>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;March Book&lt;/em&gt;
+&lt;/strong&gt; (poetry),
+foreword by Richard Howard, Grove Press (New York, NY),
+
+<year year="2004">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>(With Thordis Bj&#xf6;rnsdottir), &lt;strong&gt;
+&lt;em&gt;
+Vera &#x26; Linus&lt;/em&gt;
+&lt;/strong&gt; (prose and verse), Nyhil (Reykjavik, Iceland),
+
+<year year="2006">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;Og svo kom nottin&lt;/em&gt;
+&lt;/strong&gt; (drawings),
+Nyhil (Reykjavik, Iceland),
+
+<year year="2006">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;Scrip M,&lt;/em&gt;
+&lt;/strong&gt; WMJJR,
+
+<year year="2007">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;Parables &#x26; Lies&lt;/em&gt;
+&lt;/strong&gt; (short
+stories), Cupboard Pamphlet (Lincoln, NE),
+
+<year year="2008">
+</year>_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;strong&gt;
+&lt;em&gt;The Village on Horseback: Prose and
+Verse, 2003-2008,&lt;/em&gt;
+&lt;/strong&gt; Milkweed Editions (Minneapolis, MN),
+
+<year year="2011">
+</year>_</bibcit_composed>
+</bibcitation>
+&lt;p&gt;Contributor to books and anthologies, including &lt;strong&gt;
+&lt;em&gt;
+Af Ljodum&lt;/em&gt;
+&lt;/strong&gt; Nyhil, 2005; &lt;strong&gt;
+&lt;em&gt;Best American
+Poetry,&lt;/em&gt;
+&lt;/strong&gt; 2006; and &lt;strong&gt;
+&lt;em&gt;Light of City
+and Sea,&lt;/em&gt;
+&lt;/strong&gt; Street Press, 2006; contributor to periodicals,
+including &lt;em&gt;Paris Review, Oberon, Fence, Conduit, Boston Review,
+Denver Quarterly, Tin House, Circumference, Agenda, New Republic,&lt;/em&gt; and <em>Purple Fashion_&lt;/em&gt;
+&lt;/p&gt;
+</workgroup>
+</works>
+<narrative type="sidelights">
+&lt;p&gt;Jesse Ball is a poet and writer, the author of well-received volumes
+of verse and prose_ Ball, who earned his M_F_A_ from Columbia University,
+has lived and worked in France, Scotland, Iceland, and the United States in
+New York City and Chicago, and includes writings about each of those locales
+in his 2011 collection &lt;strong&gt;
+&lt;em&gt;The Village on Horseback: Prose
+and Verse, 2003-2008_&lt;/em&gt;
+&lt;/strong&gt; He is also the author of three novels, &lt;strong&gt;
+<em>Samedi the Deafness,&lt;/em&gt;
+&lt;/strong&gt;
+&lt;strong&gt;
+&lt;em&gt;The Way
+through Doors,&lt;/em&gt;
+&lt;/strong&gt; and &lt;strong&gt;
+&lt;em&gt;The Curfew_&lt;/em&gt;
+&lt;/strong&gt; In
+an interview with &lt;em&gt;Millions&lt;/em&gt; Web site contributor
+Alexandra Beggs, Ball remarked on what he wants to achieve with his writing:
+&#x201c;Sometimes people will talk about my books as being experimental, but
+they're not_ They might appear to be experimental because they look a little
+different, but they're quite old-fashioned especially in the responsibilities
+I take in regards to telling the story_ I think that the responsibility that
+the storyteller has in reaching the audience is an ancient one, and is very
+important_ &#x2026; I think transparency is always good_&#x201d;&lt;/p&gt;
+&lt;p&gt;Ball was widely praised for his first book-length poetry collection,
+titled &lt;strong&gt;
+&lt;em&gt;March Book_&lt;/em&gt;
+&lt;/strong&gt; In the book's
+foreword, Richard Howard noted that an &#x201c;indicator of visionary gifts
+is indeed vision, what the poet &lt;em&gt;sees&lt;/em&gt; and makes
+us see through his eyes_&#x201d; Howard went on to write in his foreword to
+the collection that, in many of the author's poems, &#x201c;vision is one term
+of a dialectic with what will not or cannot be seen: to observe something
+is to posit what escapes observation_ This is the tension that generates most
+of Jesse Ball's poems, and it is a fruitful anxiety_&#x201d;&lt;/p&gt;
+&lt;p&gt;Ball collaborated with his wife, Thordis Bj&#xf6;rnsdottir, to write &lt;strong&gt;
+<em>Vera &#x26; Linus,&lt;/em&gt;
+&lt;/strong&gt; a collection of short prose and
+drawings that focuses on the protagonists of Vera and Linus, two friends or
+lovers who have a wicked outlook on life, epitomized by an episode in which
+they go out with a knife and a bag in search of children's hands_ Torturing
+children and animals is not all that Vera and Linus like to do; they also,
+at times, are extremely cruel to each other_&lt;/p&gt;
+&lt;p&gt;
+&lt;em&gt;Woodland Pattern&lt;/em&gt; Web site contributor Rob
+Baumann commented that the authors &#x201c;excel in understatement and whimsy,
+but their greatest achievement is in rendering the perverse and the drab in
+a single turn of phrase_&#x201d; Several reviewers noted that Vera and Linus
+live in a twisted world that is fairytale-like in nature_ &#x201c;The light
+touch and often archaic feel of the prose owes as much to Kafka as to classic
+fairy tales,&#x201d; wrote a &lt;em&gt;Publishers Weekly&lt;/em&gt; contributor_
+Referring to &lt;strong&gt;
+&lt;em&gt;Vera &#x26; Linus&lt;/em&gt;
+&lt;/strong&gt; as
+&#x201c;Brothers Grimm, Marquis de Sade, Peter Pan and Georges Perec,&#x201d;
+Laird Hunt, writing on the &lt;em&gt;Rain Taxi&lt;/em&gt; Web site,
+called the book a &#x201c;strangely sexy, agreeably scary collaborative compendium_&#x201d;
+&lt;/p&gt;
+&lt;p&gt;Ball's first novel, &lt;strong&gt;
+&lt;em&gt;Samedi the Deafness,&lt;/em&gt;
+&lt;/strong&gt; received
+widespread interest and praise from reviewers_ &#x201c;The novel itself is
+being described as a &#x2018;mnemonist trapped in a sanatorium for chronic
+liars,&#x2019;&#x201d; wrote Shane Jones on the &lt;em&gt;Hobart&lt;/em&gt; Web
+site_ &#x201c;Characters lie to one another constantly throughout, the stark
+pages alternate from lyrical prose, to sprawling dialog, to the actual notes
+the characters leave for one another in the sanatorium_&#x201d; Another reviewer,
+writing on the &lt;em&gt;Here She Be&#x2014;The Battlements&lt;/em&gt; Web
+site, noted: &#x201c;[Ball's] work has been called Kafka meets Hitchcock or
+Ian Fleming, and true to form he weaves a strong but twisted plot, knit tightly
+around the central character, James Sim_&#x201d;&lt;/p&gt;
+&lt;p&gt;The novel begins with a suicide on the White House lawn followed by
+Sim's discovery in a park of a man crumpled on the ground and stabbed in the
+chest_ As Sim attends to the man, whose name is McHale, he dies, but not before
+uttering what he calls a confession, which ends with the word &#x201c;Samedi_&#x201d;
+Over the next several days, Sim investigates the murder of McHale and soon
+confronts a man named Estrainger, who is his only lead_ However, Estrainger
+jumps from a window to his death_ Sim then begins to make connections between
+the two suicides and the death of McHale because all of the dead men were
+carrying written threats from a revolutionary calling himself &#x201c;Samedi_&#x201d;
+Sim is helped in his investigation by the fact that he is mnemonist, that
+is, he has an amazing memory that allows him to remember huge amounts of information_
+&lt;/p&gt;
+&lt;p&gt;Eventually Sim is kidnapped by McHale's doppelganger and taken to a
+&#x201c;verisylum,&#x201d; which is a mysterious treatment center for chronic
+liars_ Once there, Sim seems to recognize another inmate named Grieve, who
+thinks she is Anastasia and later Lily Violet, and who may or may not have
+a look-alike of her own_ The institution is guided by numerous arcane rules
+of discourse that are staggeringly tricky to follow_ For example, if an inmate
+wants to speak to somebody, he or she must ring a bell, after which everyone
+around will freeze_ Then the person must wait for fifteen seconds to collect
+his or her thoughts before addressing anyone_ &#x201c;The theory is that all
+these rules will help a liar create a new, stable identity out of some elaborately
+constructed fiction,&#x201d; wrote Caryn James in the &lt;em&gt;New York
+Times Book Review_&lt;/em&gt;
+&lt;/p&gt;
+&lt;p&gt;Working within this unsteady environment, Sim tries to decipher the
+sanitarium's rules, each one of which turns out to be a clue &#x201c;in a puzzle
+whose solution is ultimately immaterial to its beauty&#x201d; as described
+by a contributor to the &lt;em&gt;New Yorker_&lt;/em&gt; As Sim tries
+to figure out his place in what he identifies as some kind of mastermind scheme,
+he also attempts to discover the nature of the &#x201c;plague of deafness&#x201d;
+that Samedi has promised to inflict on what he considers to be an ill-mannered
+world_&lt;/p&gt;
+&lt;p&gt;&#x201c;Like the early Thomas Pynchon &#x2026; Mr_ Ball creates a world
+nearly identical to ours, which operates on one significantly different principle:
+Your most paranoid fears are likely to be true,&#x201d; wrote Caryn James in
+the &lt;em&gt;New York Times Book Review_&lt;/em&gt; James also noted
+that &#x201c;readers who long for instant clarity will be frustrated,&#x201d;
+adding: &#x201c;But anyone with a taste for the elusive will find that this
+smart, audacious work becomes as gripping as a good thriller, which it partially
+resembles_&#x201d; James further noted that the author wrote &lt;strong&gt;
+<em>Samedi the Deafness&lt;/em&gt;
+&lt;/strong&gt; in Scotland, where he lived by
+a cemetery_ Several of the characters, including Grieve and Lily Violet, were
+named after people buried there_&lt;/p&gt;
+&lt;p&gt;Praise for Ball's first novel was effusive and widespread_ &#x201c;Poet
+Ball uses the language of his trade to breathe life into his inspired thriller
+about memory, truth and the unsound constructs in which we house these ethereal
+concepts,&#x201d; wrote a &lt;em&gt;Kirkus Reviews&lt;/em&gt; contributor,
+who also called the book &#x201c;an unorthodox detective story_&#x201d; Referring
+to the novel as &#x201c;highly imaginative,&#x201d; a contributor to <em>Publishers Weekly&lt;/em&gt; commented that the author &#x201c;writes
+scenes that read like prose poetry and cultivates a Beckett-like alienated
+digression rather than standard plot_&#x201d;&lt;/p&gt;
+&lt;p&gt;Ball's second novel, &lt;strong&gt;
+&lt;em&gt;The Way through Doors,&lt;/em&gt;
+&lt;/strong&gt; was
+described by &lt;em&gt;Blogcritics&lt;/em&gt; Web site writer Bryan
+McKay as an &#x201c;inventive and strange little book, toying with the possibilities
+of narrative while giving us tantalizingly incomplete glimpses at dozens of
+possible fictions_ But even when it appears that the book is ready to disappear
+into itself, Ball manages to reign in his story, making sure everything, even
+the loose threads, fit together with a certain sort of internal logic_&#x201d;
+Although several critics noted that the novel bears a superficial resemblance
+to the plot of the movie &lt;em&gt;While You Were Sleeping,&lt;/em&gt; it
+quickly moves in its own, highly original direction_ The novel is an experimental
+work reminiscent of the works of Franz Kafka and other surrealist writers
+in theme and execution_ The work begins with the renowned pamphletist Selah
+Morse assuming his job as an inspector in a strangely twisted American city_
+The job, explained Minneapolis &lt;em&gt;Star Tribune&lt;/em&gt; reviewer
+Ethan Rutherford, &#x201c;allows him to &#x2018;go about the city&#x2019; (the
+city being New York, but only in the vaguest sense) and &#x2018;inspect virtually
+anything we choose_ Our authority is both unlimited and non-existent_&#x2019;&#x201d;
+&#x201c;A few months into this job,&#x201d; Rutherford went on, &#x201c;a woman
+is hit by a car; she is physically fine, but her memory seems to be gone_&#x201d;
+Morse&#x2014;for reasons Ball never explains&#x2014;takes the woman under his
+personal care, poses as her boyfriend, dubs her Mora Klein, and takes her
+back to his apartment where he, Scheherazade-like, tells her stories for eighteen
+hours straight in order to help her regain her memory_&#x201d; &#x201c;Ball
+jumps from one confusing vignette to another,&#x201d; wrote an &lt;em&gt;
+America's Intelligence Wire&lt;/em&gt; reviewer, &#x201c;as Selah tries to
+rebuild Mora's memory via far-fetched fables_&#x201d; These stories are the
+main focus of the novel and they are, according to Julia Keller, writing for
+the &lt;em&gt;Chicago Tribune,&lt;/em&gt; &#x201c;disturbingly original_&#x201d; &lt;strong&gt;
+<em>The Way through Doors&lt;/em&gt;
+&lt;/strong&gt; &#x201c;is a story about the
+telling of stories, a narrative about narratives,&#x201d; Keller continued_
+&#x201c;It keeps the reader enthralled by constantly taking the wrong fork
+in the road_ Stories are tucked inside other stories_&#x201d; &#x201c;&lt;strong&gt;
+<em>The Way through Doors,&lt;/em&gt;
+&lt;/strong&gt;&#x201d; McKay concluded, &#x201c;is
+about good storytelling, and it would be a dismal failure if Ball were not
+a good enough storyteller to keep up with his subject_&#x201d;&lt;/p&gt;
+&lt;p&gt;&#x201c;The writing of &lt;strong&gt;
+&lt;em&gt;The Way through Doors,
+&lt;/em&gt;
+&lt;/strong&gt;&#x201d; Ball told &lt;em&gt;Bookslut&lt;/em&gt; Web
+site interviewer Blake Butler, &#x201c;took two to three weeks_ I had, however,
+thought through what some of the various storylines would be_ So, the two
+to three weeks consisted of putting it down on paper_ The important thing
+for me about the structure of a book is that it should permit me the room
+to surprise myself as I write_ Certainly, the structure of &lt;em&gt;
+TWTD&lt;/em&gt; allows that_ As for intentions, I don't know that I had particular
+intentions that would differentiate my purpose in &lt;em&gt;Samedi&lt;/em&gt; from
+that in &lt;em&gt;TWTD_&lt;/em&gt;&#x201d; &#x201c;The act of telling
+stories and the act of hearing them are processes and engagements by which
+we can understand our human situation_ By that, I don't mean understand factually&#x2014;I
+mean intuitively,&#x201d; Ball continued in an interview with a &lt;em&gt;
+Porter Square Books Blog&lt;/em&gt; writer_ &#x201c;The main issue, as I see
+it, isn't between linear and non-linear narrative_ It's between two types
+of rendering: rendering a reality that is already the consensus, or rendering
+one that is more precise_&#x201d; &#x201c;It's easier to say what &lt;strong&gt;
+<em>The Way through Doors&lt;/em&gt;
+&lt;/strong&gt; isn't than what it is_ It isn't
+a growing-up story in which the world magically convenes to give the protagonist
+wisdom_ It's not a book that says &#x2018;See if you can follow me&#x2019; and
+then bamboozles you with plot twists and strange allusions,&#x201d; explained <em>Los Angeles Times Book Review&lt;/em&gt; contributor Laurel Maury_ &#x201c;In
+places, it could be deeper_&#x201d; But, Maury continued, the book is &#x201c;written
+with a flawless, compassionate ear_ Every strange line of prose feels, somehow,
+thoughtful and necessary_&#x201d; &#x201c;&lt;strong&gt;
+&lt;em&gt;The Way through
+Doors,&lt;/em&gt;
+&lt;/strong&gt;&#x201d; concluded the &lt;em&gt;Porter Square
+Books Blog&lt;/em&gt; writer, &#x201c;has the humor, wisdom, and warmth of
+our most comfortable stories while radically experimenting with the novel
+form and the fluid nature of storytelling_&#x201d;&lt;/p&gt;
+&lt;p&gt;Ball's third novel is, Beggs noted on the &lt;em&gt;Millions&lt;/em&gt; Web
+site, a &#x201c;dystopian father-daughter tale set in an unnamed city of the
+future where music is outlawed_&#x201d; Beggs allowed that the novel is a &#x201c;quick
+and engrossing read&#x2014;not nearly as sci-fi as that description suggests_&#x201d;
+The novel features William Drysdale, who has had to give up the violin to
+write epitaphs for mourning families, and his eight-year-old daughter, Molly,
+motherless and a mute_ They inhabit a chillingly controlled city in a future
+police state where weekends have been banned and all artistic performance,
+including music, prohibited_ There is, of course, also a strict curfew, and
+one night the father breaks the curfew when he gathers with a secret group
+of people opposed to the regime_ Meantime, he leaves his daughter with a puppeteer,
+Mr_ Gibbons, and those two put on a forbidden puppet play dealing with the
+story of Molly's family_&lt;/p&gt;
+&lt;p&gt;A &lt;em&gt;New Yorker&lt;/em&gt; contributor noted of this work:
+&#x201c;What sounds precious in summary astonishes on the page; the reader
+is puzzled, charmed, then shattered_&#x201d; &lt;em&gt;New York Times
+Book Review&lt;/em&gt; contributor William Giraldi also had high praise for
+this work, calling it a &#x201c;spare masterwork of dystopian fiction, a fevered
+prose poem of society strangled by nefarious rule,&#x201d; and a &#x201c;tar-dark
+fairy tale evokes not a future American city but a social hell from history:
+Moscow in 1937, Warsaw in '39_&#x201d; For Giraldi, &#x201c;Ball is a worthy
+Virgil through this inferno of our own design_&#x201d; Likewise, Donna Seaman,
+writing in &lt;em&gt;Booklist,&lt;/em&gt; commended the &#x201c;solemn
+beauty, beguiling invention, and unnerving insights&#x201d; in this &#x201c;haunting
+dystopian tale_&#x201d; A &lt;em&gt;Publishers Weekly&lt;/em&gt; reviewer
+also had a high assessment of this novel, noting: &#x201c;Ball's ideas and
+heart make this a very compelling read_&#x201d; Similarly, a &lt;em&gt;
+Kirkus Reviews&lt;/em&gt; contributor concluded: &#x201c;In Ball's delicately
+etched nightmare, there's still room in the regime for ordinary comforts like
+pea soup&#x2014;trouble is, the spoons are too small_ Mordantly morbid_&#x201d;
+&lt;/p&gt;
+&lt;p&gt;
+&lt;strong&gt;
+&lt;em&gt;The Village on Horseback&lt;/em&gt;
+&lt;/strong&gt; collects
+Ball's short prose and verse from the first decade of the twenty-first century_
+Here Ball, an &#x201c;an extraordinarily unfettered tale-spinner,&#x201d; according
+to &lt;em&gt;Booklist&lt;/em&gt; reviewer Seaman, tells of the denizens
+of a village who share the same dream, or of a weaver who falls in love with
+a murderer, or the inappropriate behavior of four youths that ultimately leads
+to duels_&lt;/p&gt;
+&lt;p&gt;Reviewing gathered writings of &lt;strong&gt;
+&lt;em&gt;The Village on
+Horseback,&lt;/em&gt;
+&lt;/strong&gt; Seaman termed them &#x201c;evocative parables &#x2026;
+magical satire, poetic fables, and archetypal mysteries [that] flourish, entrance,
+and confound_&#x201d; A &lt;em&gt;Publishers Weekly&lt;/em&gt; contributor
+also found this a &#x201c;superb new volume [that] is strange, haunting, and
+wise, but hard to characterize_&#x201d;&lt;/p&gt;
+&lt;p&gt;The narrator of Ball's fourth novel, &lt;strong&gt;
+&lt;em&gt;Silence
+Once Begun,&lt;/em&gt;
+&lt;/strong&gt; is, strangely enough, a writer named Jesse
+Ball_ Ball, newly divorced, has taken it upon himself to investigate a crime
+that took place near Osaka, Japan, in the mid-1970s_ In what the narrator
+refers to as the Narito Disappearances, eight single, middle-aged men and
+women, who lived alone and had no apparent connections, mysteriously vanished&#x2014;so
+abruptly, in some cases, that food was left on the table in their apartments_
+In each case, a playing card was left at the door_ A thread merchant named
+Oda Sotatsu was eventually arrested, tried, and hanged for the apparent crimes
+largely on the basis of a false confession he signed after he encountered
+one Sato Kakuzo and a girl named Jito Joo in a bar_ He and Kakuzo made a bet
+requiring the loser to sign a confession, which Kakuzo had brought along and
+that Joo would then take to the police_ Sotatsu lost the wager, signed the
+confession, and on this basis was convicted_ During his imprisonment, he maintained
+virtually complete silence, refusing to defend himself_ The ensuing story
+consists of a number of interview transcripts and other documents that narrate
+events from the perspective of various peripheral characters, including Sotatsu's
+brother, sister, mother, and father, as well as Kakuzo and Joo_ In this regard,
+many readers see a similarity between the novel and the influential 1950 Japanese
+film, &lt;em&gt;Rashomon,&lt;/em&gt; which is based on the differing
+witnesses' accounts of a rape and murder_ In the end, it is never made clear
+even whether a crime actually took place, and the overall effect is one of
+a miscarriage of justice_ Enhancing the narration are a number of enigmatic
+black-and-white photographs, none with captions_&lt;/p&gt;
+&lt;p&gt;Critics regarded &lt;strong&gt;
+&lt;em&gt;Silence Once Begun&lt;/em&gt;
+&lt;/strong&gt; as
+a tour de force in its exploration of the elusiveness of truth_ A <em>Publishers Weekly&lt;/em&gt; contributor found the book &#x201c;intriguing&#x201d;
+but hinted at a potential weakness in the book by writing: &#x201c;How readers
+react to it will largely depend on whether they feel some of the final twists
+deepen or cheapen the material_&#x201d; In &lt;em&gt;Booklist,&lt;/em&gt; Donna
+Seaman called the book &#x201c;a work of exceptional control and exquisite
+nuance&#x201d; and &#x201c;an elegantly chilling and provocatively metaphysical
+tale_&#x201d; A critic for &lt;em&gt;Kirkus Reviews&lt;/em&gt; characterized
+the novel as a &#x201c;darker but more tempered version of [Ball's] strange,
+almost whimsical multimedia creations&#x201d; and praised the &#x201c;fascination
+his aberrant storytelling inspires_&#x201d; For &lt;em&gt;Library Journal
+&lt;/em&gt;'s Henry Bankhead, &#x201c;This multifaceted narration of a seemingly
+inexplicable miscarriage of justice cloaked as a political statement creates
+a kind of Brechtian drama; the detached perspective is chilling, though strangely
+intriguing_&#x201d; Carolyn Kellogg, in a review for the &lt;em&gt;Los
+Angeles Times,&lt;/em&gt; remarked that &#x201c;Ball has built in a few genuinely
+surprising twists that exist solely because of how the story is structured_
+That's an accomplishment; &lt;strong&gt;
+&lt;em&gt;Silence Once Begun&lt;/em&gt;
+&lt;/strong&gt; is
+a fascinating project in which almost everything is stripped away but the
+contradictory stories people tell_&#x201d;&lt;/p&gt;
+&lt;p&gt;Several critics focused on the theme of &lt;strong&gt;
+&lt;em&gt;Silence
+Once Begun_&lt;/em&gt;
+&lt;/strong&gt; In the &lt;em&gt;New York Observer,&lt;/em&gt; for
+example, Michael H_ Miller observed: &#x201c;The question of where fact, however
+partial, begins and ends&#x2014;the pointless search for the line between truth
+and lies&#x2014;becomes a window into the book_ The reader's search for the
+meaning of the text becomes as obsessive as the fictional Jesse Ball's quest
+for the truth behind the Narito Disappearances_&#x201d; Miller continued: &#x201c;We
+are entrenched as the world of the novel blurs everything outside of it, as
+if to say stranger things have happened in real life than could ever happen
+in a work of fiction_&#x201d; Tobias Carroll, writing for &lt;em&gt;
+Time Out New York,&lt;/em&gt; agreed: &#x201c;Throughout, there are many questions
+about both what is said and what is left unsaid; motivation, memory and reliability
+all come under scrutiny_ Though its structure and language reflect an intellectual
+game play, the novel's haunting, final paragraphs form a demonstration of
+Ball's authorial thesis, applying notions about unknowability and community
+behavior on a grander scale_&#x201d; Carroll concluded: &#x201c;It shifts the
+book's stakes: What had been a taut crime story stands revealed as something
+much more ominous_&#x201d;&lt;/p&gt;
+&lt;p&gt;In the opening pages of Ball's dystopian novel &lt;strong&gt;
+&lt;em&gt;
+A Cure for Suicide,&lt;/em&gt;
+&lt;/strong&gt; the reader is introduced
+to a childlike &#x201c;claimant&#x201d; who is sitting in a chair while he listens
+to a female &#x201c;examiner,&#x201d; Teresa, explaining to him how a story
+works_ As the novel unfolds, the reader learns that the memory of the claimant&#x2014;at
+first named Anders, then Martin, then Henry Caul&#x2014;has been wiped by a
+series of injections and that he is slowly relearning everything about the
+world, from what a chair is to what dreams and memories are_ The reader further
+learns that, according to the examiner, the man had been gravely ill but was
+brought to his current location, a Victorian house in a bucolic village, to
+recover; his recovery will progress through a sequence of treatments at similar
+locales in what is called the Process of Villages_ The only person the claimant
+interacts with is his examiner, who teaches him the mechanisms of daily living
+but whose identity will shift through the course of the novel_ Although he
+has no memory of his life before arriving in the village, he cries out for
+someone in his sleep_ In time, the reader will learn that in the aftermath
+of the tragic death of the woman he loved, he contemplated suicide and that
+his treatment through the Process of Villages is designed to provide him with
+a cure; indeed, other claimants have sought similar cures in a world where
+suicide has become epidemic_ Matters become complicated when the examiner
+brings the man, now named Martin, to a party, where he meets Hilda, who asks
+him to meet her in secret and who informs him that the village is not what
+it seems&#x2014;that in fact, everything is staged, and most of the people
+he encounters are actors_ She claims, too, that both she and the man are in
+danger and she urges him to flee with her_ But the following night, when the
+two were supposed to meet and make their escape, Hilda fails to appear_ In
+this way, the man learns about distrust, and regret_ As fake memories erase
+genuine ones, a long flashback to the love affair that ended tragically enhances
+the mystery surrounding the claimant's fate_&lt;/p&gt;
+&lt;p&gt;
+&lt;strong&gt;
+&lt;em&gt;A Cure for Suicide&lt;/em&gt;
+&lt;/strong&gt; was widely
+reviewed and just as widely applauded, although a &lt;em&gt;Kirkus Reviews
+&lt;/em&gt; contributor had mixed reactions_ Calling the novel a &#x201c;poetically
+nimble but characteristically peculiar story,&#x201d; the reviewer offered
+this assessment: &#x201c;There are times it feels rushed between the spare,
+meticulous play going on between the claimant and the examiner and other breathless
+sections with unbroken waves of narrative exposition&#x2014;the shift in tones
+can be jarring_ This may be Ball's most self-contained work, but it's also
+one of his most fragile and one that may not hold up under focused scrutiny
+by a wider audience_&#x201d; In contrast, Maddie Crum, writing for the <em>Huffington Post,&lt;/em&gt; remarked that &#x201c;Ball's novel is an
+enthralling thought experiment that considers the value of memory versus the
+pain of grief_ Fans of dystopian stories and themes involving memory will
+relish this magical novel_&#x201d; A &lt;em&gt;Publishers Weekly&lt;/em&gt; reviewer,
+calling the novel &#x201c;a puzzle box and a haunting love story,&#x201d; concluded:
+&#x201c;Whatever the source of this book's elusive magic, it should cement
+Ball's reputation as a technical innovator whose work delivers a powerful
+emotional impact_&#x201d; Andrew Martin, writing for the &lt;em&gt;New
+Yorker,&lt;/em&gt; observed that &#x201c;Ball's disorienting novel takes its
+time revealing the scope of its philosophical concerns, but it rewards patience&#x201d;;
+Martin concluded: &#x201c;When the novel unveils some of its secrets, the result
+is unexpectedly moving_&#x201d; Sarah Gerard, writing in the &lt;em&gt;
+New York Times,&lt;/em&gt; called the novel &#x201c;elegant&#x201d; and &#x201c;spellbinding,&#x201d;
+as well as &#x201c;subtle and breathtaking_&#x201d; Gerard further commented:
+&#x201c;With the simplicity of a fable and the drama of a psychological thriller,
+Ball tells a story about starting over from nothing, reconstructing life from
+its most basic elements_ These acts of narrative deconstruction highlight
+his strength as a deeply questioning writer at home in fact as much as abstraction_&#x201d;
+&lt;/p&gt;
+&lt;p&gt;Similar judgments were rendered by other reviewers_ Laura Collins-Hughes,
+writing for the &lt;em&gt;Boston Globe,&lt;/em&gt; found the novel &#x201c;magnetic,
+suspenseful, occasionally heart-rending&#x201d; and praised it for its &#x201c;hypnotic
+power_&#x201d; &lt;em&gt;NPR&lt;/em&gt;'s Jason Sheehan lauded the book
+as a &#x201c;beautiful mystery&#x201d; the author &#x201c;artfully constructed_&#x201d;
+Charles Finch, writing for the &lt;em&gt;Chicago Tribune,&lt;/em&gt; found
+the novel &#x201c;hushed, enigmatic and intermittently remarkable&#x201d; and
+singled out for praise the extended flashback about the claimant's earlier
+life: &#x201c;This turns out to be a love story about a penniless man and a
+rich, dying woman, and it's one of the finest things Ball has ever written,
+a magical, gripping burst of emotional history, which interrogates the book's
+ultimate subject, suicide and the desire for oblivion_&#x201d; Eric Swedlund,
+writing for &lt;em&gt;Paste,&lt;/em&gt; was of the opinion that &#x201c;Ball
+handles his intriguing premise with subtlety and authority, marching his plot
+through the momentous consequences&#x2014;unexpected and inherent&#x2014;of
+a truly life-altering decision_&#x201d; M_ John Harrison, in a review for the <em>London Guardian,&lt;/em&gt; found the novel &#x201c;beautifully written
+and enticingly macabre,&#x201d; a view seconded by &lt;em&gt;Big Issue
+&lt;/em&gt; Web site reviewer Jane Graham, who called the book &#x201c;a dexterous
+thing,&#x201d; adding that &#x201c;its sure-footed strangeness is set from the
+first page, and from then on it's pretty much irresistible_&#x201d; Graham
+further noted that Ball &#x201c;can hit you between the eyes with the most
+affecting of revelations without ever veering into sentimentality_&#x201d;
+Finally, Owen Richardson, writing for the &lt;em&gt;Sydney Morning Herald,
+&lt;/em&gt; noted that &#x201c;Ball's prose is careful and elegant, with moments
+of freeze-dried lyricism_ The tone is formal, reserved: there is no slang
+in the narration or the dialogue, and little or nothing to suggest American
+provenance_&#x201d; Richardson concluded about the novel: &#x201c;Beyond the
+narrative games it achieves a beauty of a kind; pathos even_ It repays a second
+reading_&#x201d;&lt;/p&gt;
+</narrative>
+</bio_body>
+<bio_foot>
+<readinggroup>
+<grouptitle level="1">BIOGRAPHICAL AND CRITICAL SOURCES:</grouptitle>
+<books>
+<bibcitation>
+<bibcit_composed>Ball, Jesse, &lt;em&gt;March Book,&lt;/em&gt; foreword
+by Richard Howard, Grove Press (New York, NY), 2004_</bibcit_composed>
+</bibcitation>
+</books><periodicals>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;America's Intelligence Wire,&lt;/em&gt; January
+30, 2009, &#x201c;Penn State: Book Review: &#x2018;Way through Doors&#x2019;
+Dense but Satisfying_&#x201d;</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Booklist,&lt;/em&gt; January 1, 2009, Thomas
+Gaughan, review of &lt;em&gt;The Way through Doors,&lt;/em&gt; p_ 50;
+June 1, 2010, Donna Seaman, p_ 32; review of &lt;em&gt;The Curfew;&lt;/em&gt; July
+1, 2011, Donna Seaman, review of &lt;em&gt;The Village on Horseback:
+Prose and Verse, 2003-2008,&lt;/em&gt; p_ 15; January 1, 2014, Donna Seaman,
+review of &lt;em&gt;Silence Once Begun,&lt;/em&gt; p_ 46; June 1, 2015,
+Donna Seaman, review of &lt;em&gt;A Cure for Suicide,&lt;/em&gt; p_
+38_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Chicago Tribune,&lt;/em&gt; March 7, 2009,
+&#x201c;Chicago Tribune Cultural Critic Column: &lt;em&gt;The Way through
+Doors&lt;/em&gt; by Jesse Ball_&#x201d;</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Kirkus Reviews,&lt;/em&gt; July 15, 2007,
+review of &lt;em&gt;Samedi the Deafness;&lt;/em&gt; December 15, 2008,
+review of &lt;em&gt;The Way through Doors;&lt;/em&gt; June 1, 2011,
+review of &lt;em&gt;The Curfew;&lt;/em&gt; November 1, 2013, review
+of &lt;em&gt;Silence Once Begun;&lt;/em&gt; May 15, 2015, review of <em>A Cure for Suicide_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Library Journal,&lt;/em&gt; October 15, 2013,
+Henry Bankhead, review of &lt;em&gt;Silence Once Begun,&lt;/em&gt; p_
+82_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Los Angeles Times Book Review,&lt;/em&gt; February
+13, 2009, Laurel Maury, review of &lt;em&gt;The Way through Doors_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;New Yorker,&lt;/em&gt; October 15, 2007,
+review of &lt;em&gt;Samedi the Deafness,&lt;/em&gt; p_ 99; July 11,
+2011, review of &lt;em&gt;The Curfew,&lt;/em&gt; p_ 95; August 10, 2015,
+Andrew Martin, review of &lt;em&gt;A Cure for Suicide,&lt;/em&gt; p_
+77_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;New York Times Book Review,&lt;/em&gt; December
+24, 2007, Caryn James, &#x201c;Books of the Times; School for Liars Teaches
+the Dishonesty of Truth and the Truth about Dishonesty,&#x201d; review of <em>Samedi the Deafness;&lt;/em&gt; August 28, 2011, William Giraldi, review
+of &lt;em&gt;The Curfew,&lt;/em&gt; p_ 17_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Publishers Weekly,&lt;/em&gt; October 16,
+2006, review of &lt;em&gt;Vera &#x26; Linus,&lt;/em&gt; p_ 36; May 21,
+2007, review of &lt;em&gt;Samedi the Deafness,&lt;/em&gt; p_ 29; October
+13, 2008, review of &lt;em&gt;The Way through Doors,&lt;/em&gt; p_ 34;
+December 1, 2008, &#x201c;PW Talks with Jesse Ball: Yarnspinner,&#x201d; p_
+26; April 25, 2011, review of &lt;em&gt;The Curfew,&lt;/em&gt; p_ 111;
+May 9, 2011, review of &lt;em&gt;The Village on Horseback,&lt;/em&gt; p_
+34; September 2, 2013, review of &lt;em&gt;Silence Once Begun,&lt;/em&gt; p_
+28; May 25, 2015, review of &lt;em&gt;A Cure for Suicide,&lt;/em&gt; p_
+28_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Star Tribune&lt;/em&gt; (Minneapolis, MN),
+March 1, 2009, &#x201c;A Revolving Tale; Fiction: A City Worker Is Tasked with
+Keeping an Injured Woman Awake for a Day, So He Starts Spinning Tales,&#x201d;
+p_ 13_</bibcit_composed>
+</bibcitation>
+</periodicals><online>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Big Issue,&lt;/em&gt; http://www_bigissue_com/
+(September 9, 2015), Jane Graham, review of &lt;em&gt;A Cure for Suicide_
+&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Blogcritics,&lt;/em&gt; http://blogcritics_org/
+(September 30, 2009), Bryan McKay, review of &lt;em&gt;The Way through
+Doors_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Bookslut,&lt;/em&gt; http://www_bookslut_com/
+(February 1, 2009), Blake Butler, &#x201c;An Interview with Jesse Ball&#x201d;;
+Sean P_ Carroll, review of &lt;em&gt;The Way through Doors_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Boston Globe,&lt;/em&gt; https://www_bostonglobe_com/
+(July 18, 2015), Laura Collins-Hughes, review of &lt;em&gt;A Cure for
+Suicide_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Chicago Tribune,&lt;/em&gt; http://www_chicagotribune_com/
+(July 16, 2015), Charles Finch, review of &lt;em&gt;A Cure for Suicide_
+&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Curled Up with a Good Book,&lt;/em&gt; http://www_curledup_com/
+(September 30, 2009), Janelle Martin, review of &lt;em&gt;Samedi the
+Deafness_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Everyday Yeah,&lt;/em&gt; http://everydayyeah_com/
+(September 30, 2009), &#x201c;Interview with Mr_ Ball_&#x201d;</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Here She Be&#x2014;The Battlements,&lt;/em&gt; http://hereshebe_wordpress_com/
+(September 30, 2009), &#x201c;Jesse Ball Heralds Saturday,&#x201d; review of <em>Samedi the Deafness_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Hobart,&lt;/em&gt; http://www_hobartpulp_com/
+(September 30, 2009), Shane Jones, &#x201c;An Interview With: Jesse Ball_&#x201d;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Huffington Post,&lt;/em&gt; http://www_huffingtonpost_com/
+(February 11, 2014), Mark Rubinstein, &#x201c;&lt;em&gt;Silence Once
+Begun:&lt;/em&gt; A Talk with Jesse Ball&#x201d;; (July 9, 2015), Maddie Crum,
+review of &lt;em&gt;A Cure for Suicide_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Jesse Ball Home Page,&lt;/em&gt; http://www_jesseball_com
+(October 13, 2015)_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;KQED Arts &#x26; Culture,&lt;/em&gt; http://www_kqed_org/
+(September 30, 2009), Deepthi Welaratna, review of &lt;em&gt;Samedi
+the Deafness_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;London Guardian,&lt;/em&gt; http://www_theguardian_com/
+(October 8, 2015), M_ John Harrison, review of &lt;em&gt;A Cure for
+Suicide_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Los Angeles Times,&lt;/em&gt; http://www_latimes_com/
+(January 24, 2014), Carolyn Kellogg, review of &lt;em&gt;Silence Once
+Begun_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Millions,&lt;/em&gt; http://www_themillionsblog_com/
+(September 30, 2009), Garth Risk Hallberg, &#x201c;The &#x2018;P&#x2019; Is Free:
+A Review of Jesse Ball's &lt;em&gt;Samedi the Deafness&lt;/em&gt;&#x201d;;
+(June 22, 2011), Alexandra Beggs, &#x201c;The Millions Interview: Jesse Ball_&#x201d;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;MostlyFiction,&lt;/em&gt; http://www_mostlyfiction_com/
+(September 30, 2009), Tony Ross, review of &lt;em&gt;The Way through
+Doors_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;New York Observer,&lt;/em&gt; http://observer_com/
+(January 31, 2014), Michael H_ Miller, &#x201c;Strong, Silent Type: Jesse Ball's <em>Silence Once Begun&lt;/em&gt; Constructs a Small Masterpiece out of
+Very Little_&#x201d;</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;New York Times,&lt;/em&gt; http://www_nytimes_com/
+(July 24, 2015), Sarah Gerard, review of &lt;em&gt;A Cure for Suicide_
+&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;NPR,&lt;/em&gt; http://www_npr_org/ (July
+23, 2015), Jason Sheehan, review of &lt;em&gt;A Cure for Suicide_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Pajiba,&lt;/em&gt; http://www_pajiba_com/
+(September 30, 2009), Jennifer McKeown, &#x201c;Saturday Night's Alright for
+Fighting,&#x201d; review of &lt;em&gt;Samedi the Deafness_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Paste,&lt;/em&gt; http://www_pastemagazine_com/
+(July 22, 2015), Eric Swedlund, review of &lt;em&gt;A Cure for Suicide_
+&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Porter Square Books Blog,&lt;/em&gt; http://portersquarebooksblog_blogspot_com/
+(September 30, 2009), &#x201c;Interview with Jesse Ball_&#x201d;</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Quarterly Conversation,&lt;/em&gt; http://quarterlyconversation_com/
+(September 30, 2009), Steve Donoghue, review of &lt;em&gt;The Way through
+Doors_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Rain Taxi,&lt;/em&gt; http://www_raintaxi_com/
+(September 30, 2009), Laird Hunt, review of &lt;em&gt;Vera &#x26; Linus_
+&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Random House Web site,&lt;/em&gt; http://www_randomhouse_com/
+(September 30, 2009), author profile_</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Sydney Morning Herald,&lt;/em&gt; http://www_smh_com_au/
+(August 16, 2015), Owen Richardson, review of &lt;em&gt;A Cure for Suicide_
+&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Time Out New York,&lt;/em&gt; http://www_timeout_com/
+(January 22, 2014), Tobias Carroll, review of &lt;em&gt;Silence Once
+Begun_&lt;/em&gt;
+</bibcit_composed>
+</bibcitation>
+<bibcitation>
+<bibcit_composed>
+&lt;em&gt;Woodland Pattern,&lt;/em&gt; http://www_woodlandpattern_org/
+(September 30, 2009), Rob Baumann, review of &lt;em&gt;Vera &#x26; Linus_
+&lt;/em&gt;*</bibcit_composed>
+</bibcitation>
+</online></readinggroup>
+</bio_foot>
+</biography>

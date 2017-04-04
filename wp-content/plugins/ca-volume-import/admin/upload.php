@@ -17,7 +17,7 @@
         echo '<input type="submit" name="remove" value="Remove">';
     }else{
         if($error)echo '<h4 class="h4error">'.$error.'</h4>';
-        else echo '<h4>Select a file you want to import (XML/CSV/ZIP).</h4>';
+        else echo '<h4>Select the zip file you want to import.</h4>';
         echo '<input type="file" name="file">';
         echo '<input type="submit" name="send" value="Send">';
         echo '<div class="bar"><div></div></div>';

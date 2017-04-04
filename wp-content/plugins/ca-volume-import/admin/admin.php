@@ -5,13 +5,13 @@
 
 
 <h2 id="bi-menu" class="nav-tab-wrapper woo-nav-tab-wrapper">
-    <a href="#home" class="nav-tab">Best Import</a>
-    <a href="#instruction" class="nav-tab">Instruction</a>
+    <!--<a href="#home" class="nav-tab">Best Import</a>-->
+    <!--<a href="#instruction" class="nav-tab">Instruction</a>-->
     <a href="#upload" class="nav-tab">Upload</a>
-    <a href="#structure" class="nav-tab">Structure</a>
-    <a href="#data" class="nav-tab">Data</a>
-    <a href="#advanced" class="nav-tab">Advanced</a>
-    <a href="#import" class="nav-tab">Import</a>
+    <!--<a href="#structure" class="nav-tab">Structure</a>-->
+    <!--<a href="#data" class="nav-tab">Data</a>-->
+    <!--<a href="#advanced" class="nav-tab">Advanced</a>-->
+    <!--<a href="#import" class="nav-tab">Import</a>-->
 </h2>
 
 <?php
@@ -49,7 +49,7 @@
             include $path.'/functions.php';
             include $path.'/upload.php';
             include $path.'/variables.php';
-            include $path.'/zip.php';
+           // include $path.'/zip.php';
         echo '</div>';
 
         echo '<div id="tab-structure">';

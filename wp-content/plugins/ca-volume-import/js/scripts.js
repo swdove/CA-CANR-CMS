@@ -115,7 +115,7 @@ if(window.location.href.indexOf('best_import')!=-1)(function($){
 
         }).filter(function(){
 
-            hash = window.location.hash || '#home';
+            hash = window.location.hash || '#upload';
             return this.getAttribute('href')==hash;
 
         }).click();
