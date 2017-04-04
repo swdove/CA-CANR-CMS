@@ -66,6 +66,7 @@
                         if($ext == 'txt' && zip_entry_open($zip, $zip_entry)){
                            // $content = zip_entry_read($zip_entry, 1024*1024*100);
                             $content = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+                            //determine if file contains SGML and add to array
                             if (strpos($content, 'biography') !== false) {
                                 array_push($zip_contents, $content);
                             }
@@ -73,7 +74,6 @@
                             //     array_push($zip_contents, $content);
                             // }                                                        
                             zip_entry_close($zip_entry);
-                            //return $contents;
                         }
                     }
                 }                
@@ -100,13 +100,11 @@
                     //strip all pubdate tags from writings (makes it easier to extract pub year)
                     $text = str_replace("<pubdate>", "", $text);
                     $text = str_replace("</pubdate>", "", $text);
-                    //find all instances of "year" tags and close them
+                    //find all instances of "year" tags and add closing tag
                     $text = preg_replace_callback('/<year year="(.*?)">/', function($matches) {
                         $new_text = "\n" . $matches[0] .'</year>';
-                       // $new_text = "\n" . '<year year="'. $matches[1] .'"></year>';
                         return $new_text;
                     }, $text);
-
                     // isolate secondary writings text from Writings section
                     preg_match('/<workgroup>(.*?)<\/workgroup>/s', $text, $workgroup);
                     if(count($workgroup) > 0) {
@@ -119,30 +117,18 @@
 
                     //Convert diacrit and tags to make them WYSIWIG-friendly 
                     $text = convertText($text); 
-                    // $text = preg_replace_callback('/(<emphasis)(\s.*?)(n="1">)/s', function($matches) {
-                    //     $new_text = $matches[0];
-                    //    // $new_text = "\n" . '<year year="'. $matches[1] .'"></year>';
-                    //     return '<em>';
-                    // }, $text); 
-                    // $text = preg_replace_callback('/emphasis/s', function($matches) {
-                    //     $new_text = $matches[0];
-                    //    // $new_text = "\n" . '<year year="'. $matches[1] .'"></year>';
-                    //     return '<em>';
-                    // }, $text);                                               
-                    // $text = preg_replace_callback('/<emphasis(\s)n="1">/s', function($matches) {
-                    //     $new_text = $matches[0];
-                    //    // $new_text = "\n" . '<year year="'. $matches[1] .'"></year>';
-                    //     return '<em>';
-                    // }, $text);
+                    //Convert sticky emphasis tags
+                    //Emphasis tags can contain line breaks, making them hard to detect using strreplace
+                    //This regex finds any instance of a opening and closing emphasis tag and extracts the contents
                     $text = preg_replace_callback('/(<emphasis\s.*?)(n="1">)(.*?)(<\/emphasis>)/s', function($matches) {
                         $new_text = "(em)" . $matches[3] . "(/em)";
                         return $new_text;
                     }, $text);                                                                             
 
-                    // 3/9/17 - force tags into biocrit
+                    // 3/9/17 - force tags into biocrit for organization
                     // check if book biocrit citations exist
                     $has_books= strpos($text, '<grouptitle level="2">BOOKS</grouptitle>');
-                    // check in online citations exist
+                    // check if online citations exist
                     $has_online = strpos($text, '<grouptitle level="2">ONLINE</grouptitle>');
 
                     if ($has_books !== false && $has_online !== false) { //if books, periodicals and online exist
@@ -164,13 +150,9 @@
                     foreach ($exploded as $index => $line) {
                         $exploded[$index] = trim($line);
                     }
-                    //close all month and day tags                    
-                    foreach($exploded as $key => $value) {                    
-                        //  if(SGMLstartsWith($value, "&lt;year")) {
-                        //      //$exploded[$key] = $value . "</year>";
-                        //     // $line = $line . "</year>";
-                        //     // break;
-                        //  }                        
+                    //close all month and day tags  
+                    // 4/3/17 - this should probably be handled by regex like year tags are                
+                    foreach($exploded as $key => $value) {                                     
                          if(SGMLstartsWith($value, "&lt;month")) {
                             $exploded[$key] = $value . "</month>";
                             // break;
@@ -184,16 +166,19 @@
                     # XML CONVERSION 
                     $imploded = implode("\r\n", $exploded);
                     //print("<pre>".print_r($exploded,true)."</pre>");
-                    $converted_text = utf8_encode($imploded);
-
-                    libxml_use_internal_errors(true);
-                    $canr->xml = simplexml_load_string($converted_text);
+                    $converted_text = utf8_encode($imploded); //convert to utf8 to strip any remaining oddities
+                    libxml_use_internal_errors(true); //turn on error reporting
+                    $canr->xml = simplexml_load_string($converted_text); //convert string to xml
+                    //if failed, say why
                     if ($canr->xml === false) {
-                        echo "<b>IMPORT FAILED FOR " . strtoupper($canr->name) . "</b><br/>";
+                        echo "<b>FAILED: " . strtoupper($canr->name) . "</b><br/>";
+                        echo "<ul>";
                         foreach(libxml_get_errors() as $error) {
-                            echo "\t", $error->message . "<br/>";
+                            echo "<li>" . $error->message . "</li>";
                         }
+                        echo "</ul>";
                     } else {
+                        //push into array of entries
                         $canr->sketch = $file;
                         $canr->pen = (string) $canr->xml->galedata->infobase->pen;
                         array_push($canrEntries, $canr);
@@ -215,22 +200,18 @@
                         ));
                     }
                     if(isset($posts) && count($posts) == 1) {
-                        foreach($posts as $post) {                         
-                            //$fields = get_field_objects($post->ID);
-                            //wp_cache_flush(); // CLEARS WP CACHE, ENABLE IF GET_FIELD_OBJECT IS RETURNING NULL
-
+                        foreach($posts as $post) { 
+                            #GALE DATA                        
                             $gale_field_key = getFieldKey($fields, "gale_data");
                             $gale_text = (string) $canr->galedata;
                             update_field( $gale_field_key, $gale_text, $post->ID );
-
+                            #ATLAS UID
                             $atlas_field_key = getFieldKey($fields, "atlasuid");
                             $atlasuid = (string) $entry->bio_head->bioname->attributes();
                             update_field( $atlas_field_key, $atlasuid, $post->ID ); 
-
-
+                            #SKETCH
                             $sketch_field_key = getFieldKey($fields, "canr_sketch");
                             $sketch_text = (string) $canr->sketch;
-                            //$sketch_text = "I am some text!";
                             update_field( $sketch_field_key, $sketch_text, $post->ID );
 
                             #GENDER
@@ -670,8 +651,10 @@
                                 update_field( $online_field_key, $online, $post->ID );    
                             }
 
-                            echo "Complete: " . $post->post_title;                       
+                            echo "<b>COMPLETE:</b> " . $post->post_title . "<br/>";                       
                         }
+                    } else {
+                        echo "<b>SKIPPED:</b> " . strtoupper($canr->name) . "<br/>";
                     }
                 }
 
@@ -711,18 +694,6 @@
 	    header("Content-disposition: attachment; filename=Filedump" . date("Y-m-d_H-i-s"). ".txt");
         echo $input;
         exit;
-        // $handle = fopen("file.txt", "w");
-        // fwrite($handle, $input);
-        // fclose($handle);
-
-        // header('Content-Type: application/octet-stream');
-        // header('Content-Disposition: attachment; filename='.basename('file.txt'));
-        // header('Expires: 0');
-        // header('Cache-Control: must-revalidate');
-        // header('Pragma: public');
-        // header('Content-Length: ' . filesize('file.txt'));
-        // readfile('file.txt');
-        // exit;
     }
 
     function getPostFields() {

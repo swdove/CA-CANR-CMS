@@ -1,12 +1,11 @@
 <?php
     /**
-    * Plugin Name: Best Import
-    * Plugin URI: http://zefirstudio.pl/wp-best-import/
+    * Plugin Name: Volume Import
+    * Plugin URI: https://github.com/swdove
     * Description: This plugin allows to import data from XML/CSV/ZIP files.
-    * Version: 1.1.3
-    * Author: Zefir Studio
-    * Author URI: http://www.zefirstudio.pl/
-    * License: GPL2
+    * Version: 1.0.0
+    * Author: Sean Dove
+    * Author URI: https://github.com/swdove
     */
 
     defined('ABSPATH') or die('No script kiddies please!');
@@ -25,7 +24,7 @@
     }
 
     function bi_menu() {
-        add_menu_page('Best Import', 'Best Import', 'activate_plugins', 'best_import', 'bi_options');
+        add_management_page('Volume Import', 'Volume Import', 'activate_plugins', 'best_import', 'bi_options');
     }
 
     function bi_options(){
