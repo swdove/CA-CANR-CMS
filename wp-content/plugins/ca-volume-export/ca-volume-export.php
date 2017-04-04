@@ -753,7 +753,7 @@ function build_SGML_file($post) {
 		} else {
 			$writing_title = WYSIWYG_conversion($writing->title, false);
 			$writing_publisher = WYSIWYG_conversion($writing->publisher, false);
-			$writing_location = WYSIWYG_conversion($writing->title, false);
+			$writing_location = WYSIWYG_conversion($writing->location, false);
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
 			$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;

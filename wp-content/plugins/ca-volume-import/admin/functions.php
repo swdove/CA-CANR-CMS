@@ -756,7 +756,18 @@
         $text = str_replace("&Oacute;", "&#xd3;", $text); // Ó 
         $text = str_replace("&oacute;", "&#xf3;", $text); // ó
         $text = str_replace("&Uacute;", "&#xda;", $text); // Ú
-        $text = str_replace("&uacute;", "&#xfa;", $text); //ú        
+        $text = str_replace("&uacute;", "&#xfa;", $text); //ú 
+
+        $text = str_replace("&Acirc;", "&#xc2;", $text); // Â 
+        $text = str_replace("&acirc;", "&#xe2;", $text); // â
+        $text = str_replace("&Ecirc;", "&#xca;", $text); // Ê 
+        $text = str_replace("&ecirc;", "&#xea;", $text); // ê  
+        $text = str_replace("&Icirc;", "&#xce;", $text); // Î 
+        $text = str_replace("&icirc;", "&#238;", $text); // î 
+        $text = str_replace("&Ocirc;", "&#xd4;", $text); // Ô 
+        $text = str_replace("&ocirc;", "&#xf4;", $text); // ô 
+        $text = str_replace("&Ucirc;", "&#xdb;", $text); // Û 
+        $text = str_replace("&ucirc;", "&#xfb;", $text); // û                                     
 
         $text = str_replace("&Agrave;", "&#xc0;", $text); // À
         $text = str_replace("&agrave;", "&#xe0;", $text); // à
