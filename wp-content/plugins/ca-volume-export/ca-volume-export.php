@@ -1272,7 +1272,7 @@ if($categories) {
 </tr>
 <?php } ?>
 <tr>
-<th><label for="mm_start"><?php esc_html_e('Restrict Date', 'ca-export' ); ?></label></th>
+<th><label for="mm_start"><?php esc_html_e('Filter by Date', 'ca-export' ); ?></label></th>
 <td><strong><?php esc_html_e('Start:', 'ca-export' ); ?></strong> <?php esc_html_e('Month', 'ca-export' ); ?>&nbsp;
 <select name="mm_start" id="mm_start">
 <option value="all" selected="selected"><?php esc_html_e('All Dates', 'ca-export' ); ?></option>

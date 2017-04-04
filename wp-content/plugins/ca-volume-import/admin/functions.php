@@ -171,10 +171,12 @@
                     $canr->xml = simplexml_load_string($converted_text); //convert string to xml
                     //if failed, say why
                     if ($canr->xml === false) {
-                        echo "<b>IMPORT FAILED FOR " . strtoupper($canr->name) . "</b><br/>";
+                        echo "<b>FAILED: " . strtoupper($canr->name) . "</b><br/>";
+                        echo "<ul>";
                         foreach(libxml_get_errors() as $error) {
-                            echo "\t", $error->message . "<br/>";
+                            echo "<li>" . $error->message . "</li>";
                         }
+                        echo "</ul>";
                     } else {
                         //push into array of entries
                         $canr->sketch = $file;
@@ -649,8 +651,10 @@
                                 update_field( $online_field_key, $online, $post->ID );    
                             }
 
-                            echo "Complete: " . $post->post_title;                       
+                            echo "<b>COMPLETE:</b> " . $post->post_title . "<br/>";                       
                         }
+                    } else {
+                        echo "<b>SKIPPED:</b> " . strtoupper($canr->name) . "<br/>";
                     }
                 }
 
@@ -690,18 +694,6 @@
 	    header("Content-disposition: attachment; filename=Filedump" . date("Y-m-d_H-i-s"). ".txt");
         echo $input;
         exit;
-        // $handle = fopen("file.txt", "w");
-        // fwrite($handle, $input);
-        // fclose($handle);
-
-        // header('Content-Type: application/octet-stream');
-        // header('Content-Disposition: attachment; filename='.basename('file.txt'));
-        // header('Expires: 0');
-        // header('Cache-Control: must-revalidate');
-        // header('Pragma: public');
-        // header('Content-Length: ' . filesize('file.txt'));
-        // readfile('file.txt');
-        // exit;
     }
 
     function getPostFields() {
