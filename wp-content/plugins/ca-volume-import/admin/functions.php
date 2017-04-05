@@ -606,7 +606,7 @@
                                 $books = array ();
                                 foreach($entry->bio_foot->readinggroup->books->bibcitation as $citation) {
                                     $text = (string) $citation->bibcit_composed;
-                                    $text = str_replace("_", ".", $text);
+                                    $text = convertText_postxml($text);
                                     $text = stripLineBreaks($text);                                
                                     $bib_text = array (
                                         "biocrit_book_entry" => $text
@@ -626,7 +626,7 @@
                             $periodicals = array ();
                             foreach($entry->bio_foot->readinggroup->periodicals->bibcitation as $citation) {
                                 $text = (string) $citation->bibcit_composed;
-                                $text = str_replace("_", ".", $text);
+                                $text = convertText_postxml($text);
                                 $text = stripLineBreaks($text);                                
                                 $bib_text = array (
                                     "biocrit_entry" => $text
@@ -641,7 +641,7 @@
                                 $online = array ();
                                 foreach($entry->bio_foot->readinggroup->online->bibcitation as $citation) {
                                     $text = (string) $citation->bibcit_composed;
-                                    $text = str_replace("_", ".", $text);
+                                    $text = convertText_postxml($text);
                                     $text = stripLineBreaks($text);
                                     $bib_text = array (
                                         "online_biocrit_entry" => $text
