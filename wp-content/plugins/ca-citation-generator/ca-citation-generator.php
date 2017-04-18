@@ -74,7 +74,7 @@ function generate_writings( $post_id ) {
 			//GET TITLE
 			$i = 0;
 			foreach($exploded as $key => $val) {
-				if($val == "LCCN"){
+				if($val == "LCCN" && $key > 1){
 					$title = $exploded[$key - 2];
 					$citationList[$i]->title = substr($title, 4);
 					$i++;
@@ -91,9 +91,11 @@ function generate_writings( $post_id ) {
 			
 			//format citation entry text and add to array
 			foreach ($citationList as $citation) {
-				$entry = $citation->title . " " . $citation->pubInfo;
-				$content = array( "loc_generated_entry" => $entry, "acf_fc_layout" => "loc_writing" );
-				array_push($writing_entries, $content);
+				if(!empty($citation->title)) {
+					$entry = $citation->title . " " . $citation->pubInfo;
+					$content = array( "loc_generated_entry" => $entry, "acf_fc_layout" => "loc_writing" );
+					array_push($writing_entries, $content);
+				}
 			}
 
 			//insert generated entries into Writing repeater
@@ -122,12 +124,14 @@ function generate_writings( $post_id ) {
 				//format citation entry text and add to array
 				foreach ($citationList as $citation) {
 					//$entry = $citation->title . " " . $citation->pubInfo;
-					$content = array( "misc_writing_title" => $citation->title,
-						"misc_writing_publisher" => $citation->publisher,
-						"misc_writing_location" => $citation->pubLocation,
-						"misc_writing_year" => $citation->pubYear,
-						"acf_fc_layout" => "misc_writing" );
-					array_push($writing_entries, $content);
+					if(!empty($citation->title)) {
+						$content = array( "misc_writing_title" => $citation->title,
+							"misc_writing_publisher" => $citation->publisher,
+							"misc_writing_location" => $citation->pubLocation,
+							"misc_writing_year" => $citation->pubYear,
+							"acf_fc_layout" => "misc_writing" );
+						array_push($writing_entries, $content);
+					}
 				}		
 			}
 		}
@@ -433,8 +437,7 @@ function assign_to_admin ( $post ) {
     'ID' => $post_id,
     'post_author' => 1,
 );
-wp_update_post( $arg );
-
+    wp_update_post( $arg );
 }
 
 function startsWith($haystack, $needle)

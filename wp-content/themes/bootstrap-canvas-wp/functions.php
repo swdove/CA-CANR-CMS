@@ -1122,6 +1122,46 @@ function bootstrapcanvaswp_comment( $comment, $args, $depth ) {
 }
 endif;
 
+function remove_dashboard_widgets () {
+
+  remove_meta_box('dashboard_quick_press','dashboard','side'); //Quick Press widget
+  remove_meta_box('dashboard_recent_drafts','dashboard','side'); //Recent Drafts
+  remove_meta_box('dashboard_primary','dashboard','side'); //WordPress.com Blog
+  remove_meta_box('dashboard_secondary','dashboard','side'); //Other WordPress News
+  remove_meta_box('dashboard_incoming_links','dashboard','normal'); //Incoming Links
+  remove_meta_box('dashboard_plugins','dashboard','normal'); //Plugins
+  remove_meta_box('dashboard_right_now','dashboard', 'normal'); //Right Now
+  remove_meta_box('rg_forms_dashboard','dashboard','normal'); //Gravity Forms
+  remove_meta_box('dashboard_recent_comments','dashboard','normal'); //Recent Comments
+  remove_meta_box('icl_dashboard_widget','dashboard','normal'); //Multi Language Plugin
+  remove_meta_box('dashboard_activity','dashboard', 'normal'); //Activity
+  remove_action('welcome_panel','wp_welcome_panel');
+
+}
+
+add_action('wp_dashboard_setup', 'remove_dashboard_widgets');
+
+/**
+ * Add a widget to the dashboard.
+ *
+ * This function is hooked into the 'wp_dashboard_setup' action below.
+ */
+function wpexplorer_add_dashboard_widgets() {
+	wp_add_dashboard_widget(
+		'wpexplorer_dashboard_widget', // Widget slug.
+		'Support', // Title.
+		'wpexplorer_dashboard_widget_function' // Display function.
+	);
+}
+add_action( 'wp_dashboard_setup', 'wpexplorer_add_dashboard_widgets' );
+
+/**
+ * Create the function to output the contents of your Dashboard Widget.
+ */
+function wpexplorer_dashboard_widget_function() {
+	echo '<a href="https://goo.gl/forms/85vElSvRCg04B4cp2" target="_blank">Submit support request</a>';
+}
+
 function bootstrap_canvas_wp_menu_fallback() { ?>
     <li class="menu-item current-menu-item"><a href="<?php echo admin_url('nav-menus.php'); ?>"><?php _e( 'Add Menu', 'bootstrapcanvaswp' ); ?></a></li>
 <?php }

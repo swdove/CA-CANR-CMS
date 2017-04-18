@@ -320,14 +320,14 @@
                             if($entry->bio_body->personal->death) {
 		                        $deathdate_field_key = getFieldKey($fields, "death_date");
 
-                                if($entry->bio_body->personal->death->deathhdate->year->attributes()) {
-                                    $death_year = (string) $entry->bio_body->personal->death->deathhdate->year->attributes();
+                                if($entry->bio_body->personal->death->deathdate->year) {
+                                    $death_year = (string) $entry->bio_body->personal->death->deathdate->year->attributes();
                                 }
-                                if($entry->bio_body->personal->death->deathhdate->month->attributes()) {
-                                    $death_month = (string) $entry->bio_body->personal->death->deathhdate->month->attributes();
+                                if($entry->bio_body->personal->death->deathdate->month) {
+                                    $death_month = (string) $entry->bio_body->personal->death->deathdate->month->attributes();
                                 }
-                                if($entry->bio_body->personal->death->deathhdate->day->attributes()) {
-                                    $death_day= (string) $entry->bio_body->personal->death->deathhdate->day->attributes(); 
+                                if($entry->bio_body->personal->death->deathdate->day) {
+                                    $death_day= (string) $entry->bio_body->personal->death->deathdate->day->attributes(); 
                                 }                                                     
 
                                 $deathhdate = array (
@@ -892,5 +892,6 @@ function sanitizeXML($xml_content, $xml_followdepth=true){
         public $galedata;
         public $name;
     }
+    
 
 ?>

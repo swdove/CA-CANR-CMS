@@ -7,7 +7,6 @@
  */
 
 	get_header(); ?>
-
       <div class="row">
 
         <div class="col-sm-10 blog-main">
@@ -22,6 +21,7 @@
               <li role="presentation"><a href="#gale" role="tab" data-toggle="tab">Gale</a></li>
               <li role="presentation"><a href="#biocrit" role="tab" data-toggle="tab">Biocrit</a></li>              
               <li role="presentation"><a href="#web" role="tab" data-toggle="tab">Web</a></li>
+              <li role="presentation"><a href="#wordcount" role="tab" data-toggle="tab">Word Counter</a></li>
               <!--<li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Messages</a></li>-->
               <!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>-->
         </ul>
@@ -55,6 +55,36 @@
           <p>
           <b>CAREER</b>
           <?php the_field("work_history"); ?>
+          <?php $military = get_field( "military" );
+            if( $military ) { 
+              echo "MIILITARY: " . $military;
+              }
+           ?>
+          <?php $avocations = get_field( "avocations" );
+            if( $avocations ) { 
+              echo "AVOCATIONS: " . $avocations;
+              }
+           ?>
+          <?php $member = get_field( "member" );
+            if( $member ) { 
+              echo "MEMBER: " . $member;
+              }
+           ?> 
+          <?php $awards = get_field( "awards" );
+            if( $awards ) { 
+              echo "AWARDS: " . $awards;
+              }
+           ?> 
+          <?php $politics = get_field( "politics" );
+            if( $politics ) { 
+              echo "POLITICS: " . $politics;
+              }
+           ?> 
+          <?php $religion = get_field( "religion" );
+            if( $religion ) { 
+              echo "RELIGION: " . $religion;
+              }
+           ?>                                                                     
           </p>
 
           <p>
@@ -117,7 +147,12 @@
                         	<?php echo "<b>";
                             the_sub_field('writing_subhead_title'); 
                             echo "</b>";
-                            ?>       
+                            ?> 
+                  <?php elseif( get_row_layout() == 'imported_subhead' ): ?>
+                        	<?php echo "<b>";
+                            the_sub_field('imported_subhead_title'); 
+                            echo "</b>";
+                            ?>                                     
                    <?php endif; ?>             
               </li>    
               <?php endwhile; ?> 
@@ -138,6 +173,17 @@
 
           <p>
           <b>BIOCRIT</b><br />
+          <?php if( have_rows('biocrit_books') ): ?>
+          <u>BOOKS</u>
+            <ul>
+              <?php while( have_rows('biocrit_books') ): the_row(); ?>
+                <li><?php 
+                  the_sub_field('biocrit_book_entry');              
+                  ?></li>    
+              <?php endwhile; ?> 
+            </ul>
+          <?php endif; ?> 
+          <p>   
           <?php if( have_rows('biocrit_entries') ): ?>
           <u>PERIODICALS</u>
             <ul>
@@ -240,18 +286,29 @@
             <ul>
               <?php while( have_rows('web_reviews') ): the_row(); ?>
                 <li><?php 
+                  $review_text = get_sub_field('web_review_text');  
+                  $word_count = str_word_count($review_text);
                   echo "<b>";
                   the_sub_field('web_review_source_name');
-                  echo " - ";
+                  echo "<br />";
                   the_sub_field('web_review_source_url');
-                  echo "</b>";
-                  // echo "<br />";
-                  the_sub_field('web_review_text');                
+                  echo "</b><br />"; 
+                  echo "<b>Word count: " . $word_count . "</b>";
+                  the_sub_field('web_review_text');  
+
                   ?></li>    
               <?php endwhile; ?> 
             </ul>
           <?php endif; ?>
-          </div>          
+          </div>
+          <!--WORD COUNT                 -->
+          <div role="tabpanel" class="tab-pane fade" id="wordcount">
+            <textarea rows="10" cols="50" id="countableArea">
+            </textarea>
+            <button class="btn btn-lg pull-right" type="button">
+              Word Count <span class="badge" id="displayCount"></span>
+            </button>
+          </div>                     
 
 
           </div>                                      
@@ -261,3 +318,11 @@
       </div><!-- /.row -->
       
 	<?php get_footer(); ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countable/2.1.1/Countable.min.js"></script>
+  <script>
+    var area = document.getElementById('countableArea')
+      Countable.live(area, function (counter) {
+        console.log(counter.words);
+        displayCount.innerHTML = counter.words;
+    })
+  </script>
