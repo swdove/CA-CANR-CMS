@@ -102,9 +102,9 @@
                       	<?php $title = get_sub_field( "loc_writing_title" );
                               $type = get_sub_field( "loc_writing_type" );
                               if ($type) {
-                                 echo "<u> " . $title . "</u> (" . $type . "), ";
+                                 echo "<b><i> " . $title . "</i></b> (" . $type . "), ";
                               } else {
-                                 echo "<u> " . $title . "</u>, ";
+                                 echo "<b><i> " . $title . "</i></b>, ";
                               }                           
                         ?>  
                         <?php the_sub_field('loc_writing_publisher'); ?>
