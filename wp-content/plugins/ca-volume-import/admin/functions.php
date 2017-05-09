@@ -320,14 +320,14 @@
                             if($entry->bio_body->personal->death) {
 		                        $deathdate_field_key = getFieldKey($fields, "death_date");
 
-                                if($entry->bio_body->personal->death->deathhdate->year->attributes()) {
-                                    $death_year = (string) $entry->bio_body->personal->death->deathhdate->year->attributes();
+                                if($entry->bio_body->personal->death->deathdate->year) {
+                                    $death_year = (string) $entry->bio_body->personal->death->deathdate->year->attributes();
                                 }
-                                if($entry->bio_body->personal->death->deathhdate->month->attributes()) {
-                                    $death_month = (string) $entry->bio_body->personal->death->deathhdate->month->attributes();
+                                if($entry->bio_body->personal->death->deathdate->month) {
+                                    $death_month = (string) $entry->bio_body->personal->death->deathdate->month->attributes();
                                 }
-                                if($entry->bio_body->personal->death->deathhdate->day->attributes()) {
-                                    $death_day= (string) $entry->bio_body->personal->death->deathhdate->day->attributes(); 
+                                if($entry->bio_body->personal->death->deathdate->day) {
+                                    $death_day= (string) $entry->bio_body->personal->death->deathdate->day->attributes(); 
                                 }                                                     
 
                                 $deathhdate = array (
@@ -606,7 +606,7 @@
                                 $books = array ();
                                 foreach($entry->bio_foot->readinggroup->books->bibcitation as $citation) {
                                     $text = (string) $citation->bibcit_composed;
-                                    $text = str_replace("_", ".", $text);
+                                    $text = convertText_postxml($text);
                                     $text = stripLineBreaks($text);                                
                                     $bib_text = array (
                                         "biocrit_book_entry" => $text
@@ -626,7 +626,7 @@
                             $periodicals = array ();
                             foreach($entry->bio_foot->readinggroup->periodicals->bibcitation as $citation) {
                                 $text = (string) $citation->bibcit_composed;
-                                $text = str_replace("_", ".", $text);
+                                $text = convertText_postxml($text);
                                 $text = stripLineBreaks($text);                                
                                 $bib_text = array (
                                     "biocrit_entry" => $text
@@ -641,7 +641,7 @@
                                 $online = array ();
                                 foreach($entry->bio_foot->readinggroup->online->bibcitation as $citation) {
                                     $text = (string) $citation->bibcit_composed;
-                                    $text = str_replace("_", ".", $text);
+                                    $text = convertText_postxml($text);
                                     $text = stripLineBreaks($text);
                                     $bib_text = array (
                                         "online_biocrit_entry" => $text
@@ -756,7 +756,18 @@
         $text = str_replace("&Oacute;", "&#xd3;", $text); // Ó 
         $text = str_replace("&oacute;", "&#xf3;", $text); // ó
         $text = str_replace("&Uacute;", "&#xda;", $text); // Ú
-        $text = str_replace("&uacute;", "&#xfa;", $text); //ú        
+        $text = str_replace("&uacute;", "&#xfa;", $text); //ú 
+
+        $text = str_replace("&Acirc;", "&#xc2;", $text); // Â 
+        $text = str_replace("&acirc;", "&#xe2;", $text); // â
+        $text = str_replace("&Ecirc;", "&#xca;", $text); // Ê 
+        $text = str_replace("&ecirc;", "&#xea;", $text); // ê  
+        $text = str_replace("&Icirc;", "&#xce;", $text); // Î 
+        $text = str_replace("&icirc;", "&#238;", $text); // î 
+        $text = str_replace("&Ocirc;", "&#xd4;", $text); // Ô 
+        $text = str_replace("&ocirc;", "&#xf4;", $text); // ô 
+        $text = str_replace("&Ucirc;", "&#xdb;", $text); // Û 
+        $text = str_replace("&ucirc;", "&#xfb;", $text); // û                                     
 
         $text = str_replace("&Agrave;", "&#xc0;", $text); // À
         $text = str_replace("&agrave;", "&#xe0;", $text); // à
@@ -881,5 +892,6 @@ function sanitizeXML($xml_content, $xml_followdepth=true){
         public $galedata;
         public $name;
     }
+    
 
 ?>

@@ -207,7 +207,8 @@ function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $
 	}
 
 	if($category){
-		$zipname = "CA_" . $category . '_' . date('Y-m-d H:i:s') . '.zip';
+		$cat_name = get_cat_name($category);
+		$zipname = $cat_name . '_' . date('Y-m-d H:i:s') . '.zip';
 	} else {
 		$zipname = "CA_" . date('y-m-d H:i:s') . '.zip';
 	}
@@ -449,7 +450,11 @@ function get_repeater_values($post) {
 			elseif( get_row_layout() == 'writings_subhead' ):
 				$wrt->id = "subhead";
 				$wrt->title = get_sub_field('writing_subhead_title');
-				array_push($post->writings, $wrt);        	
+				array_push($post->writings, $wrt);   
+			elseif( get_row_layout() == 'imported_subhead' ):
+				$wrt->id = "imported_subhead";
+				$wrt->title = get_sub_field('imported_subhead_title');
+				array_push($post->writings, $wrt); 				     	
 			elseif( get_row_layout() == 'imported_writing' ):
 				$wrt->id = "imported";
 				$wrt->text = get_sub_field('imported_writing_text');
@@ -742,6 +747,9 @@ function build_SGML_file($post) {
 		if($writing->id == "subhead") {
 			$subhead_title = WYSIWYG_conversion($writing->title, false);
 			$export .= '<grouptitle level="2">'. $subhead_title .'</grouptitle>' . PHP_EOL;
+		} elseif($writing->id == "imported_subhead") {
+			$subhead_title = WYSIWYG_conversion($writing->title, false);
+			$export .= '<grouptitle level="2">'. $subhead_title .'</grouptitle>' . PHP_EOL;
 		} elseif($writing->id == "imported") {
 			$writingsText = WYSIWYG_conversion($writing->text, false);
 			$writingsText = trim($writingsText);
@@ -753,7 +761,7 @@ function build_SGML_file($post) {
 		} else {
 			$writing_title = WYSIWYG_conversion($writing->title, false);
 			$writing_publisher = WYSIWYG_conversion($writing->publisher, false);
-			$writing_location = WYSIWYG_conversion($writing->title, false);
+			$writing_location = WYSIWYG_conversion($writing->location, false);
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
 			$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
@@ -861,7 +869,8 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	$text = str_replace('&lt;/b&gt;&lt;/em&gt;', '</emphasis></title>', $text);
 	//move emphasis tags inside code tags
 	$text = str_replace('&lt;em&gt;&lt;code&gt;', '<head n="5"><emphasis n="1">', $text);
-	$text = str_replace('&lt;/code&gt;&lt;/em&gt;', '</emphasis></head>', $text);	
+	$text = str_replace('&lt;/code&gt;&lt;/em&gt;', '</emphasis></head>', $text);
+
 	//convert <strong> tags to <title>
 	$text = str_replace('&lt;strong&gt;', '<title>', $text);
 	$text = str_replace('&lt;/strong&gt;', '</title>', $text);
@@ -877,6 +886,15 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	//convert <code> tags to <head>
 	$text = str_replace('&lt;code&gt;', '<head n="5">', $text);
 	$text = str_replace('&lt;/code&gt;', '</head>', $text);	
+
+	//move adjacent punctuation inside tags
+	$text = str_replace('</emphasis></title>.', '.</emphasis></title>', $text);
+	$text = str_replace('</emphasis></title>,', ',</emphasis></title>', $text);
+	$text = str_replace('</emphasis></title>;', ';</emphasis></title>', $text);
+
+	$text = str_replace('</emphasis>.', '.</emphasis>', $text);
+	$text = str_replace('</emphasis>,', ',</emphasis>', $text);
+	$text = str_replace('</emphasis>;', ';</emphasis>', $text);
 
 	$text = html_entity_decode($text);
 

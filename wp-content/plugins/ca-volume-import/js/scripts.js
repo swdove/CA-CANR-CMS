@@ -124,7 +124,7 @@ if(window.location.href.indexOf('best_import')!=-1)(function($){
     $(function(){
         expandH3();
         postTypeChange();
-        suggest();
+        //suggest();
         addField();
         removeField();
         uploadProgress();
