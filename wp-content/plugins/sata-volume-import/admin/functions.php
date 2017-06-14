@@ -63,7 +63,7 @@
                     while($zip_entry = zip_read($zip)){
                         $name = zip_entry_name($zip_entry);
                         $ext = pathinfo($name, PATHINFO_EXTENSION);
-                        if($ext == 'txt' && zip_entry_open($zip, $zip_entry)){
+                        if(($ext == 'sgm' || $ext == 'txt') && zip_entry_open($zip, $zip_entry)){
                            // $content = zip_entry_read($zip_entry, 1024*1024*100);
                             $content = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
                             //determine if file contains SGML and add to array
@@ -85,11 +85,18 @@
                     $canr = new CANR();
                     //var_dump($file);
                     $text = $file;
+                    //store DOCTYPE declaration for export
+                    preg_match('/(.*?)<biography>/s', $text, $declaration);
+                    if(count($declaration) > 0) {
+                        $canr->XML_declaration = $declaration[1];                            
+                    }
                     //strip DOCTYPE declaration from top of file
-                    $text = preg_replace_callback('/(<!.*?]>)/s', function($matches) {
-                        $new_text = "";
+                    $text = preg_replace_callback('/(.*?)<biography>/s', function($matches) {
+                        $XML_declaration = $matches[0];
+                        $new_text = "<biography>"; //strip everything before the first bio tag
                         return $new_text;
-                    }, $text);                    
+                    }, $text); 
+                    //$canr->XML_declaration = $XML_declaration;
                     //isolate Gale data
                     preg_match('/<galedata>(.*?)<\/galedata>/s', $text, $galedata);
                     if(count($galedata) > 0) {
@@ -112,8 +119,9 @@
                     }, $text);
                     //strip "media" sections from sidelights until I know what we're doing with them
                     $text = preg_replace_callback('/(<media>)(.*?)(<\/media>)/s', function($matches) {
-                        //$new_text = "\n" . $matches[0] .'</graphic>';
-                        $new_text = "";
+                        $new_text =  "[image]" . $matches[0] . "[/image]";
+                        $new_text = str_replace("<", "[", $new_text);
+                        $new_text = str_replace(">", "]", $new_text);
                         return $new_text;
                     }, $text);                    
                     // isolate secondary writings text from Writings section
@@ -192,8 +200,8 @@
                     } else {
                         //push into array of entries
                         $canr->sketch = $file;
-                        $canr->atlasuid = (string) $canr->xml->bio_head->bioname->attributes();
-                        //$canr->pen = (string) $canr->xml->galedata->infobase->pen;
+                       // $canr->atlasuid = (string) $canr->xml->bio_head->bioname->attributes();
+                        $canr->pen = (string) $canr->xml->galedata->infobase->pen;
                         array_push($canrEntries, $canr);
                     }
                     // dumpText($converted_text);
@@ -204,24 +212,28 @@
                     $entry = $canr->xml;
                     //$pen = (string) $entry->galedata->infobase->pen;
                     $posts = null;
-                    if($canr->atlasuid) {
+                    if($canr->pen) {
                         $posts = get_posts(array(
                             'post_type'        => 'post',
                             'post_status'      => 'any',
-	                        'meta_key'		=> 'atlasuid',
-	                        'meta_value'	=> $canr->atlasuid                      
+	                        'meta_key'		=> 'pen_id',
+	                        'meta_value'	=> $canr->pen                      
                         ));
                     }
                     if(isset($posts) && count($posts) == 1) {
-                        foreach($posts as $post) { 
+                        foreach($posts as $post) {
+                            #XML DECLARATION
+                            $xml_field_key = getFieldKey($fields, "xml_declaration");
+                            $xml_declaration_text = (string) $canr->XML_declaration;
+                            update_field( $xml_field_key, $xml_declaration_text, $post->ID );                             
                             #GALE DATA                        
                             $gale_field_key = getFieldKey($fields, "gale_data");
                             $gale_text = (string) $canr->galedata;
                             update_field( $gale_field_key, $gale_text, $post->ID );
                             #ATLAS UID
-                            // $atlas_field_key = getFieldKey($fields, "atlasuid");
-                            // $atlasuid = (string) $entry->bio_head->bioname->attributes();
-                            // update_field( $atlas_field_key, $atlasuid, $post->ID ); 
+                            $atlas_field_key = getFieldKey($fields, "atlasuid");
+                            $atlasuid = (string) $entry->bio_head->bioname->attributes();
+                            update_field( $atlas_field_key, $atlasuid, $post->ID ); 
                             #SKETCH
                             $sketch_field_key = getFieldKey($fields, "canr_sketch");
                             $sketch_text = (string) $canr->sketch;
@@ -604,6 +616,11 @@
                             }                           
 
                             #ADAPTATIONS
+                           	$adaptations_field_key = getFieldKey($fields, "adaptations");
+                            $adaptations_text = (string) $entry->bio_body->works->adaptations;
+                            $adaptations_text = convertText_postxml($adaptations_text);
+                            $adaptations_text = stripLineBreaks($adaptations_text);
+                            update_field( $adaptations_field_key, $adaptations_text, $post->ID );                             
 
                             #SIDELIGHTS
                            	$narrative_field_key = getFieldKey($fields, "narrative");
@@ -750,6 +767,7 @@
         $text = str_replace("&amp;", "&#x26;", $text); // &               
         $text = str_replace("&plus;", "&#x2B;", $text); //+
         $text = str_replace("&dollar;", "&#x24;", $text); // $
+        $text = str_replace("&copy;", "&#xa9;", $text); // ©
 
         $text = str_replace("&auml;", "&#xe4;", $text); // ä
         $text = str_replace("&Auml;", "&#xc4;", $text); // Ä
@@ -905,6 +923,7 @@ function sanitizeXML($xml_content, $xml_followdepth=true){
     }
 
     class CANR {
+        public $XML_declaration;
 	    public $pen;
         public $atlasuid;
         public $xml;
