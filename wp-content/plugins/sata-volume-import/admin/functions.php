@@ -117,9 +117,9 @@
                         $new_text = "\n" . $matches[0] .'</year>';
                         return $new_text;
                     }, $text);
-                    //strip "media" sections from sidelights until I know what we're doing with them
+                    //convert angle brackets in media tags to square brackets so they don't break the XML conversion
                     $text = preg_replace_callback('/(<media>)(.*?)(<\/media>)/s', function($matches) {
-                        $new_text =  "[image]" . $matches[0] . "[/image]";
+                        $new_text = $matches[0];
                         $new_text = str_replace("<", "[", $new_text);
                         $new_text = str_replace(">", "]", $new_text);
                         return $new_text;
