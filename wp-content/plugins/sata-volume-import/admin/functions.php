@@ -95,7 +95,11 @@
                         $XML_declaration = $matches[0];
                         $new_text = "<biography>"; //strip everything before the first bio tag
                         return $new_text;
-                    }, $text); 
+                    }, $text);
+                    $text = preg_replace_callback('/\<\?Pub.*?\>/s', function($matches) {
+                        $new_text = "";
+                        return $new_text;
+                    }, $text);                      
                     //$canr->XML_declaration = $XML_declaration;
                     //isolate Gale data
                     preg_match('/<galedata>(.*?)<\/galedata>/s', $text, $galedata);
@@ -768,6 +772,7 @@
         $text = str_replace("&plus;", "&#x2B;", $text); //+
         $text = str_replace("&dollar;", "&#x24;", $text); // $
         $text = str_replace("&copy;", "&#xa9;", $text); // ©
+        $text = str_replace("&commat;", "@", $text); // ©
 
         $text = str_replace("&auml;", "&#xe4;", $text); // ä
         $text = str_replace("&Auml;", "&#xc4;", $text); // Ä
@@ -776,7 +781,7 @@
         $text = str_replace("&ouml;", "&#xf6;", $text); // ö
         $text = str_replace("&Ouml;", "&#xd6;", $text); // Ö
         $text = str_replace("&oumlaut;", "&#xf6;", $text); // ö
-        $text = str_replace("&Oumlaut;", "&#xd6;", $text); // Ö        
+        $text = str_replace("&Oumlaut;", "&#xd6;", $text); // Ö     
 
         $text = str_replace("&Aacute;", "&#xc1;", $text); // Á 
         $text = str_replace("&aacute;", "&#xe1;", $text); // á              

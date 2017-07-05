@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Volume Export
+Plugin Name: SATA Volume Export
 Plugin URI: https://github.com/swdove
 Description: Exports selected posts as SGML files contained in a zip archive
 Version: 1.0
@@ -1094,7 +1094,7 @@ class Citation {
 	public $explodedData;
 }
 
-function ca_export_wp($author='', $category='', $post_type='', $status='', $start_date='', $end_date='', $terms = '') {
+function sata_export_wp($author='', $category='', $post_type='', $status='', $start_date='', $end_date='', $terms = '') {
 	global $wpdb, $post_ids, $post;
 
 	define('WXR_VERSION', '1.0');
@@ -1275,13 +1275,13 @@ if ( $comments ) { foreach ( $comments as $c ) { ?>
 <?php
 }
 
-function ca_export_page() {
+function sata_export_page() {
 	global $wpdb, $wp_locale; 
 
 	if ( ! current_user_can( 'edit_files' ) )
 		die( 'You don\'t have permissions to use this page.' );
 
-	load_plugin_textdomain( 'ca-export', false, '/ca-volume-export/languages/' );
+	load_plugin_textdomain( 'sata-export', false, '/sata-volume-export/languages/' );
 
 	$months = "";
 	for ( $i = 1; $i < 13; $i++ ) {
@@ -1290,21 +1290,21 @@ function ca_export_page() {
 	} ?>
 <div class="wrap">
 <?php screen_icon(); ?>
-<h2><?php esc_html_e( 'Volume Export', 'ca-export' ); ?></h2>
+<h2><?php esc_html_e( 'SATA Volume Export', 'sata-export' ); ?></h2>
 
 <p><?php esc_html_e('Select the volume to export from the Category dropdown below or filter by other parameters as needed.'); ?></p>
 <p><?php esc_html_e('Clicking "Download Export File" will create a zip file containing the selected entries in txt files.'); ?></p>
 <form action="" method="get">
-<input type="hidden" name="page" value="ca_export" />
+<input type="hidden" name="page" value="sata_export" />
 <h3><?php esc_html_e('Options', 'ca-export' ); ?></h3>
 
 <table class="form-table">
 <?php if(version_compare($wpdb->db_version(), '4.1', 'ge')) { ?>
 <tr>
-<th><label for="category"><?php esc_html_e('Select Volume', 'ca-export' ); ?></label></th>
+<th><label for="category"><?php esc_html_e('Select Volume', 'sata-export' ); ?></label></th>
 <td>
 <select name="category" id="category">
-<option value="all" selected="selected"><?php esc_html_e('All Categories', 'ca-export' ); ?></option>
+<option value="all" selected="selected"><?php esc_html_e('All Categories', 'sata-export' ); ?></option>
 <?php
 $categories = (array) get_categories('get=all');
 if($categories) {
@@ -1391,11 +1391,11 @@ foreach ( $authors as $id ) {
 <?php
 }
 function ca_add_export_page() {
-   	add_management_page('Volume Export', 'Volume Export', 'manage_options', 'ca_export', 'ca_export_page');
+   	add_management_page('SATA Volume Export', 'SATA Volume Export', 'manage_options', 'sata_export', 'sata_export_page');
 }
 add_action('admin_menu', 'ca_add_export_page');
 
-function ca_export_setup() {
+function sata_export_setup() {
 	if(!function_exists('wxr_missing_parents')) {
 		function wxr_missing_parents($categories) {
 			if ( !is_array($categories) || empty($categories) )
