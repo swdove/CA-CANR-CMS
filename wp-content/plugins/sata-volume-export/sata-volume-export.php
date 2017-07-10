@@ -1010,6 +1010,9 @@ function convert_wyswig_punctuation($text) {
 	$text = str_replace('<head n="5"></head>', '', $text);
 	$text = str_replace('<title></title>', '', $text);
 	$text = str_replace('<emphasis n="1"></emphasis>', '', $text);
+	//replace asterisk dividers
+	$text = str_replace("***", '<para type="asterisk">&ast;</para>', $text); 
+
 	//ampersand
 	$text = str_replace("&#038;", "&amp;", $text); // & 
 	$text = str_replace("&#38;", "&amp;", $text); // & 

@@ -1043,7 +1043,19 @@ function convert_wyswig_punctuation($text) {
     $text = str_replace("Ñ", "&Ntilde;", $text); // Ñ
     $text = str_replace("ñ", "&ntilde;", $text); // ñ
     $text = str_replace("Õ", "&Otilde;", $text); // Õ
-    $text = str_replace("õ", "&otilde;", $text); // õ     	
+    $text = str_replace("õ", "&otilde;", $text); // õ   
+
+    $text = str_replace("š", "&scaron;", $text); // š
+    $text = str_replace("Š", "&Scaron;", $text); // Š
+    $text = str_replace("č", "&ccaron;", $text); // č
+	$text = str_replace("Č", "&Ccaron;", $text); // Č
+	$text = str_replace("ć", "&cacute;", $text); // ć
+	$text = str_replace("ī", "&imacr;", $text); // ī
+	$text = str_replace("ø", "&oslash;", $text); // ø
+	$text = str_replace("æ", "&aelig;", $text); // æ
+	$text = str_replace("å", "&aring;", $text); // å
+
+	$text = str_replace("¡", "&iexcl;", $text); // ¡ 	  	
 
 	return $text;
 }

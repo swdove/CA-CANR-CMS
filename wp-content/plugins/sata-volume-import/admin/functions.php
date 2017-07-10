@@ -106,6 +106,7 @@
                     if(count($galedata) > 0) {
                         $canr->galedata = $galedata[0];                            
                     }
+
                     //isolate last name
                     preg_match('/<last>(.*?)<\/last>/', $text, $lastname);
                     if(count($lastname) > 0) {
@@ -113,6 +114,8 @@
                     }                  
                     //convert periods to underscores (period in tags breaks XML conversion)
                     $text = str_replace(".", "_", $text);
+                    //convert asterisk tags to asterisks
+                    $text = str_replace('<para type="asterisk">&ast;</para>', "***", $text);                   
                     //strip all pubdate tags from writings (makes it easier to extract pub year)
                     $text = str_replace("<pubdate>", "", $text);
                     $text = str_replace("</pubdate>", "", $text);
@@ -772,7 +775,7 @@
         $text = str_replace("&plus;", "&#x2B;", $text); //+
         $text = str_replace("&dollar;", "&#x24;", $text); // $
         $text = str_replace("&copy;", "&#xa9;", $text); // ©
-        $text = str_replace("&commat;", "@", $text); // ©
+        $text = str_replace("&commat;", "@", $text); // @
 
         $text = str_replace("&auml;", "&#xe4;", $text); // ä
         $text = str_replace("&Auml;", "&#xc4;", $text); // Ä
@@ -829,7 +832,21 @@
         $text = str_replace("&Ntilde;", "&#xd1;", $text); // Ñ
         $text = str_replace("&ntilde;", "&#xf1;", $text); // ñ
         $text = str_replace("&Otilde;", "&#xd5;", $text); // Õ
-        $text = str_replace("&otilde;", "&#xf5;", $text); // õ       
+        $text = str_replace("&otilde;", "&#xf5;", $text); // õ    
+
+	    $text = str_replace("&scaron;", "&#x161;", $text); // š
+        $text = str_replace("&Scaron;", "&#x160;", $text); // Š
+        $text = str_replace("&ccaron;", "&#x10d;", $text); // č
+	    $text = str_replace("&Ccaron;", "&#x10c;", $text); // Č
+	    $text = str_replace("&cacute;", "&#x107;", $text); // ć
+	    $text = str_replace("&imacr;", "&#x12b;", $text); // ī
+	    $text = str_replace("&oslash;", "&#xf8;", $text); // ø
+	    $text = str_replace("&aelig;", "&#xe6;", $text); // æ
+	    $text = str_replace("&aring;", "&#xe5;", $text); // å  
+
+        $text = str_replace("&Abreve;", "&#x102;", $text); // Ă
+        $text = str_replace("&abreve;", "&#x103;", $text); // ă     
+        $text = str_replace("&iexcl;", "&#xa1;", $text); // ă             
 
         if($xml === false) {
             // 3/7/17 - convert format tags for WYSIWIG

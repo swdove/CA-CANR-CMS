@@ -793,7 +793,17 @@
         $text = str_replace("&Ntilde;", "&#xd1;", $text); // Ñ
         $text = str_replace("&ntilde;", "&#xf1;", $text); // ñ
         $text = str_replace("&Otilde;", "&#xd5;", $text); // Õ
-        $text = str_replace("&otilde;", "&#xf5;", $text); // õ       
+        $text = str_replace("&otilde;", "&#xf5;", $text); // õ      
+
+	    $text = str_replace("&scaron;", "&#x161;", $text); // š
+        $text = str_replace("&Scaron;", "&#x160;", $text); // Š
+        $text = str_replace("&ccaron;", "&#x10d;", $text); // č
+	    $text = str_replace("&Ccaron;", "&#x10c;", $text); // Č
+	    $text = str_replace("&cacute;", "&#x107;", $text); // ć
+	    $text = str_replace("&imacr;", "&#x12b;", $text); // ī
+	    $text = str_replace("&oslash;", "&#xf8;", $text); // ø
+	    $text = str_replace("&aelig;", "&#xe6;", $text); // æ
+	    $text = str_replace("&aring;", "&#xe5;", $text); // å         
 
         if($xml === false) {
             // 3/7/17 - convert format tags for WYSIWIG
