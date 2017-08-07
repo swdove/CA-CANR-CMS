@@ -703,7 +703,7 @@
             $group_fields = acf_get_fields($group);
             foreach ($group_fields as $group_field) {
                 array_push($fields, $group_field);
-            }                                
+            }                            
         }
         return $fields;           
     }
@@ -803,7 +803,15 @@
 	    $text = str_replace("&imacr;", "&#x12b;", $text); // ī
 	    $text = str_replace("&oslash;", "&#xf8;", $text); // ø
 	    $text = str_replace("&aelig;", "&#xe6;", $text); // æ
-	    $text = str_replace("&aring;", "&#xe5;", $text); // å         
+	    $text = str_replace("&aring;", "&#xe5;", $text); // å 
+        $text = str_replace("&Abreve;", "&#x102;", $text); // Ă
+        $text = str_replace("&abreve;", "&#x103;", $text); // ă   
+	    $text = str_replace("&iexcl;", "&#xa1;", $text); // ¡         
+
+        $text = str_replace("&szlig;", "&#xdf;", $text); // ß   
+        $text = str_replace("&Tcedil;", "&#x162;", $text); // Ţ  
+        $text = str_replace("&scedil;", "&#x15F;", $text); // ş  
+
 
         if($xml === false) {
             // 3/7/17 - convert format tags for WYSIWIG

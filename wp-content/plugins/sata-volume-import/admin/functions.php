@@ -86,6 +86,8 @@
                     //var_dump($file);
                     $text = $file;
                     //store DOCTYPE declaration for export
+                    
+
                     preg_match('/(.*?)<biography>/s', $text, $declaration);
                     if(count($declaration) > 0) {
                         $canr->XML_declaration = $declaration[1];                            
@@ -846,7 +848,8 @@
 
         $text = str_replace("&Abreve;", "&#x102;", $text); // Ă
         $text = str_replace("&abreve;", "&#x103;", $text); // ă     
-        $text = str_replace("&iexcl;", "&#xa1;", $text); // ă             
+        $text = str_replace("&iexcl;", "&#xa1;", $text); // ¡             
+        $text = str_replace("&szlig;", "&#xdf;", $text); // ß   
 
         if($xml === false) {
             // 3/7/17 - convert format tags for WYSIWIG

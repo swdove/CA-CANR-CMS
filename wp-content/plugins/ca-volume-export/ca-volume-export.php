@@ -179,6 +179,7 @@ function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $
 		public $publisher;
 		public $location;
 		public $year;
+		public $text;
 	}
 
 
@@ -439,10 +440,10 @@ function get_repeater_values($post) {
 			 		// loop through the rows of data
 					$rpt = new Reprint();
 			    	while ( have_rows('misc_reprinted_as') ) : the_row();
-						$rpt->title = get_sub_field('loc_reprinted_title');
-						$rpt->publisher = get_sub_field('loc_reprinted_publisher');
-						$rpt->location = get_sub_field('loc_reprinted_location');
-						$rpt->year = get_sub_field('loc_reprinted_year');
+						$rpt->title = get_sub_field('misc_reprinted_title');
+						$rpt->publisher = get_sub_field('misc_reprinted_publisher');
+						$rpt->location = get_sub_field('misc_reprinted_location');
+						$rpt->year = get_sub_field('misc_reprinted_year');
 						array_push($wrt->reprints, $rpt);
 					endwhile;
 				endif;
@@ -764,12 +765,29 @@ function build_SGML_file($post) {
 			$writing_location = WYSIWYG_conversion($writing->location, false);
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
-			$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
+			if(!empty($writing->reprints)){
+				$reprint_text = "";
+				foreach($writing->reprints as $reprint){
+					if(!empty($reprint->title)){
+						$reprint_title = WYSIWYG_conversion($reprint->title, false);
+						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
+						$reprint_location = WYSIWYG_conversion($reprint->location, false);
+						$reprint_text .= ', published as <title><emphasis n="1">' . $reprint_title . ',</emphasis></title> ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
+					} else {
+						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
+						$reprint_location = WYSIWYG_conversion($reprint->location, false);
+						$reprint_text .= ', reprinted, ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
+					}
+				}
+				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
+			} else {
+				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
+			}
 			$export .= "</bibcit.composed>" . PHP_EOL;
 			$export .= "</bibcitation>" . PHP_EOL;	
 		}
 	}
-	if(!empty($post->personal)) {
+	if(!empty($post->secondary_writings)) {
 		$export .= WYSIWYG_conversion($post->secondary_writings) . PHP_EOL;
 	}	
 	$export .= "</workgroup>" . PHP_EOL;
