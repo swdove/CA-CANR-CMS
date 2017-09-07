@@ -1,6 +1,6 @@
 <?php
 
-   namespace best_import_namespace;
+   namespace sata_import_namespace;
    require($_SERVER['DOCUMENT_ROOT'].'/wp-load.php');
    require($_SERVER['DOCUMENT_ROOT'].'/wp-content/plugins/advanced-custom-fields-pro/acf.php');
 
@@ -63,7 +63,7 @@
                     while($zip_entry = zip_read($zip)){
                         $name = zip_entry_name($zip_entry);
                         $ext = pathinfo($name, PATHINFO_EXTENSION);
-                        if($ext == 'txt' && zip_entry_open($zip, $zip_entry)){
+                        if(($ext == 'sgm' || $ext == 'txt') && zip_entry_open($zip, $zip_entry)){
                            // $content = zip_entry_read($zip_entry, 1024*1024*100);
                             $content = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
                             //determine if file contains SGML and add to array
@@ -85,11 +85,30 @@
                     $canr = new CANR();
                     //var_dump($file);
                     $text = $file;
+                    //store DOCTYPE declaration for export
+                    
+
+                    preg_match('/(.*?)<biography>/s', $text, $declaration);
+                    if(count($declaration) > 0) {
+                        $canr->XML_declaration = $declaration[1];                            
+                    }
+                    //strip DOCTYPE declaration from top of file
+                    $text = preg_replace_callback('/(.*?)<biography>/s', function($matches) {
+                        $XML_declaration = $matches[0];
+                        $new_text = "<biography>"; //strip everything before the first bio tag
+                        return $new_text;
+                    }, $text);
+                    $text = preg_replace_callback('/\<\?Pub.*?\>/s', function($matches) {
+                        $new_text = "";
+                        return $new_text;
+                    }, $text);                      
+                    //$canr->XML_declaration = $XML_declaration;
                     //isolate Gale data
                     preg_match('/<galedata>(.*?)<\/galedata>/s', $text, $galedata);
                     if(count($galedata) > 0) {
                         $canr->galedata = $galedata[0];                            
                     }
+
                     //isolate last name
                     preg_match('/<last>(.*?)<\/last>/', $text, $lastname);
                     if(count($lastname) > 0) {
@@ -97,6 +116,8 @@
                     }                  
                     //convert periods to underscores (period in tags breaks XML conversion)
                     $text = str_replace(".", "_", $text);
+                    //convert asterisk tags to asterisks
+                    $text = str_replace('<para type="asterisk">&ast;</para>', "***", $text);                   
                     //strip all pubdate tags from writings (makes it easier to extract pub year)
                     $text = str_replace("<pubdate>", "", $text);
                     $text = str_replace("</pubdate>", "", $text);
@@ -105,6 +126,13 @@
                         $new_text = "\n" . $matches[0] .'</year>';
                         return $new_text;
                     }, $text);
+                    //convert angle brackets in media tags to square brackets so they don't break the XML conversion
+                    $text = preg_replace_callback('/(<media>)(.*?)(<\/media>)/s', function($matches) {
+                        $new_text = $matches[0];
+                        $new_text = str_replace("<", "[", $new_text);
+                        $new_text = str_replace(">", "]", $new_text);
+                        return $new_text;
+                    }, $text);                    
                     // isolate secondary writings text from Writings section
                     preg_match('/<workgroup>(.*?)<\/workgroup>/s', $text, $workgroup);
                     if(count($workgroup) > 0) {
@@ -123,7 +151,7 @@
                     $text = preg_replace_callback('/(<emphasis\s.*?)(n="1">)(.*?)(<\/emphasis>)/s', function($matches) {
                         $new_text = "(em)" . $matches[3] . "(/em)";
                         return $new_text;
-                    }, $text);                                                                             
+                    }, $text);                                                                                             
 
                     // 3/9/17 - force tags into biocrit for organization
                     // check if book biocrit citations exist
@@ -165,8 +193,9 @@
 
                     # XML CONVERSION 
                     $imploded = implode("\r\n", $exploded);
-                    //print("<pre>".print_r($exploded,true)."</pre>");
+                   // print("<pre>".print_r($exploded,true)."</pre>");
                     $converted_text = utf8_encode($imploded); //convert to utf8 to strip any remaining oddities
+                   // print("<pre>".print_r($converted_text,true)."</pre>");
                     libxml_use_internal_errors(true); //turn on error reporting
                     $canr->xml = simplexml_load_string($converted_text); //convert string to xml
                     //if failed, say why
@@ -180,6 +209,7 @@
                     } else {
                         //push into array of entries
                         $canr->sketch = $file;
+                       // $canr->atlasuid = (string) $canr->xml->bio_head->bioname->attributes();
                         $canr->pen = (string) $canr->xml->galedata->infobase->pen;
                         array_push($canrEntries, $canr);
                     }
@@ -200,7 +230,11 @@
                         ));
                     }
                     if(isset($posts) && count($posts) == 1) {
-                        foreach($posts as $post) { 
+                        foreach($posts as $post) {
+                            #XML DECLARATION
+                            $xml_field_key = getFieldKey($fields, "xml_declaration");
+                            $xml_declaration_text = (string) $canr->XML_declaration;
+                            update_field( $xml_field_key, $xml_declaration_text, $post->ID );                             
                             #GALE DATA                        
                             $gale_field_key = getFieldKey($fields, "gale_data");
                             $gale_text = (string) $canr->galedata;
@@ -591,6 +625,11 @@
                             }                           
 
                             #ADAPTATIONS
+                           	$adaptations_field_key = getFieldKey($fields, "adaptations");
+                            $adaptations_text = (string) $entry->bio_body->works->adaptations;
+                            $adaptations_text = convertText_postxml($adaptations_text);
+                            $adaptations_text = stripLineBreaks($adaptations_text);
+                            update_field( $adaptations_field_key, $adaptations_text, $post->ID );                             
 
                             #SIDELIGHTS
                            	$narrative_field_key = getFieldKey($fields, "narrative");
@@ -703,7 +742,7 @@
             $group_fields = acf_get_fields($group);
             foreach ($group_fields as $group_field) {
                 array_push($fields, $group_field);
-            }                            
+            }                                
         }
         return $fields;           
     }
@@ -737,6 +776,8 @@
         $text = str_replace("&amp;", "&#x26;", $text); // &               
         $text = str_replace("&plus;", "&#x2B;", $text); //+
         $text = str_replace("&dollar;", "&#x24;", $text); // $
+        $text = str_replace("&copy;", "&#xa9;", $text); // ©
+        $text = str_replace("&commat;", "@", $text); // @
 
         $text = str_replace("&auml;", "&#xe4;", $text); // ä
         $text = str_replace("&Auml;", "&#xc4;", $text); // Ä
@@ -745,7 +786,7 @@
         $text = str_replace("&ouml;", "&#xf6;", $text); // ö
         $text = str_replace("&Ouml;", "&#xd6;", $text); // Ö
         $text = str_replace("&oumlaut;", "&#xf6;", $text); // ö
-        $text = str_replace("&Oumlaut;", "&#xd6;", $text); // Ö        
+        $text = str_replace("&Oumlaut;", "&#xd6;", $text); // Ö     
 
         $text = str_replace("&Aacute;", "&#xc1;", $text); // Á 
         $text = str_replace("&aacute;", "&#xe1;", $text); // á              
@@ -793,7 +834,7 @@
         $text = str_replace("&Ntilde;", "&#xd1;", $text); // Ñ
         $text = str_replace("&ntilde;", "&#xf1;", $text); // ñ
         $text = str_replace("&Otilde;", "&#xd5;", $text); // Õ
-        $text = str_replace("&otilde;", "&#xf5;", $text); // õ      
+        $text = str_replace("&otilde;", "&#xf5;", $text); // õ    
 
 	    $text = str_replace("&scaron;", "&#x161;", $text); // š
         $text = str_replace("&Scaron;", "&#x160;", $text); // Š
@@ -803,15 +844,12 @@
 	    $text = str_replace("&imacr;", "&#x12b;", $text); // ī
 	    $text = str_replace("&oslash;", "&#xf8;", $text); // ø
 	    $text = str_replace("&aelig;", "&#xe6;", $text); // æ
-	    $text = str_replace("&aring;", "&#xe5;", $text); // å 
+	    $text = str_replace("&aring;", "&#xe5;", $text); // å  
+
         $text = str_replace("&Abreve;", "&#x102;", $text); // Ă
-        $text = str_replace("&abreve;", "&#x103;", $text); // ă   
-	    $text = str_replace("&iexcl;", "&#xa1;", $text); // ¡         
-
+        $text = str_replace("&abreve;", "&#x103;", $text); // ă     
+        $text = str_replace("&iexcl;", "&#xa1;", $text); // ¡             
         $text = str_replace("&szlig;", "&#xdf;", $text); // ß   
-        $text = str_replace("&Tcedil;", "&#x162;", $text); // Ţ  
-        $text = str_replace("&scedil;", "&#x15F;", $text); // ş  
-
 
         if($xml === false) {
             // 3/7/17 - convert format tags for WYSIWIG
@@ -834,6 +872,13 @@
             $text = str_replace("</para>", "&lt;/p&gt;", $text);
             $text = str_replace('<title>', '&lt;strong&gt;', $text);
             $text = str_replace("</title>", "&lt;/strong&gt;", $text);
+            // $text = str_replace('<head n="5">', "(code)", $text);
+            // $text = str_replace("</head>", "(/code)", $text);                    
+            // $text = str_replace("<para>", "(p)", $text);
+            // $text = str_replace("</para>", "(/p)", $text);
+            // $text = str_replace('<title>', '(strong)', $text);
+            // $text = str_replace("</title>", "(/strong)", $text);      
+
         //    $text = str_replace("emphasis", "em", $text); 
             // $text = str_replace('<emphasis n="1">', "&lt;em&gt;", $text);
             // $text = str_replace("</emphasis>", "&lt;/em&gt;", $text); 
@@ -903,7 +948,9 @@ function sanitizeXML($xml_content, $xml_followdepth=true){
     }
 
     class CANR {
+        public $XML_declaration;
 	    public $pen;
+        public $atlasuid;
         public $xml;
         public $sketch;
         public $secondary_writings;

@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Volume Export
+Plugin Name: SATA Volume Export
 Plugin URI: https://github.com/swdove
 Description: Exports selected posts as SGML files contained in a zip archive
 Version: 1.0
@@ -9,16 +9,16 @@ Author URI: https://github.com/swdove
  
 */
 /*
-Developed for Schlager Group to export CA and CANR entries as custom SGML files. Base export plugin code borrowed and modified from "Advanced Export" plugin by Ron Rennick.
+Developed for Schlager Group to export SATA entries as custom SGML files. Base export plugin code borrowed and modified from "Advanced Export" plugin by Ron Rennick.
 */
 
 if(!defined('ABSPATH')) {
 	die("Don't call this file directly.");
 }
-if(isset($_GET['page']) && $_GET['page'] == 'ca_export' && isset( $_GET['download'] ) ) {
-	add_action('init', 'ca_do_export');
+if(isset($_GET['page']) && $_GET['page'] == 'sata_export' && isset( $_GET['download'] ) ) {
+	add_action('init', 'sata_do_export');
 }
-function ca_do_export() {
+function sata_do_export() {
 	if(current_user_can('edit_files')) {
 		$author = isset($_GET['author']) ? $_GET['author'] : 'all';
 		$category = isset($_GET['category']) ? $_GET['category'] : 'all';
@@ -45,13 +45,13 @@ function ca_do_export() {
 		} else {
 			$end_date = 'all';
 		}
-		ca_export_setup();
+		sata_export_setup();
 		//ra_export_wp( $author, $category, $post_type, $status, $start_date, $end_date, $terms );
-		ca_export_wp_xml( $author, $category, $post_type, $status, $start_date, $end_date, $terms );
+		sata_export_wp_xml( $author, $category, $post_type, $status, $start_date, $end_date, $terms );
 		die();
 	}
 }	
-function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $start_date='', $end_date='', $terms = '') {
+function sata_export_wp_xml($author='', $category='', $post_type='', $status='', $start_date='', $end_date='', $terms = '') {
  	global $wpdb, $post_ids, $post;
 
 	define('WXR_VERSION', '1.0');
@@ -98,6 +98,7 @@ function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $
 		public $id;
 		public $atlasuid;
 		public $galeData;
+		public $xml_declaration;
 		public $title;
 		public $gender;
 		public $prefix;
@@ -179,7 +180,6 @@ function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $
 		public $publisher;
 		public $location;
 		public $year;
-		public $text;
 	}
 
 
@@ -211,7 +211,7 @@ function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $
 		$cat_name = get_cat_name($category);
 		$zipname = $cat_name . '_' . date('Y-m-d H:i:s') . '.zip';
 	} else {
-		$zipname = "CA_" . date('y-m-d H:i:s') . '.zip';
+		$zipname = "SATA_" . date('y-m-d H:i:s') . '.zip';
 	}
 	$zip = new ZipArchive;
 	$zip->open($zipname, ZipArchive::CREATE);
@@ -337,7 +337,10 @@ function parse_export_values($post) {
 				break;
 			case "adaptations":
 				$post->adaptations = $field->value;
-				break;									
+				break;
+			case "xml_declaration":
+				$post->xml_declaration = $field->value;
+				break;													
 			default:
 				//exclude "field identifier" fields
 				if(!(preg_match('/^_/', $field->name))) {				
@@ -440,10 +443,10 @@ function get_repeater_values($post) {
 			 		// loop through the rows of data
 					$rpt = new Reprint();
 			    	while ( have_rows('misc_reprinted_as') ) : the_row();
-						$rpt->title = get_sub_field('misc_reprinted_title');
-						$rpt->publisher = get_sub_field('misc_reprinted_publisher');
-						$rpt->location = get_sub_field('misc_reprinted_location');
-						$rpt->year = get_sub_field('misc_reprinted_year');
+						$rpt->title = get_sub_field('loc_reprinted_title');
+						$rpt->publisher = get_sub_field('loc_reprinted_publisher');
+						$rpt->location = get_sub_field('loc_reprinted_location');
+						$rpt->year = get_sub_field('loc_reprinted_year');
 						array_push($wrt->reprints, $rpt);
 					endwhile;
 				endif;
@@ -485,7 +488,13 @@ function build_file_name($post) {
 }
 
 function build_SGML_file($post) {
-	$export = "<biography>" . PHP_EOL;
+	$export = "";
+
+	if(!empty($post->xml_declaration)) {
+		$export .= $post->xml_declaration . PHP_EOL;
+	}	
+
+	$export .= "<biography>" . PHP_EOL;
 
 	if(!empty($post->galeData)) {
 		$export .= $post->galeData . PHP_EOL;
@@ -765,24 +774,7 @@ function build_SGML_file($post) {
 			$writing_location = WYSIWYG_conversion($writing->location, false);
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
-			if(!empty($writing->reprints)){
-				$reprint_text = "";
-				foreach($writing->reprints as $reprint){
-					if(!empty($reprint->title)){
-						$reprint_title = WYSIWYG_conversion($reprint->title, false);
-						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
-						$reprint_location = WYSIWYG_conversion($reprint->location, false);
-						$reprint_text .= ', published as <title><emphasis n="1">' . $reprint_title . ',</emphasis></title> ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
-					} else {
-						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
-						$reprint_location = WYSIWYG_conversion($reprint->location, false);
-						$reprint_text .= ', reprinted, ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
-					}
-				}
-				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
-			} else {
-				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
-			}
+			$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
 			$export .= "</bibcit.composed>" . PHP_EOL;
 			$export .= "</bibcitation>" . PHP_EOL;	
 		}
@@ -793,8 +785,8 @@ function build_SGML_file($post) {
 	$export .= "</workgroup>" . PHP_EOL;
 	$export .= "</works>" . PHP_EOL . PHP_EOL;
 
-	$export .= '<narrative type="sidelights">' . PHP_EOL;
-	$export .= WYSIWYG_conversion($post->narrative) . PHP_EOL;
+	$export .= '<narrative type="sidelights">' . PHP_EOL; 
+	$export .= WYSIWYG_conversion($post->narrative, true, true, true) . PHP_EOL;
 	$export .= "</narrative>" . PHP_EOL;
 
 	$export .= "</bio.body>" . PHP_EOL;
@@ -857,7 +849,7 @@ function format_WYSIWYG_tags($text) {
 	return $text;
 }
 
-function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
+function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true, $sidelights = false) {
 	//convert all non-quotation special characters to codes
 	$text = htmlentities($text);
 
@@ -873,6 +865,7 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 		//$text = str_replace('&lt;/p&gt;', '</para>' . PHP_EOL, $text);	
 		$text = str_replace('&lt;/p&gt;', '</para>', $text);	
 	}
+	
 	if($includeTitle == false) {
 		//strip <strong> and <b> tags
 		$text = str_replace('&lt;strong&gt;', '', $text);
@@ -916,14 +909,30 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 
 	$text = html_entity_decode($text);
 
-	$text = convert_wyswig_punctuation($text);
+	if($sidelights == true) {
+		//converting media tags back to angle brackets
+    		$text = preg_replace_callback('/(<para>)(.*?)(<\/para>)/s', function($matches) {
+				$new_text = $matches[0];
+				$inner_text = $matches[2];
+				if(preg_match('/\[media\]/', $inner_text)) {
+        			$new_text = str_replace("[", "<", $new_text);
+        			$new_text = str_replace("]", ">" . PHP_EOL, $new_text);	
+					$new_text = str_replace("©", "&copy;", $new_text); // ©				
+				} else {
+					$new_text = convert_wyswig_punctuation($new_text);
+				}        
+        	return $new_text;
+    	}, $text); 	
+	} else {
+		$text = convert_wyswig_punctuation($text);
+	}	
 
 	// //$text = html_entity_decode($text);
 
 	return $text;
 }
 
-function convert_wyswig_punctuation($text) {
+function convert_wyswig_punctuation($text) {  
 	$text = wptexturize($text);
 
 	//remove spaces between tags
@@ -1001,6 +1010,9 @@ function convert_wyswig_punctuation($text) {
 	$text = str_replace('<head n="5"></head>', '', $text);
 	$text = str_replace('<title></title>', '', $text);
 	$text = str_replace('<emphasis n="1"></emphasis>', '', $text);
+	//replace asterisk dividers
+	$text = str_replace("***", '<para type="asterisk">&ast;</para>', $text); 
+
 	//ampersand
 	$text = str_replace("&#038;", "&amp;", $text); // & 
 	$text = str_replace("&#38;", "&amp;", $text); // & 
@@ -1018,6 +1030,7 @@ function convert_wyswig_punctuation($text) {
     //$text = str_replace("&amp;", "&#x26;", $text); // &               
     $text = str_replace("+", "&plus;", $text); //+
     $text = str_replace("$", "&dollar;", $text); // $
+	$text = str_replace("©", "&copy;", $text); // ©
 
     $text = str_replace("ä", "&auml;", $text); // ä
     $text = str_replace("Ä", "&Auml;", $text); // Ä
@@ -1061,19 +1074,18 @@ function convert_wyswig_punctuation($text) {
     $text = str_replace("Ñ", "&Ntilde;", $text); // Ñ
     $text = str_replace("ñ", "&ntilde;", $text); // ñ
     $text = str_replace("Õ", "&Otilde;", $text); // Õ
-    $text = str_replace("õ", "&otilde;", $text); // õ   
+    $text = str_replace("õ", "&otilde;", $text); // õ    
 
-    $text = str_replace("š", "&scaron;", $text); // š
-    $text = str_replace("Š", "&Scaron;", $text); // Š
-    $text = str_replace("č", "&ccaron;", $text); // č
-	$text = str_replace("Č", "&Ccaron;", $text); // Č
-	$text = str_replace("ć", "&cacute;", $text); // ć
-	$text = str_replace("ī", "&imacr;", $text); // ī
-	$text = str_replace("ø", "&oslash;", $text); // ø
-	$text = str_replace("æ", "&aelig;", $text); // æ
-	$text = str_replace("å", "&aring;", $text); // å
-
-	$text = str_replace("¡", "&iexcl;", $text); // ¡ 	  	
+    $text = str_replace("š", "&scaron;", $text); // š		
+    $text = str_replace("Š", "&Scaron;", $text); // Š		
+    $text = str_replace("č", "&ccaron;", $text); // č		
+	$text = str_replace("Č", "&Ccaron;", $text); // Č		
+	$text = str_replace("ć", "&cacute;", $text); // ć		
+	$text = str_replace("ī", "&imacr;", $text); // ī		
+	$text = str_replace("ø", "&oslash;", $text); // ø		
+	$text = str_replace("æ", "&aelig;", $text); // æ		
+	$text = str_replace("å", "&aring;", $text); // å		
+	$text = str_replace("¡", "&iexcl;", $text); // ¡ 	 	
 
 	return $text;
 }
@@ -1096,7 +1108,7 @@ class Citation {
 	public $explodedData;
 }
 
-function ca_export_wp($author='', $category='', $post_type='', $status='', $start_date='', $end_date='', $terms = '') {
+function sata_export_wp($author='', $category='', $post_type='', $status='', $start_date='', $end_date='', $terms = '') {
 	global $wpdb, $post_ids, $post;
 
 	define('WXR_VERSION', '1.0');
@@ -1277,13 +1289,13 @@ if ( $comments ) { foreach ( $comments as $c ) { ?>
 <?php
 }
 
-function ca_export_page() {
+function sata_export_page() {
 	global $wpdb, $wp_locale; 
 
 	if ( ! current_user_can( 'edit_files' ) )
 		die( 'You don\'t have permissions to use this page.' );
 
-	load_plugin_textdomain( 'ca-export', false, '/ca-volume-export/languages/' );
+	load_plugin_textdomain( 'sata-export', false, '/sata-volume-export/languages/' );
 
 	$months = "";
 	for ( $i = 1; $i < 13; $i++ ) {
@@ -1292,21 +1304,21 @@ function ca_export_page() {
 	} ?>
 <div class="wrap">
 <?php screen_icon(); ?>
-<h2><?php esc_html_e( 'Volume Export', 'ca-export' ); ?></h2>
+<h2><?php esc_html_e( 'SATA Volume Export', 'sata-export' ); ?></h2>
 
 <p><?php esc_html_e('Select the volume to export from the Category dropdown below or filter by other parameters as needed.'); ?></p>
 <p><?php esc_html_e('Clicking "Download Export File" will create a zip file containing the selected entries in txt files.'); ?></p>
 <form action="" method="get">
-<input type="hidden" name="page" value="ca_export" />
+<input type="hidden" name="page" value="sata_export" />
 <h3><?php esc_html_e('Options', 'ca-export' ); ?></h3>
 
 <table class="form-table">
 <?php if(version_compare($wpdb->db_version(), '4.1', 'ge')) { ?>
 <tr>
-<th><label for="category"><?php esc_html_e('Select Volume', 'ca-export' ); ?></label></th>
+<th><label for="category"><?php esc_html_e('Select Volume', 'sata-export' ); ?></label></th>
 <td>
 <select name="category" id="category">
-<option value="all" selected="selected"><?php esc_html_e('All Categories', 'ca-export' ); ?></option>
+<option value="all" selected="selected"><?php esc_html_e('All Categories', 'sata-export' ); ?></option>
 <?php
 $categories = (array) get_categories('get=all');
 if($categories) {
@@ -1393,11 +1405,11 @@ foreach ( $authors as $id ) {
 <?php
 }
 function ca_add_export_page() {
-   	add_management_page('Volume Export', 'Volume Export', 'manage_options', 'ca_export', 'ca_export_page');
+   	add_management_page('SATA Volume Export', 'SATA Volume Export', 'manage_options', 'sata_export', 'sata_export_page');
 }
 add_action('admin_menu', 'ca_add_export_page');
 
-function ca_export_setup() {
+function sata_export_setup() {
 	if(!function_exists('wxr_missing_parents')) {
 		function wxr_missing_parents($categories) {
 			if ( !is_array($categories) || empty($categories) )

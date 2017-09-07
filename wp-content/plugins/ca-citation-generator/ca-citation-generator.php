@@ -490,6 +490,47 @@ add_action('acf/save_post', 'generate_biocrit', 20);
 add_action('acf/save_post', 'generate_online', 20);
 add_action( 'draft_to_pending', 'assign_to_admin' );
 add_action( 'draft_to_publish', 'assign_to_admin' );
+
+//displays pub year and title (if available) in heading of Writings section 
     
-    
+function my_acf_flexible_content_layout_title( $title, $field, $layout, $i ) {
+	
+	$layout = get_row_layout();
+	if($layout == "imported_subhead") {
+		$text = get_sub_field('imported_subhead_title');
+	//	$title .= '<h4>' . $text . '</h4>';
+		$title .= " - <b>" . $text . "</b>";
+	} elseif ($layout == "writings_subhead") {
+		$text = get_sub_field('writing_subhead_title');
+		$title .= " - <b>" . $text . "</b>";
+	} elseif ($layout == "imported_writing") {
+		$text = get_sub_field('imported_pub_year');
+		$title .= " - <b>" . $text . "</b>";
+	} elseif ($layout == "loc_writing") {
+		$text = get_sub_field('loc_writing_title');
+		if(strlen($text) > 30) {
+			$trimmed = substr($text, 0, 30);
+			$text = $trimmed . "...";
+		}	
+		$year = get_sub_field('loc_writing_year');
+		$title .= " - <b>" . $year . " - " . $text . "</b>";
+	} elseif ($layout == "misc_writing") {
+		$text = get_sub_field('misc_writing_title');
+		if(strlen($text) > 30) {
+			$trimmed = substr($text, 0, 30);
+			$text = $trimmed . "...";
+		}		
+		$year = get_sub_field('misc_writing_year');
+		$title .= " - <b>" . $year . " - " . $text . "</b>";
+	}		
+	
+	// return
+	return $title;
+	
+}
+
+// name
+add_filter('acf/fields/flexible_content/layout_title/name=collected_writings', 'my_acf_flexible_content_layout_title', 10, 4);
+
+
     ?>

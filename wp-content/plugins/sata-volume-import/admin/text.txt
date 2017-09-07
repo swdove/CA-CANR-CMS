@@ -1,0 +1,556 @@
+<biography>
+<galedata>
+<infobase>
+<pen>0000114206</pen>
+</infobase>
+<project>
+<projectname>
+<title>Contemporary Authors</title>
+</projectname>
+<update>
+<action type="other">Exported</action>
+<date>
+<year year="2012"></year>
+<month month="7"></month>
+<day day="12"></day>
+</date>
+</update>
+</project>
+</galedata>
+<bio.head>
+<bioname atlasuid="14331342">
+<mainname gender="she">
+<first>Diana</first>
+<last>Abu-Jaber</last>
+</mainname>
+<variantname nametype="common">
+<first>Diana Abu</first>
+<last>Jaber</last>
+</variantname>
+</bioname>
+</bio.head>
+<bio.body>
+<personal>
+<birth>
+<birthdate>
+<year year="1959"></year>
+<month month="11"></month>
+<day day="5"></day>
+</birthdate>
+<birthlocation>
+<city>Syracuse</city>
+<state>NY</state>
+<country>United States</country>
+</birthlocation>
+</birth>
+<heritage>
+<nationality>American</nationality>
+</heritage>
+<educate>
+<composed.educate>State University of New York College at Oswego, B.A., 1980;
+University of Windsor, M.A., 1982; State University of New York at Binghamton,
+Ph.D., 1986.</composed.educate>
+</educate>
+<career>
+<workhistory>
+<composed.workhist>
+<para>Writer, educator. Iowa State University, Ames, IA,
+visiting assistant professor of English, 1990; University of Oregon, Eugene,
+assistant professor of English, 1990-95; Portland State University, Portland,
+OR, writer-in-residence and associate professor of English, 1996&mdash;. Guest
+on radio programs, including &ldquo;Fresh Air&rdquo; and &ldquo;Morning
+Edition,&rdquo; National Public Radio (NPR).</para>
+</composed.workhist>
+</workhistory>
+</career>
+<avocation>
+<para>Painting, running.</para>
+</avocation>
+<award>
+<composed.award>
+<para>National Endowment for the Arts writing fellow, 1994-96;
+Oregon Book Award and nomination for PEN/Hemingway Award, both 1994, both for
+<emphasis n="1">Arabian Jazz;</emphasis> Fulbright Research Award, 1996; named
+one of the top women writers by <emphasis n="1">Vanity Fair,</emphasis> 2003;
+citation for one of the twenty best novels of 2003, <emphasis n="1">Christian
+Science Monitor,</emphasis> PEN Center USA Award for Literary Fiction, 2004,
+and American Book Award, Before Columbus Foundation, 2004, all for
+<emphasis n="1">Crescent;</emphasis> Northwest Distinguished Author Award,
+Willamette Writers, 2004; notable book citation, <emphasis n="1">
+Booksense,</emphasis> 2005, and Pacific Northwest Booksellers Award, 2006,
+both for <emphasis n="1">The Language of Baklava;</emphasis> National
+Endowment for the Arts fellow in fiction.</para>
+</composed.award>
+</award>
+<composed.personal>Born November 5, 1959, in Syracuse, NY; daughter of Ghassan
+(&ldquo;Bud&rdquo;) and Patricia (a teacher) Abu-Jaber; married Scott Eason,
+September 9, 2001.</composed.personal>
+</personal>
+<address addresstype="home">
+<geo>
+<geoother>Portland, OR; Miami, FL.</geoother>
+</geo>
+</address>
+<address addresstype="office">
+<geo>
+<geoother>Department of English, Portland State University, P.O. Box 751,
+Portland, OR 97207.</geoother>
+</geo>
+</address>
+<address addresstype="agent">
+<geo>
+<geoother>Lyceum Agency, 915 S.E. 35th Ave., No. 205, Portland, OR
+97214.</geoother>
+</geo>
+</address>
+<address>
+<telecom>
+<email>abujaber@aol.com.</email>
+</telecom>
+</address>
+<works>
+<workgroup>
+<grouptitle level="1">WRITINGS:</grouptitle>
+<grouptitle level="2">NOVELS</grouptitle>
+<bibcitation>
+<bibcit.composed>
+<title>
+<emphasis n="1">Arabian Jazz,</emphasis>
+</title> Harcourt (New York, NY), <pubdate>
+<year year="1993"></year>
+</pubdate>
+.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<title>
+<emphasis n="1">Crescent,</emphasis>
+</title> W.W.
+Norton (New York, NY), <pubdate>
+<year year="2003"></year>
+</pubdate>.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<title>
+<emphasis n="1">Origin,</emphasis>
+</title>
+W.W. Norton &amp; Co. (New York, NY), <pubdate>
+<year year="2007"></year>
+</pubdate>
+.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<title>
+<emphasis n="1">Birds of
+Paradise,</emphasis>
+</title> W.W. Norton &amp; Co. (New York, NY), <pubdate>
+<year year="2011"></year>
+</pubdate>.</bibcit.composed>
+</bibcitation>
+<grouptitle level="2">OTHER</grouptitle>
+<bibcitation>
+<bibcit.composed>
+<title>
+<emphasis n="1">The Language of
+Baklava</emphasis>
+</title> (memoir), Pantheon Books (New York, NY), <pubdate>
+<year year="2005"></year>
+</pubdate>.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>(Contributor) <title>
+<emphasis n="1">
+Dinarzad&apos;s Children: An Anthology of Contemporary Arab American
+Fiction,</emphasis>
+</title> edited by Pauline Kaldas and Khaled Mattawa,
+University of Arkansas Press (Fayetteville, AR), 2nd edition, <pubdate>
+<year year="2009"></year>
+</pubdate>.</bibcit.composed>
+</bibcitation>
+<para>Contributor to books, including <title>
+<emphasis n="1">The Literary
+Cookbook,</emphasis>
+</title> 2005, <title>
+<emphasis n="1">Why I&apos;m Still
+Married,</emphasis>
+</title> Hudson Street Press (New York, NY), Penguin, 2006,
+and <title>
+<emphasis n="1">True Stories from the Mid-Life
+Underground,</emphasis>
+</title> Doubleday (New York, NY), 2006. Contributor to
+periodicals, including <emphasis n="1">Southern Review, New York Times, Good
+Housekeeping, Washington Post,</emphasis> and <emphasis n="1">Middle East
+Report.</emphasis>
+</para>
+</workgroup>
+</works>
+<narrative type="sidelights">
+<para>Diana Abu-Jaber was born in New York state, the daughter of an American
+mother and a Jordanian father. The family lived in New York until Diana was
+seven years old; at that time they moved to Annan, the capital of Jordan. In
+the ensuing years, they moved frequently back and forth between the two
+countries. Abu-Jaber recounted her own story in the memoir <title>
+<emphasis n="1">The Language of Baklava,</emphasis>
+</title> published in
+2005.</para>
+<para>Abu-Jaber once told <emphasis n="1">CA:</emphasis> &ldquo;I began
+writing in order to constitute myself&mdash;as the child of Arab
+immigrants&mdash;as a &lsquo;whole&rsquo; person. Writing is wonderfully
+healing.&rdquo; In an interview with Jennifer Haupt in <emphasis n="1">
+Psychology Today Online,</emphasis> Abu-Jaber noted that her novels usually
+take three years each to write. She further remarked on her penchant for
+writing at night and by hand: &ldquo;I have a little book light that I&apos;ll
+turn on when I can&apos;t sleep and I can often peck out a couple extra
+paragraphs in my writing notebook that way. I also write all my novel first
+drafts longhand, which seems to amaze my technology-loving students. But I
+feel like I trust that writing more somehow&mdash;longhand slows me down,
+forces me to be more careful and to think more, to imagine more deeply. And I
+like the sensation of my hand against the paper, the feeling of being
+physically linked to the act of writing, from mind to fingers to
+ink.&rdquo;</para>
+<head n="5">
+<emphasis n="1">The Language of Baklava</emphasis>
+</head>
+<para>
+<title>
+<emphasis n="1">The Language of Baklava,</emphasis>
+</title> is
+&ldquo;a feast of words and images,&rdquo; according to <emphasis n="1">
+Entertainment Weekly</emphasis> reviewer Allyssa Lee. The center of the memoir
+is Abu-Jaber&apos;s father, Bud, who left Jordan of his own accord, but finds
+himself lost in American culture. He shifts restlessly between Jordan and the
+United States, unable to settle in either country. Bud is passionate about
+food, a quality he passes on to his daughter. <title>
+<emphasis n="1">The
+Language of Baklava</emphasis>
+</title> is replete with descriptions of meals
+and food and even includes numerous recipes.</para>
+<para>Gillian Engberg, reviewing <title>
+<emphasis n="1">The Language of
+Baklava</emphasis>
+</title> for <emphasis n="1">Booklist,</emphasis> found it
+not only readable but thought-provoking, raising questions about identity and
+the meaning of &ldquo;home.&rdquo; Engberg concluded: &ldquo;Abu-Jaber&apos;s
+sly, poetic precision will leave readers breathless.&rdquo; A <emphasis n="1">
+Kirkus Reviews</emphasis> contributor also had praise for this memoir, noting
+that &ldquo;Abu-Jaber&apos;s tales are equally powerful and lovely in their
+imagery,&rdquo; and a <emphasis n="1">Publishers Weekly</emphasis> commended
+these &ldquo;charming stories of &lsqb;Abu-Jaber&apos;s&rsqb; upbringing in
+upstate New York&mdash;with occasional interludes in Jordan,&rdquo; which are
+intermingled with good food and recipes.</para>
+<head n="5">
+<emphasis n="1">The Language of Baklava</emphasis> and
+<emphasis n="1">Arabian Jazz</emphasis>
+</head>
+<para>Though fiction, Abu-Jaber&apos;s first novel <title>
+<emphasis n="1">
+Arabian Jazz</emphasis>
+</title> drew heavily on her own background. The main
+characters are Jemorah and Melvina Ramoud, two sisters who have emigrated with
+their father from Jordan to Syracuse, following the death of their American
+mother. There, they mingle with various colorful family members including Aunt
+Fatima the matchmaker.</para>
+<para>A <emphasis n="1">Publishers Weekly</emphasis> reviewer found that the
+portrayal of Jemorah and Melvina&apos;s family &ldquo;borders on
+caricature,&rdquo; but nevertheless praised the author&apos;s &ldquo;narrative
+powers.&rdquo; <emphasis n="1">People</emphasis> contributor Louisa Ermelino
+noted that Abu-Jaber &ldquo;renders the people poignantly.&rdquo;</para>
+<head n="5">
+<emphasis n="1">Crescent</emphasis>
+</head>
+<para>In her next novel, <title>
+<emphasis n="1">Crescent,</emphasis>
+</title>
+Abu-Jaber gives readers a romance set in &ldquo;Teherangeles,&rdquo; the area
+of Los Angeles that is home to many Middle Eastern expatriates. The central
+location is Nadia&apos;s Caf&eacute;, a Lebanese restaurant. The cook at
+Nadia&apos;s is Sirine, an Iraqi-American whose pale-skinned, blond appearance
+causes her to feel like an outsider in her own world. She is drawn to Hanif,
+an Iraqi intellectual. Sirine&apos;s story is interwoven with an ancient fable
+recounting the adventures of Abdelrahman Salahadin, a slave who escaped his
+master.</para>
+<para>The story makes references to the real-life regime of Saddam Hussein,
+from which Hanif fled; but as Ron Charles noted in a review for the
+<emphasis n="1">Christian Science Monitor,</emphasis> &ldquo;Abu-Jaber
+broadens her exploration of exile to include all the various ways we&apos;re
+bereft of home&mdash;by the death of parents, the separation from lovers, the
+hunger for lost childhood.&rdquo; Beth Kephart, reviewing the novel for
+<emphasis n="1">Book,</emphasis> called it &ldquo;gorgeously written and
+deeply imagined.&rdquo;</para>
+<head n="5">
+<emphasis n="1">Origin</emphasis>
+</head>
+<para>Abu-Jaber&apos;s 2007 work, <title>
+<emphasis n="1">Origin,</emphasis>
+</title> is a literary mystery featuring a female fingerprint expert with a
+past that haunts her. Lena Dawson made the newspapers when she helped solved a
+child-murder case a few years before the events of <title>
+<emphasis n="1">
+Origin.</emphasis>
+</title> Thus, when a baby is found dead in its crib and the
+distressed mother refuses to believe the police verdict of sudden infant death
+syndrome, the mother contacts Lena. Discovering traces of poison in the
+baby&apos;s body, and with several other local babies later found dead, Lena
+knows she is on the trail of a killer. Troubling for her, however, are early
+childhood memories that go back to the time she was taken into foster care,
+when, the victim of a plane crash, she was raised in the jungle for two years
+by apes. This has left her with an acute sense of smell and almost clairvoyant
+insight and instincts. A young detective works with Lena in the investigation,
+and soon they know they are working to stop the killer from taking not only
+the lives of more babies, but also Lena&apos;s life, as she begins to sense
+that she is being stalked.</para>
+<para>
+<title>
+<emphasis n="1">Origin</emphasis>
+</title> won widespread critical
+acclaim. Writing in <emphasis n="1">School Library Journal,</emphasis> Ellen
+Bell dubbed it &ldquo;gripping&rdquo; and a &ldquo;haunting mystery.&rdquo; A
+<emphasis n="1">Kirkus Reviews</emphasis> contributor felt that the author
+&ldquo;transcends formula, weaving the whodunit in prose as evocative as
+poetry&rdquo; in this &ldquo;haunted, moving crime fiction.&rdquo; Similar
+praise came from a <emphasis n="1">Publishers Weekly</emphasis> reviewer who
+noted: &ldquo;This enthralling puzzle will appeal to both crime fans and
+readers of literary fiction,&rdquo; and from <emphasis n="1">
+Booklist</emphasis> writer Donna Seaman, who concluded: &ldquo;Readers seeking
+gorgeously rendered fiction as well as intelligent and atmospheric mysteries
+will find <title>
+<emphasis n="1">Origin</emphasis>
+</title>
+extraordinary.&rdquo; However, <emphasis n="1">New York Times Book
+Review</emphasis> contributor Brian Hall was not convinced by the police
+procedural aspects of the crime novel. Hall complained of a number of
+&ldquo;implausibilities,&rdquo; including the fact that the police were unable
+to detect the poison in the baby and then trace it to telltale elements in the
+baby murders. Hall noted: &ldquo;The impression one gets from <title>
+<emphasis n="1">Origin</emphasis>
+</title> is that the police-detective
+elements don&apos;t interest Abu-Jaber enough to induce her to take them
+seriously.&rdquo;</para>
+<head n="5">
+<emphasis n="1">Birds of Paradise</emphasis>
+</head>
+<para>
+<title>
+<emphasis n="1">Birds of Paradise,</emphasis>
+</title> Abu-
+Jaber&apos;s 2011 work of fiction, looks at family relationships gone askew.
+At thirteen, Felice Muir ran away from home, in part out of a sense of guilt
+and atonement over a joke that went horribly wrong. She has been on the
+streets of Miami for five years; a stunningly beautiful girl, she sometimes
+makes money modeling. At intervals, she meets with her mother; however, mostly
+she spends her time doing drugs and alcohol with her homeless crew of friends.
+In the meantime, the other three members of her family&mdash;mother Avis, a
+pastry chef, father Brian, a lawyer, and brother Stanley, owner of an organic
+market&mdash;all try to deal with her loss by focusing on their work. However,
+the loss of Felice has affected the entire family and ultimately distanced
+each of them from the other. The novel is set as Felice is about to celebrate
+her eighteenth birthday, and is told from multiple perspectives in alternating
+chapters that give insight into the real reasons for the daughter&apos;s
+departure.</para>
+<para>
+<emphasis n="1">Library Journal</emphasis> contributor Joy Humphrey
+found this &ldquo;literary family drama &hellip; exceptionally written.&rdquo;
+<emphasis n="1">Booklist</emphasis> reviewer Kristine Huntley also commended
+this fourth novel from Abu-Jaber, calling it &ldquo;nuanced and deftly
+written.&rdquo; In like fashion, a <emphasis n="1">Publishers Weekly</emphasis>
+writer felt this a &ldquo;stunning portrayal of a damaged family&rdquo; as
+well as a &ldquo;satisfying and timely story.&rdquo; For a <emphasis n="1">
+Kirkus Reviews</emphasis> contributor, <title>
+<emphasis n="1">Birds of
+Paradise</emphasis>
+</title> is at once a &ldquo;meticulous, deeply moving
+portrayal of imperfect human beings struggling to do right&rdquo; and a
+&ldquo;provocative exploration of the fault lines of loyalty and guilt.&rdquo;
+A more mixed assessment came from <emphasis n="1">New York Times Book
+Review</emphasis> writer Cristina Garcia, who thought that the
+&ldquo;indisputable stars of <title>
+<emphasis n="1">Birds of
+Paradise</emphasis>
+</title> are Felice and Miami itself.&rdquo; Garcia added:
+&ldquo;Abu-Jaber has captured Miami&apos;s insiders and outsiders, the
+ordinary and the outlandish, the hype, the hurricanes, the hoopla. This,
+perhaps, is her greatest achievement in a novel of mixed success.&rdquo;</para>
+</narrative>
+</bio.body>
+<bio.foot>
+<readinggroup>
+<grouptitle level="1">BIOGRAPHICAL AND CRITICAL SOURCES:</grouptitle>
+<grouptitle level="2">BOOKS</grouptitle>
+<bibcitation> <bibcit.composed>Abu-Jaber, Diana, <emphasis n="1">The Language
+of Baklava,</emphasis> Pantheon Books (New York, NY), 2005.</bibcit.composed>
+</bibcitation>
+<grouptitle level="2">PERIODICALS</grouptitle>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Book,</emphasis> May-June, 2003,
+Beth Kephart, review of <emphasis n="1">Crescent,</emphasis> p.
+77.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Booklist,</emphasis> June 1,
+1993, Martha Schoolman, review of <emphasis n="1">Arabian Jazz,</emphasis> p.
+780; March 15, 2003, GraceAnne A. DeCandido, review of <emphasis n="1">
+Crescent,</emphasis> p. 1273; February 15, 2005, Gillian Engberg, review of
+<emphasis n="1">The Language of Baklava,</emphasis> p. 1051; February 15,
+2005, Gillian Engberg, review of <emphasis n="1">The Language of
+Baklava,</emphasis> p. 1051; May 1, 2007, Donna Seaman, review of
+<emphasis n="1">Origin,</emphasis> p. 17; August 1, 2011, Kristine Huntley,
+review of <emphasis n="1">Birds of Paradise,</emphasis> p.
+18.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Christian Science
+Monitor,</emphasis> May 5, 2003, Ron Charles, review of <emphasis n="1">
+Crescent.</emphasis>
+</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Criticism,</emphasis> fall,
+2001, Steven Salaita, &ldquo;Sand Niggers, Small Shops, and Uncle Sam:
+Cultural Negotiation in the Fiction of Joseph Geha and Diana Abu-Jaber,&rdquo;
+p. 423.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Entertainment Weekly,</emphasis>
+March 25, 2005, Allyssa Lee, review of <emphasis n="1">The Language of
+Baklava,</emphasis> p. 76.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Kirkus Reviews,</emphasis>
+February 1, 2003, review of <emphasis n="1">Crescent,</emphasis> p. 156;
+January 1, 2005, review of <emphasis n="1">The Language of Baklava,</emphasis>
+p. 27; January 1, 2005, review of <emphasis n="1">The Language of
+Baklava,</emphasis> p. 27; March 1, 2007, review of <emphasis n="1">
+Origin,</emphasis> p. 183; August 15, 2011, review of <emphasis n="1">Birds of
+Paradise.</emphasis>
+</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Kliatt,</emphasis> September,
+2006, Lorie Paldino, review of <emphasis n="1">The Language of
+Baklava,</emphasis> p. 39.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Library Journal,</emphasis> June
+1, 1993, Cherry W. Li, review of <emphasis n="1">Arabian Jazz,</emphasis> p.
+186; March 1, 2003, Eleanor J. Bader, review of <emphasis n="1">
+Crescent,</emphasis> p. 116; June 15, 2004, Nancy Pearl, review of
+<emphasis n="1">Arabian Jazz,</emphasis> p. 112; August 1, 2011, Joy Humphrey,
+review of <emphasis n="1">Birds of Paradise,</emphasis> p.
+79.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Nation,</emphasis> June 16,
+2003, Charlotte Innes, review of <emphasis n="1">Crescent,</emphasis> p.
+46.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">New York Times Book
+Review,</emphasis> August 14, 1994, Tom DeHaven, review of <emphasis n="1">
+Arabian Jazz,</emphasis> p. 28; June 8, 2003, Anderson Tepper, review of
+<emphasis n="1">Crescent,</emphasis> p. 24; November 25, 2007, Brian Hall,
+&ldquo;Natural Detection,&rdquo; review of <emphasis n="1">Origin,</emphasis>
+p. 34.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">O, the Oprah Magazine,</emphasis>
+March, 2005, Elaina Richardson, review of <emphasis n="1">The Language of
+Baklava,</emphasis> p. 174.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">People,</emphasis> August 9,
+1993, Louisa Ermelino, review of <emphasis n="1">Arabian Jazz,</emphasis> p.
+27.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Publishers Weekly,</emphasis>
+April 12, 1993, review of <emphasis n="1">Arabian Jazz,</emphasis> p. 45; May
+23, 1994, review of <emphasis n="1">Arabian Jazz,</emphasis> p. 85; April 7,
+2003, review of <emphasis n="1">Crescent,</emphasis> p. 48; January 17, 2005,
+review of <emphasis n="1">The Language of Baklava,</emphasis> p. 43; April 9,
+2007, review of <emphasis n="1">Origin,</emphasis> p. 29; July 4, 2011, review
+of <emphasis n="1">Birds of Paradise,</emphasis> p. 45.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">School Library
+Journal,</emphasis> September, 2005, Pat Bangs, review of <emphasis n="1">The
+Language of Baklava,</emphasis> p. 246; June, 2007, Ellen Bell, review of
+<emphasis n="1">Origin,</emphasis> p. 179.</bibcit.composed>
+</bibcitation>
+<grouptitle level="2">ONLINE</grouptitle>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Blogcritics,</emphasis> http://
+blogcritics.org/ (August 31, 2011), Tim O&apos;Shea, &ldquo;Interview:
+Novelist Diana Abu-Jaber on <emphasis n="1">Birds of Paradise.</emphasis>
+&rdquo;</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Caffeine Destiny,</emphasis>
+http://www.caffeinedestiny.com/ (January 31, 2005), &ldquo;Q&amp;A with Diana
+Abu-Jaber.&rdquo;</bibcit.composed>
+</bibcitation>
+<bibcitation> <bibcit.composed>
+<emphasis n="1">Diana Abu-Jaber Home
+Page,</emphasis> http://www.dianaabujaber.com (November 27,
+2010).</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Lyceum Agency Web
+site,</emphasis> http://www.lyceumagency.com/ (November 27, 2011),
+&ldquo;Diana Abu-Jaber.&rdquo;</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">New York Times Book Review
+Online,</emphasis> http://www.nytimes.com/ (September 9, 2011), Cristina
+Garcia, &ldquo;A Story of Sun, Sand and Street Smarts,&rdquo; review of
+<emphasis n="1">Birds of Paradise.</emphasis>
+</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Portland State University,
+Department of English Web site,</emphasis> http://www.english.pdx.edu/
+(November 27, 2011), &ldquo;Diana Abu-Jaber.&rdquo;</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Psychology Today
+Online,</emphasis> http://www.psychologytoday.com/ (September 14, 2011),
+Jennifer Haupt, &ldquo;Life&apos;s Questions, Big and
+Small.&rdquo;</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Voices from the Gaps: Women
+Writers of Color,</emphasis> http://voices.cla.umn.edu/ (January 31, 2005),
+biographical information on Diana Abu-Jaber.</bibcit.composed>
+</bibcitation>
+<bibcitation>
+<bibcit.composed>
+<emphasis n="1">Willamette Week Online</emphasis>
+http://www.wweek.com/ (January 31, 2005), Amy Roe, review of <emphasis n="1">
+Crescent.</emphasis>*</bibcit.composed>
+</bibcitation> </readinggroup>
+</bio.foot>
+
+
+</biography>
