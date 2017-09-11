@@ -176,7 +176,7 @@ protected $I = 0;
 protected $U = 0;
 protected $HREF = '';
 
-function WriteHTML($html)
+function WriteHTML($html, $preserveBreaks = true)
 {
     // HTML parser
    // $html = str_replace("\n",' ',$html);
@@ -196,7 +196,7 @@ function WriteHTML($html)
         {
             // Tag
             if($e[0]=='/')
-                $this->CloseTag(strtoupper(substr($e,1)));
+                $this->CloseTag(strtoupper(substr($e,1)), $preserveBreaks);
             else
             {
                 // Extract attributes
@@ -208,13 +208,13 @@ function WriteHTML($html)
                     if(preg_match('/([^=]*)=["\']?([^"\']*)/',$v,$a3))
                         $attr[strtoupper($a3[1])] = $a3[2];
                 }
-                $this->OpenTag($tag,$attr);
+                $this->OpenTag($tag,$attr, $preserveBreaks);
             }
         }
     }
 }
 
-function OpenTag($tag, $attr)
+function OpenTag($tag, $attr, $preserveBreaks)
 {
 	// Opening tag
 	if($tag=='EM')
@@ -229,7 +229,7 @@ function OpenTag($tag, $attr)
 		$this->Ln(5);
 }
 
-function CloseTag($tag)
+function CloseTag($tag, $preserveBreaks)
 {
 	// Closing tag
 	if($tag=='EM')
@@ -240,7 +240,7 @@ function CloseTag($tag)
         $this->SetStyle($tag,false);
     if($tag=='A')
 		$this->HREF = '';
-	if($tag=='P')
+	if($tag=='P' && $preserveBreaks)
 		$this->Ln(5);
 }
 

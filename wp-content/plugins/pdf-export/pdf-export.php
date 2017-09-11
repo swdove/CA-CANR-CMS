@@ -484,12 +484,20 @@ function pdf_build_file_name($post) {
 
 function build_PDF_file($post) {
     $authName = $post->lastName . ", " . $post->firstName;
-    $authPersonal = $post->personal;
-    $authEducation = $post->education;
-    $authAddress = array();
-    $authCareer = "";
-    $authWriting = array();
-    $authSidelights = $post->narrative;
+    $authPersonal = pdf_convert_wyswig_punctuation($post->personal);
+    $authEducation = pdf_convert_wyswig_punctuation($post->education);    
+    $authCareer = pdf_convert_wyswig_punctuation($post->workHistory);
+    $authMilitary = pdf_convert_wyswig_punctuation($post->military);
+    $authAvocations = pdf_convert_wyswig_punctuation($post->avocations);
+    $authMember = pdf_convert_wyswig_punctuation($post->member);
+    $authAwards = pdf_convert_wyswig_punctuation($post->awards);
+    $authPolitics = $post->politics;
+    $authReligion = $post->religion;
+    $authSidelights = pdf_convert_wyswig_punctuation($post->narrative);
+
+    #ARRAYS
+    $authAddress = $post->addresses;
+    $authWriting = $post->writings;
     $authBiocrit = array();
 
     $pdf = new FPDF();
@@ -501,32 +509,214 @@ function build_PDF_file($post) {
     $pdf->SetFont('Arial','B',12);
     $pdf->Cell(0,10,'PERSONAL',0,1);
     $pdf->SetFont('Arial','',12);
-    $pdf->WriteHTML($authPersonal);
+    $pdf->WriteHTML($authPersonal, false);
     $pdf->Ln();
    // $pdf->MultiCell(0,5,$authPersonal);
     #EDUCATION
+    if($post->education) {
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,10,'EDUCATION',0,1);
+        $pdf->SetFont('Arial','',12);
+        $pdf->WriteHTML($authEducation, false);
+        $pdf->Ln();
+    }
+    #ADDRESSES
+    if($post->addresses) {
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,10,'ADDRESS',0,1);
+        $pdf->SetFont('Arial','',12);
+        foreach ($post->addresses as $address) {
+            $addr = "   * " . $address->type . " - " . $address->address_text;
+            $pdf->WriteHTML($addr);
+            $pdf->Ln();
+        }
+    }
+    #CAREER
     $pdf->SetFont('Arial','B',12);
-    $pdf->Cell(0,10,'EDUCATION',0,1);
-    $pdf->SetFont('Arial','',12);
-    $pdf->WriteHTML($authEducation);
-    $pdf->Ln();
-   // $pdf->MultiCell(0,5,$authEducation);
-    #SIDELIGHT
+    $pdf->Cell(0,10,'CAREER',0,1);
+    if($post->workHistory) {
+        $pdf->SetFont('Arial','',12);
+        $pdf->WriteHTML($authCareer, false);
+        $pdf->Ln();
+    }
+    #MILITARY
+    if($post->military) {
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,10,'MILITARY',0,1);
+        $pdf->SetFont('Arial','',12);
+        $pdf->WriteHTML($authMilitary, false);
+        $pdf->Ln();
+    } 
+    #AVOCATIONS
+    if($post->avocations) {
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,10,'AVOCATIONS',0,1);
+        $pdf->SetFont('Arial','',12);
+        $pdf->WriteHTML($authAvocations, false);
+        $pdf->Ln();
+    }     
+    #MEMBER
+    if($post->member) {
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,10,'MEMBER',0,1);
+        $pdf->SetFont('Arial','',12);
+        $pdf->WriteHTML($authMember, false);
+        $pdf->Ln();
+    }    
+    #AWARDS
+    if($post->awards) {
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,10,'AWARDS',0,1);
+        $pdf->SetFont('Arial','',12);
+        $pdf->WriteHTML($authAwards, false);
+        $pdf->Ln();
+    } 
+    #POLITICS
+    if($post->politics) {
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,10,'POLITICS',0,1);
+        $pdf->SetFont('Arial','',12);
+        $pdf->WriteHTML($authPolitics);
+        $pdf->Ln();
+    } 
+    #RELIGION
+    if($post->religion) {
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,10,'RELIGION',0,1);
+        $pdf->SetFont('Arial','',12);
+        $pdf->WriteHTML($authReligion);
+        $pdf->Ln();
+    }               
+    #WRITINGS
+    if($post->writings) {
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(0,10,'WRITINGS',0,1);
+        $pdf->SetFont('Arial','',12);
+        foreach ($post->writings as $writing) {
+            if($writing->id == "subhead") {
+                $wrt = pdf_convert_wyswig_punctuation($writing->title);
+                $pdf->SetFont('Arial','B',12);
+                $pdf->Cell(0,10,"    " . $wrt,0,1);
+                //$pdf->Ln();              
+            }
+            elseif($writing->id == "imported_subhead") {
+                $wrt = pdf_convert_wyswig_punctuation($writing->title);
+                $pdf->SetFont('Arial','B',12);
+                $pdf->Cell(0,10,"    " . $wrt,0,1);
+                //$pdf->Ln();              
+            }              
+            elseif($writing->id == "misc") {
+                $wrt = "   * ";
+                if(!empty($writing->role)) {
+                    $wrt .= $writing->role;
+                }
+                if($writing->type){
+                    $wrt .= "<b><i>" . $writing->title . "</i></b> (" . $writing->type . "), ";
+                } else {
+                    $wrt .= "<b><i>" . $writing->title . "</i></b>, ";
+                }
+                $wrt .= $writing->publisher;
+                if($writing->location) {
+                    $wrt .= " (" . $writing->location . "), ";
+                }
+                $wrt .= $writing->year;
+                $pdf->SetFont('Arial','',12);
+                $pdf->WriteHTML($wrt);
+                $pdf->Ln();
+               // $pdf->Cell(0,10,"   * " . $wrt,0,1);
+                //$pdf->Ln();                
+            }
+            elseif($writing->id == "loc") {
+                $wrt = "   * ";
+                if(!empty($writing->role)) {
+                    $wrt .= $writing->role;
+                }
+                if($writing->type){
+                    $wrt .= "<b><i>" . $writing->title . "</i></b> (" . $writing->type . "), ";
+                } else {
+                    $wrt .= "<b><i>" . $writing->title . "</i></b>, ";
+                }
+                $wrt .= $writing->publisher;
+                if($writing->location) {
+                    $wrt .= " (" . $writing->location . "), ";
+                }
+                $wrt .= $writing->year;
+                $pdf->SetFont('Arial','',12);
+                $pdf->WriteHTML($wrt);
+                $pdf->Ln();
+              //  $pdf->Cell(0,10,"   * " . $wrt,0,1);
+               // $pdf->Ln();                
+            }
+            elseif($writing->id == "imported") {
+                $wrt = "   * ";
+                $wrt_text = trim($writing->text) . ", " . $writing->year;
+                $wrt .= pdf_convert_wyswig_punctuation($wrt_text);
+                //$wrt .= $writing->year;
+                $pdf->SetFont('Arial','',12);
+                $pdf->WriteHTML($wrt, false);
+                $pdf->Ln();
+               // $pdf->Ln();                
+            }            
+
+        }
+    }  
+    #SIDELIGHTS
     $pdf->SetFont('Arial','B',12);
     $pdf->Cell(0,10,'SIDELIGHTS',0,1);    
     $pdf->SetFont('Arial','',12);
-   // $pdf->MultiCell(0,5,$authSidelights);
-    $authSidelights = pdf_convert_wyswig_punctuation($authSidelights);
     $pdf->WriteHTML($authSidelights);
-    //$pdf->Output();
+    #BIOCRIT
+    $pdf->SetFont('Arial','B',12);
+    $pdf->Cell(0,10,'BIOCRIT',0,1); 
+    if($post->biocrit_books) {
+        $pdf->SetFont('Arial','I',12);
+        $pdf->Cell(0,10,'BOOKS',0,1);
+        $pdf->SetFont('Arial','',12);
+        foreach ($post->biocrit_books as $book) {
+            $text = "   * " . pdf_convert_wyswig_punctuation($book);
+            $pdf->WriteHTML($text);
+           // $pdf->Ln();
+        }
+    }     
+    if($post->biocrit_periodicals) {
+        $pdf->SetFont('Arial','I',12);
+        $pdf->Cell(0,10,'PERIODICALS',0,1);
+        $pdf->SetFont('Arial','',12);
+        foreach ($post->biocrit_periodicals as $periodical) {
+            $text = "   * " . pdf_convert_wyswig_punctuation($periodical);
+            $pdf->WriteHTML($text);
+           // $pdf->Ln();
+        }
+    }
+    if($post->biocrit_online) {
+        $pdf->SetFont('Arial','I',12);
+        $pdf->Cell(0,10,'ONLINE',0,1);
+        $pdf->SetFont('Arial','',12);
+        foreach ($post->biocrit_online as $online) {
+            $text = "   * " . pdf_convert_wyswig_punctuation($online);
+            $pdf->WriteHTML($text);
+            //$pdf->Ln();
+        }
+    }
+   // $pdf->Output();
     $pdf_string = $pdf->Output('S');
 	return $pdf_string;
 }
 
+function stripPara($text){
+    $text = str_replace('<p>', '', $text);
+    $text = str_replace('</p>', '', $text);
+    return $text;
+}
+
 function pdf_convert_wyswig_punctuation($text) {
+    $text = str_replace("&#8217;", "'", $text);
+    $text = str_replace("'", "'", $text);
     $text = str_replace('’', "'", $text);
     $text = str_replace('“', '"', $text);
     $text = str_replace('”', '"', $text);
+    $text = str_replace('—', '-', $text);
+    $text = str_replace('&#038;', '&', $text);
 
 	$text = str_replace('Â', ' ', $text); //Â
 	$text = str_replace(chr(194), ' ', $text); //Â
