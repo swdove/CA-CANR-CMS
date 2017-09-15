@@ -484,6 +484,7 @@ function pdf_build_file_name($post) {
 
 function build_PDF_file($post) {
     $authName = $post->lastName . ", " . $post->firstName;
+    $authName = pdf_convert_wyswig_punctuation($authName);
     $authPersonal = pdf_convert_wyswig_punctuation($post->personal);
     $authEducation = pdf_convert_wyswig_punctuation($post->education);    
     $authCareer = pdf_convert_wyswig_punctuation($post->workHistory);
@@ -620,6 +621,7 @@ function build_PDF_file($post) {
                     $wrt .= " (" . $writing->location . "), ";
                 }
                 $wrt .= $writing->year;
+                $wrt = pdf_convert_wyswig_punctuation($wrt);
                 $pdf->SetFont('Arial','',12);
                 $pdf->WriteHTML($wrt);
                 $pdf->Ln();
@@ -641,6 +643,7 @@ function build_PDF_file($post) {
                     $wrt .= " (" . $writing->location . "), ";
                 }
                 $wrt .= $writing->year;
+                $wrt = pdf_convert_wyswig_punctuation($wrt);
                 $pdf->SetFont('Arial','',12);
                 $pdf->WriteHTML($wrt);
                 $pdf->Ln();
@@ -698,7 +701,7 @@ function build_PDF_file($post) {
             //$pdf->Ln();
         }
     }
-   // $pdf->Output();
+    //$pdf->Output();
     $pdf_string = $pdf->Output('S');
 	return $pdf_string;
 }
@@ -709,18 +712,24 @@ function stripPara($text){
     return $text;
 }
 
-function pdf_convert_wyswig_punctuation($text) {
+function pdf_convert_wyswig_punctuation($text) {    
+    $text = str_replace('&#8220;', '"', $text);
+	$text = str_replace('&#8221;', '"', $text);
     $text = str_replace("&#8217;", "'", $text);
     $text = str_replace("'", "'", $text);
     $text = str_replace('’', "'", $text);
     $text = str_replace('“', '"', $text);
     $text = str_replace('”', '"', $text);
     $text = str_replace('—', '-', $text);
+    $text = str_replace('&amp;', '&', $text);
     $text = str_replace('&#038;', '&', $text);
 
 	$text = str_replace('Â', ' ', $text); //Â
 	$text = str_replace(chr(194), ' ', $text); //Â
-	$text = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $text);
+	setlocale(LC_CTYPE, 'cs_CZ');
+	$text = iconv('UTF-8', 'windows-1252//TRANSLIT//IGNORE',$text);
+   // $text = iconv('UTF-8', 'ISO-8859-1//TRANSLIT//IGNORE', $text);
+   // $text = utf8_encode($text);
 	return $text;
 }
 
