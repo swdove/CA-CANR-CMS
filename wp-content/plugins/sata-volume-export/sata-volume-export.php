@@ -96,6 +96,7 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 
 	class Post {
 		public $id;
+		public $pen;
 		public $atlasuid;
 		public $galeData;
 		public $xml_declaration;
@@ -340,7 +341,10 @@ function parse_export_values($post) {
 				break;
 			case "xml_declaration":
 				$post->xml_declaration = $field->value;
-				break;													
+				break;			
+			case "pen_id":
+				$post->pen = $field->value;
+				break;															
 			default:
 				//exclude "field identifier" fields
 				if(!(preg_match('/^_/', $field->name))) {				
@@ -443,10 +447,10 @@ function get_repeater_values($post) {
 			 		// loop through the rows of data
 					$rpt = new Reprint();
 			    	while ( have_rows('misc_reprinted_as') ) : the_row();
-						$rpt->title = get_sub_field('loc_reprinted_title');
-						$rpt->publisher = get_sub_field('loc_reprinted_publisher');
-						$rpt->location = get_sub_field('loc_reprinted_location');
-						$rpt->year = get_sub_field('loc_reprinted_year');
+						$rpt->title = get_sub_field('misc_reprinted_title');
+						$rpt->publisher = get_sub_field('misc_reprinted_publisher');
+						$rpt->location = get_sub_field('misc_reprinted_location');
+						$rpt->year = get_sub_field('misc_reprinted_year');
 						array_push($wrt->reprints, $rpt);
 					endwhile;
 				endif;
@@ -497,7 +501,17 @@ function build_SGML_file($post) {
 	$export .= "<biography>" . PHP_EOL;
 
 	if(!empty($post->galeData)) {
-		$export .= $post->galeData . PHP_EOL;
+		$fake_pen = (substr( $post->pen, 0, 1) === "s");
+		if($fake_pen === true) {
+			$export .= "<galedata>". PHP_EOL;
+			$export .= "<infobase>". PHP_EOL;
+			$export .= "<pen>". PHP_EOL;
+			$export .= "</pen>". PHP_EOL;
+			$export .= "</infobase>". PHP_EOL;
+			$export .= "</galedata>". PHP_EOL;			
+		} else {
+			$export .= $post->galeData . PHP_EOL;
+		}
 	}	
 
 	$export .= "<bio.head>" . PHP_EOL;
@@ -511,19 +525,19 @@ function build_SGML_file($post) {
 	$export .= '<mainname gender="' . strtolower($post->gender) . '">' . PHP_EOL;
 
 	if(!empty($post->prefix)) {
-		$export .= "<prefix>" . $post->prefix . "</prefix>" . PHP_EOL;
+		$export .= "<prefix>" . convert_wyswig_punctuation($post->prefix) . "</prefix>" . PHP_EOL;
 	}
 	if(!empty($post->firstName)) {
-		$export .= "<first>" . $post->firstName . "</first>" . PHP_EOL;
+		$export .= "<first>" . convert_wyswig_punctuation($post->firstName) . "</first>" . PHP_EOL;
 	}
 	if(!empty($post->middleName)) {
-		$export .= "<middle>" . $post->middleName . "</middle>" . PHP_EOL;
+		$export .= "<middle>" . convert_wyswig_punctuation($post->middleName) . "</middle>" . PHP_EOL;
 	}
 	if(!empty($post->lastName)) {
-		$export .= "<last>" . $post->lastName . "</last>" . PHP_EOL;
+		$export .= "<last>" . convert_wyswig_punctuation($post->lastName) . "</last>" . PHP_EOL;
 	}
 	if(!empty($post->suffix)) {
-		$export .= "<suffix>" . $post->suffix . "</suffix>" . PHP_EOL;
+		$export .= "<suffix>" . convert_wyswig_punctuation($post->suffix) . "</suffix>" . PHP_EOL;
 	}
 	$export .= "</mainname>" . PHP_EOL;
 	
@@ -550,19 +564,19 @@ function build_SGML_file($post) {
 		$export .= PHP_EOL;
 		$export .= '<variantname nametype="'. $typeCode .'">' . PHP_EOL;
 		if(!empty($variantName->prefix)) {
-			$export .= "<prefix>" . $variantName->prefix . "</prefix>" . PHP_EOL;
+			$export .= "<prefix>" . convert_wyswig_punctuation($variantName->prefix) . "</prefix>" . PHP_EOL;
 		}
 		if(!empty($variantName->firstName)) {
-			$export .= "<first>" . $variantName->firstName . "</first>" . PHP_EOL;
+			$export .= "<first>" . convert_wyswig_punctuation($variantName->firstName) . "</first>" . PHP_EOL;
 		}
 		if(!empty($variantName->middleName)) {
-			$export .= "<middle>" . $variantName->middleName . "</middle>" . PHP_EOL;
+			$export .= "<middle>" . convert_wyswig_punctuation($variantName->middleName) . "</middle>" . PHP_EOL;
 		}
 		if(!empty($variantName->lastName)) {
-			$export .= "<last>" . $variantName->lastName . "</last>" . PHP_EOL;
+			$export .= "<last>" . convert_wyswig_punctuation($variantName->lastName) . "</last>" . PHP_EOL;
 		}
 		if(!empty($variantName->suffix)) {
-			$export .= "<suffix>" . $variantName->suffix . "</suffix>" . PHP_EOL;
+			$export .= "<suffix>" . convert_wyswig_punctuation($variantName->suffix) . "</suffix>" . PHP_EOL;
 		}
 		$export .= "</variantname>" . PHP_EOL;
 	}
@@ -774,7 +788,24 @@ function build_SGML_file($post) {
 			$writing_location = WYSIWYG_conversion($writing->location, false);
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
-			$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
+			if(!empty($writing->reprints)){
+				$reprint_text = "";
+				foreach($writing->reprints as $reprint){
+					if(!empty($reprint->title)){
+						$reprint_title = WYSIWYG_conversion($reprint->title, false);
+						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
+						$reprint_location = WYSIWYG_conversion($reprint->location, false);
+						$reprint_text .= ', published as <title><emphasis n="1">' . $reprint_title . ',</emphasis></title> ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
+					} else {
+						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
+						$reprint_location = WYSIWYG_conversion($reprint->location, false);
+						$reprint_text .= ', reprinted, ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
+					}
+				}
+				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
+			} else {
+				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
+			}
 			$export .= "</bibcit.composed>" . PHP_EOL;
 			$export .= "</bibcitation>" . PHP_EOL;	
 		}
@@ -786,7 +817,7 @@ function build_SGML_file($post) {
 	$export .= "</works>" . PHP_EOL . PHP_EOL;
 
 	$export .= '<narrative type="sidelights">' . PHP_EOL; 
-	$export .= WYSIWYG_conversion($post->narrative, true, true, true) . PHP_EOL;
+	$export .= WYSIWYG_conversion($post->narrative, true, true) . PHP_EOL;
 	$export .= "</narrative>" . PHP_EOL;
 
 	$export .= "</bio.body>" . PHP_EOL;
@@ -849,7 +880,7 @@ function format_WYSIWYG_tags($text) {
 	return $text;
 }
 
-function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true, $sidelights = false) {
+function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	//convert all non-quotation special characters to codes
 	$text = htmlentities($text);
 
@@ -865,7 +896,7 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true, $s
 		//$text = str_replace('&lt;/p&gt;', '</para>' . PHP_EOL, $text);	
 		$text = str_replace('&lt;/p&gt;', '</para>', $text);	
 	}
-	
+
 	if($includeTitle == false) {
 		//strip <strong> and <b> tags
 		$text = str_replace('&lt;strong&gt;', '', $text);
@@ -908,24 +939,27 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true, $s
 	$text = str_replace('</emphasis>;', ';</emphasis>', $text);
 
 	$text = html_entity_decode($text);
+	$text = convert_wyswig_punctuation($text);
 
-	if($sidelights == true) {
-		//converting media tags back to angle brackets
-    		$text = preg_replace_callback('/(<para>)(.*?)(<\/para>)/s', function($matches) {
-				$new_text = $matches[0];
-				$inner_text = $matches[2];
-				if(preg_match('/\[media\]/', $inner_text)) {
-        			$new_text = str_replace("[", "<", $new_text);
-        			$new_text = str_replace("]", ">" . PHP_EOL, $new_text);	
-					$new_text = str_replace("©", "&copy;", $new_text); // ©				
-				} else {
-					$new_text = convert_wyswig_punctuation($new_text);
-				}        
-        	return $new_text;
-    	}, $text); 	
-	} else {
-		$text = convert_wyswig_punctuation($text);
-	}	
+	//included this to convert media tags but they aren't needed i guess
+
+	// if($sidelights == true) {
+	// 	//converting media tags back to angle brackets
+    // 		$text = preg_replace_callback('/(<para>)(.*?)(<\/para>)/s', function($matches) {
+	// 			$new_text = $matches[0];
+	// 			$inner_text = $matches[2];
+	// 			if(preg_match('/\[media\]/', $inner_text)) {
+    //     			$new_text = str_replace("[", "<", $new_text);
+    //     			$new_text = str_replace("]", ">" . PHP_EOL, $new_text);	
+	// 				$new_text = str_replace("©", "&copy;", $new_text); // ©				
+	// 			} else {
+	// 				$new_text = convert_wyswig_punctuation($new_text);
+	// 			}        
+    //     	return $new_text;
+    // 	}, $text); 	
+	// } else {
+	// 	$text = convert_wyswig_punctuation($text);
+	// }	
 
 	// //$text = html_entity_decode($text);
 
@@ -1080,12 +1114,19 @@ function convert_wyswig_punctuation($text) {
     $text = str_replace("Š", "&Scaron;", $text); // Š		
     $text = str_replace("č", "&ccaron;", $text); // č		
 	$text = str_replace("Č", "&Ccaron;", $text); // Č		
-	$text = str_replace("ć", "&cacute;", $text); // ć		
-	$text = str_replace("ī", "&imacr;", $text); // ī		
+	$text = str_replace("ć", "&cacute;", $text); // ć				
 	$text = str_replace("ø", "&oslash;", $text); // ø		
 	$text = str_replace("æ", "&aelig;", $text); // æ		
 	$text = str_replace("å", "&aring;", $text); // å		
-	$text = str_replace("¡", "&iexcl;", $text); // ¡ 	 	
+	$text = str_replace("¡", "&iexcl;", $text); // ¡ 	
+
+	$text = str_replace("ḥ", "&hunddot;", $text);
+	$text = str_replace("ḥ", "&hunddot;", $text); // ḥ ḥ
+	$text = str_replace("ṭ", "&tunddot;", $text); // ṭ ī
+	$text = str_replace("ā", "&amacr;", $text); // ā	
+	$text = str_replace("ī", "&imacr;", $text); // ī
+	$text = str_replace("ī", "&imacr;", $text); // ī
+	$text = str_replace("ū", "&umacr;", $text); // ū	
 
 	return $text;
 }
