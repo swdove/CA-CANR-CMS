@@ -23,7 +23,7 @@ if(isset($_GET['page']) && $_GET['page'] == 'pdf_export' && isset( $_GET['downlo
 
 
 
-class Post {
+class PDFPost {
     public $id;
     public $atlasuid;
     public $galeData;
@@ -73,12 +73,12 @@ class Post {
     public $fields = Array();
 }
 
-class Content {
+class PDFContent {
     public $name;
     public $value;
 }
 
-class VariantName {
+class PDFVariantName {
     public $type;
     public $prefix;
     public $firstName;
@@ -87,12 +87,12 @@ class VariantName {
     public $suffix;
 }
 
-class Address {
+class PDFAddress {
     public $type;
     public $address_text;
 }
 
-class Writing {
+class PDFWriting {
     public $id;
     public $title;
     public $type;
@@ -103,7 +103,7 @@ class Writing {
     public $text;
 }
 
-class Reprint {
+class PDFReprint {
     public $title;
     public $publisher;
     public $location;
@@ -191,7 +191,7 @@ function export_pdf ($author='', $category='', $post_type='', $status='', $start
 
     //loop through post ids, get post content, metadata fields and values
 	foreach ($post_ids as $id) {
-		$post = new Post();
+		$post = new PDFPost();
 		$thepost = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->posts WHERE ID = %s", $id ) );
 		$post->id = $id;
 		$post->title = $thepost->post_title;
@@ -199,7 +199,7 @@ function export_pdf ($author='', $category='', $post_type='', $status='', $start
 		if ( $postmeta ) {
 			$myFields = array();
 			foreach( $postmeta as $meta ) {
-				$myContent = new Content();
+				$myContent = new PDFContent();
 				$myContent->name = $meta->meta_key;
 				$myContent->value = $meta->meta_value;
 				array_push($myFields, $myContent);
@@ -350,7 +350,7 @@ function pdf_get_repeater_values($post) {
 	$variants = get_field('variant_name', $post->id);
 	if($variants) {
 		foreach($variants as $variant) {
-			$varName = new VariantName();
+			$varName = new PDFVariantName();
 			$varName->type = $variant['var_name_type'];
 			$varName->prefix = $variant['var_prefix'];
 			$varName->firstName = $variant['var_first_name'];
@@ -365,7 +365,7 @@ function pdf_get_repeater_values($post) {
 	$addresses = get_field('author_address', $post->id);
 	if($addresses) {
 		foreach($addresses as $address) {
-			$addr = new Address();
+			$addr = new PDFAddress();
 			$addr->type = $address['author_address_type'];
 			$addr->address_text = $address['author_address_text'];
 			array_push($post->addresses, $addr);
@@ -403,7 +403,7 @@ function pdf_get_repeater_values($post) {
 	if( have_rows('collected_writings', $post->id) ):
  		// loop through the rows of data
     	while ( have_rows('collected_writings', $post->id) ) : the_row();
-			$wrt = new Writing();
+			$wrt = new PDFWriting();
 			// check current row layout
         	if( get_row_layout() == 'loc_writing' ):
 			//$writing = get_sub_field('loc_writing_title');
@@ -416,7 +416,7 @@ function pdf_get_repeater_values($post) {
         		// check if the nested repeater field has rows of data
         		if( have_rows('loc_reprinted_as') ):
 			 		// loop through the rows of data
-					$rpt = new Reprint();
+					$rpt = new PDFReprint();
 			    	while ( have_rows('loc_reprinted_as') ) : the_row();
 						$rpt->title = get_sub_field('loc_reprinted_title');
 						$rpt->publisher = get_sub_field('loc_reprinted_publisher');
@@ -436,7 +436,7 @@ function pdf_get_repeater_values($post) {
         		// check if the nested repeater field has rows of data
         		if( have_rows('misc_reprinted_as') ):
 			 		// loop through the rows of data
-					$rpt = new Reprint();
+					$rpt = new PDFReprint();
 			    	while ( have_rows('misc_reprinted_as') ) : the_row();
 						$rpt->title = get_sub_field('misc_reprinted_title');
 						$rpt->publisher = get_sub_field('misc_reprinted_publisher');
