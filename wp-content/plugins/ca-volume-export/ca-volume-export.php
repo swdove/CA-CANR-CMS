@@ -840,7 +840,9 @@ function build_SGML_file($post) {
 	//strip weird empty space characters
 	$export = str_replace('Â', ' ', $export); //Â
 	$export = str_replace(chr(194), ' ', $export); //Â
-	$export = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $export);
+	setlocale(LC_CTYPE, 'cs_CZ');
+	$export = iconv('UTF-8', 'windows-1252//TRANSLIT//IGNORE',$export);
+	//$export = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $export);
 	//$export = utf8_encode($export);
 
 	return $export;
@@ -1072,8 +1074,20 @@ function convert_wyswig_punctuation($text) {
 	$text = str_replace("ø", "&oslash;", $text); // ø
 	$text = str_replace("æ", "&aelig;", $text); // æ
 	$text = str_replace("å", "&aring;", $text); // å
-
-	$text = str_replace("¡", "&iexcl;", $text); // ¡ 	  	
+	$text = str_replace("¡", "&iexcl;", $text); // ¡
+	
+	$text = str_replace("ḥ", "&hunddot;", $text); //ḥ
+	$text = str_replace("ḥ", "&hunddot;", $text); // ḥ
+	$text = str_replace("ṣ", "&sunddot;", $text); // ṣ
+	$text = str_replace("ṭ", "&tunddot;", $text); // ṭ 
+	$text = str_replace("ā", "&amacr;", $text); // ā
+	$text = str_replace("ā", "&amacr;", $text); // ā	
+	$text = str_replace("ī", "&imacr;", $text); // ī
+	$text = str_replace("ī", "&imacr;", $text); // ī
+	$text = str_replace("ū", "&umacr;", $text); // ū
+	$text = str_replace("ū", "&umacr;", $text); // ū	
+	$text = str_replace("ʹ", "&prime;", $text); // ʹ
+	$text = str_replace("ʻ", "&prime;", $text); // ʹ	
 
 	return $text;
 }
