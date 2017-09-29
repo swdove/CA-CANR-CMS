@@ -170,6 +170,7 @@ function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $
 		public $publisher;
 		public $location;
 		public $year;
+		public $role;
 		public $reprints = Array();
 		public $text;
 	}
@@ -415,8 +416,10 @@ function get_repeater_values($post) {
 				$wrt->publisher = get_sub_field('loc_writing_publisher');
 				$wrt->location = get_sub_field('loc_writing_location');
 				$wrt->year = get_sub_field('loc_writing_year');
+				$wrt->role = get_sub_field('loc_writing_role');
         		// check if the nested repeater field has rows of data
-        		if( have_rows('loc_reprinted_as') ):
+				//if( have_rows('loc_reprinted_as') ):
+				if( $writing_row['loc_writing_reprinted'] === true ):
 			 		// loop through the rows of data
 					$rpt = new Reprint();
 			    	while ( have_rows('loc_reprinted_as') ) : the_row();
@@ -435,8 +438,10 @@ function get_repeater_values($post) {
 				$wrt->publisher = get_sub_field('misc_writing_publisher');
 				$wrt->location = get_sub_field('misc_writing_location');
 				$wrt->year = get_sub_field('misc_writing_year');			
+				$wrt->role = get_sub_field('misc_writing_role');			
         		// check if the nested repeater field has rows of data
-        		if( have_rows('misc_reprinted_as') ):
+				//if( have_rows('misc_reprinted_as') ):
+				if( $writing_row['misc_writing_reprinted'] === true ):
 			 		// loop through the rows of data
 					$rpt = new Reprint();
 			    	while ( have_rows('misc_reprinted_as') ) : the_row();
@@ -500,21 +505,21 @@ function build_SGML_file($post) {
 
 	#MAIN NAME
 	$export .= '<mainname gender="' . strtolower($post->gender) . '">' . PHP_EOL;
-
+	
 	if(!empty($post->prefix)) {
-		$export .= "<prefix>" . $post->prefix . "</prefix>" . PHP_EOL;
+		$export .= "<prefix>" . convert_wyswig_punctuation($post->prefix) . "</prefix>" . PHP_EOL;
 	}
 	if(!empty($post->firstName)) {
-		$export .= "<first>" . $post->firstName . "</first>" . PHP_EOL;
+		$export .= "<first>" . convert_wyswig_punctuation($post->firstName) . "</first>" . PHP_EOL;
 	}
 	if(!empty($post->middleName)) {
-		$export .= "<middle>" . $post->middleName . "</middle>" . PHP_EOL;
+		$export .= "<middle>" . convert_wyswig_punctuation($post->middleName) . "</middle>" . PHP_EOL;
 	}
 	if(!empty($post->lastName)) {
-		$export .= "<last>" . $post->lastName . "</last>" . PHP_EOL;
+		$export .= "<last>" . convert_wyswig_punctuation($post->lastName) . "</last>" . PHP_EOL;
 	}
 	if(!empty($post->suffix)) {
-		$export .= "<suffix>" . $post->suffix . "</suffix>" . PHP_EOL;
+		$export .= "<suffix>" . convert_wyswig_punctuation($post->suffix) . "</suffix>" . PHP_EOL;
 	}
 	$export .= "</mainname>" . PHP_EOL;
 	
@@ -541,19 +546,19 @@ function build_SGML_file($post) {
 		$export .= PHP_EOL;
 		$export .= '<variantname nametype="'. $typeCode .'">' . PHP_EOL;
 		if(!empty($variantName->prefix)) {
-			$export .= "<prefix>" . $variantName->prefix . "</prefix>" . PHP_EOL;
+			$export .= "<prefix>" . convert_wyswig_punctuation($variantName->prefix) . "</prefix>" . PHP_EOL;
 		}
 		if(!empty($variantName->firstName)) {
-			$export .= "<first>" . $variantName->firstName . "</first>" . PHP_EOL;
+			$export .= "<first>" . convert_wyswig_punctuation($variantName->firstName) . "</first>" . PHP_EOL;
 		}
 		if(!empty($variantName->middleName)) {
-			$export .= "<middle>" . $variantName->middleName . "</middle>" . PHP_EOL;
+			$export .= "<middle>" . convert_wyswig_punctuation($variantName->middleName) . "</middle>" . PHP_EOL;
 		}
 		if(!empty($variantName->lastName)) {
-			$export .= "<last>" . $variantName->lastName . "</last>" . PHP_EOL;
+			$export .= "<last>" . convert_wyswig_punctuation($variantName->lastName) . "</last>" . PHP_EOL;
 		}
 		if(!empty($variantName->suffix)) {
-			$export .= "<suffix>" . $variantName->suffix . "</suffix>" . PHP_EOL;
+			$export .= "<suffix>" . convert_wyswig_punctuation($variantName->suffix) . "</suffix>" . PHP_EOL;
 		}
 		$export .= "</variantname>" . PHP_EOL;
 	}
@@ -760,11 +765,15 @@ function build_SGML_file($post) {
 			$export .= "</bibcit.composed>" . PHP_EOL;
 			$export .= "</bibcitation>" . PHP_EOL;	
 		} else {
+			$writing_role = WYSIWYG_conversion($writing->role, false);
 			$writing_title = WYSIWYG_conversion($writing->title, false);
 			$writing_publisher = WYSIWYG_conversion($writing->publisher, false);
 			$writing_location = WYSIWYG_conversion($writing->location, false);
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
+			if(!empty($writing_role)) {
+				$export .= "(" . $writing_role . ")" ;
+			}
 			if(!empty($writing->reprints)){
 				$reprint_text = "";
 				foreach($writing->reprints as $reprint){

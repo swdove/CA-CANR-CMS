@@ -91,7 +91,7 @@
           <b>WRITINGS</b>
           <?php if( have_rows('collected_writings') ): ?>
             <ul>
-              <?php while( have_rows('collected_writings') ): the_row(); ?>
+              <?php while( have_rows('collected_writings') ): $writing_row = the_row(true); ?>
               <li>
                 <?php if( get_row_layout() == 'loc_writing' ): ?>
                         <?php $role = get_sub_field( "loc_writing_role" );
@@ -114,6 +114,13 @@
                             }
                         ?>
                         <?php the_sub_field('loc_writing_year'); ?>
+                        <?php if( $writing_row['loc_writing_reprinted'] === true ) {
+                              foreach ($writing_row['loc_reprinted_as'] as $rep) {
+                                $rep_text = ", published as <b><i>" . $rep['loc_reprinted_title'] . "</i></b> " . $rep['loc_reprinted_publisher'] . " (" . $rep['loc_reprinted_location'] . "), " . $rep['loc_reprinted_year'] ;
+                                echo $rep_text;
+                              }
+                            }
+                        ?>                        
                   <?php elseif( get_row_layout() == 'misc_writing' ): ?>
                         <?php $role = get_sub_field( "misc_writing_role" );
                             if( $role ) { 
@@ -135,6 +142,13 @@
                             }
                         ?>
                         <?php the_sub_field('misc_writing_year'); ?>
+                        <?php if( $writing_row['misc_writing_reprinted'] === true ) {
+                              foreach ($writing_row['misc_reprinted_as'] as $rep) {
+                                $rep_text = ", published as <b><i>" . $rep['misc_reprinted_title'] . "</i></b> " . $rep['misc_reprinted_publisher'] . " (" . $rep['misc_reprinted_location'] . "), " . $rep['misc_reprinted_year'] ;
+                                echo $rep_text;
+                              }
+                            }
+                        ?>                           
                   <?php elseif( get_row_layout() == 'imported_writing' ): ?>              
                         <?php $imported_text = get_sub_field( "imported_writing_text" );
                               $imported_text = str_replace("<p>", "", $imported_text);
