@@ -172,8 +172,9 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 		public $publisher;
 		public $location;
 		public $year;
+		public $role;
 		public $reprints = Array();
-		public $text;
+		public $text;		
 	}
 
 	class Reprint {
@@ -411,7 +412,7 @@ function get_repeater_values($post) {
 	// check if the flexible content field has rows of data
 	if( have_rows('collected_writings', $post->id) ):
  		// loop through the rows of data
-    	while ( have_rows('collected_writings', $post->id) ) : the_row();
+    	while ( have_rows('collected_writings', $post->id) ) : $writing_row = the_row(true);
 			$wrt = new Writing();
 			// check current row layout
         	if( get_row_layout() == 'loc_writing' ):
@@ -422,11 +423,13 @@ function get_repeater_values($post) {
 				$wrt->publisher = get_sub_field('loc_writing_publisher');
 				$wrt->location = get_sub_field('loc_writing_location');
 				$wrt->year = get_sub_field('loc_writing_year');
+				$wrt->role = get_sub_field('loc_writing_role');
         		// check if the nested repeater field has rows of data
-        		if( have_rows('loc_reprinted_as') ):
+				//if( have_rows('loc_reprinted_as') ):
+				if( $writing_row['loc_writing_reprinted'] === true ):
 			 		// loop through the rows of data
 					$rpt = new Reprint();
-			    	while ( have_rows('loc_reprinted_as') ) : the_row();
+			    	while ( have_rows('loc_reprinted_as') ) : $loc_row = the_row(true);
 						$rpt->title = get_sub_field('loc_reprinted_title');
 						$rpt->publisher = get_sub_field('loc_reprinted_publisher');
 						$rpt->location = get_sub_field('loc_reprinted_location');
@@ -441,12 +444,14 @@ function get_repeater_values($post) {
 				$wrt->type = get_sub_field('misc_writing_type');
 				$wrt->publisher = get_sub_field('misc_writing_publisher');
 				$wrt->location = get_sub_field('misc_writing_location');
-				$wrt->year = get_sub_field('misc_writing_year');			
+				$wrt->year = get_sub_field('misc_writing_year');
+				$wrt->role = get_sub_field('misc_writing_role');			
         		// check if the nested repeater field has rows of data
-        		if( have_rows('misc_reprinted_as') ):
+				//if( have_rows('misc_reprinted_as') ):
+				if( $writing_row['misc_writing_reprinted'] === true ):
 			 		// loop through the rows of data
 					$rpt = new Reprint();
-			    	while ( have_rows('misc_reprinted_as') ) : the_row();
+			    	while ( have_rows('misc_reprinted_as') ) : $misc_row = the_row(true);
 						$rpt->title = get_sub_field('misc_reprinted_title');
 						$rpt->publisher = get_sub_field('misc_reprinted_publisher');
 						$rpt->location = get_sub_field('misc_reprinted_location');
@@ -783,11 +788,15 @@ function build_SGML_file($post) {
 			$export .= "</bibcit.composed>" . PHP_EOL;
 			$export .= "</bibcitation>" . PHP_EOL;	
 		} else {
+			$writing_role = WYSIWYG_conversion($writing->role, false);
 			$writing_title = WYSIWYG_conversion($writing->title, false);
 			$writing_publisher = WYSIWYG_conversion($writing->publisher, false);
 			$writing_location = WYSIWYG_conversion($writing->location, false);
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
+			if(!empty($writing_role)) {
+				$export .= "(" . $writing_role . ")" ;
+			}
 			if(!empty($writing->reprints)){
 				$reprint_text = "";
 				foreach($writing->reprints as $reprint){
@@ -801,7 +810,7 @@ function build_SGML_file($post) {
 						$reprint_location = WYSIWYG_conversion($reprint->location, false);
 						$reprint_text .= ', reprinted, ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
 					}
-				}
+				}				
 				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
 			} else {
 				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
@@ -863,7 +872,9 @@ function build_SGML_file($post) {
 	//strip weird empty space characters
 	$export = str_replace('Â', ' ', $export); //Â
 	$export = str_replace(chr(194), ' ', $export); //Â
-	$export = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $export);
+	setlocale(LC_CTYPE, 'cs_CZ');
+	$export = iconv('UTF-8', 'windows-1252//TRANSLIT//IGNORE',$export);
+	//$export = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $export);
 	//$export = utf8_encode($export);
 
 	return $export;
@@ -1066,7 +1077,8 @@ function convert_wyswig_punctuation($text) {
     $text = str_replace("$", "&dollar;", $text); // $
 	$text = str_replace("©", "&copy;", $text); // ©
 
-    $text = str_replace("ä", "&auml;", $text); // ä
+	$text = str_replace("ä", "&auml;", $text); // ä
+	$text = str_replace("ä", "&auml;", $text); // ä
     $text = str_replace("Ä", "&Auml;", $text); // Ä
     $text = str_replace("ë", "&euml;", $text); // ë
     $text = str_replace("Ë", "&Euml;", $text); // Ë        
@@ -1100,8 +1112,9 @@ function convert_wyswig_punctuation($text) {
 
     $text = str_replace("ï", "&iuml;", $text); // ï
     $text = str_replace("Ï", "&Iuml;", $text); // Ï                   
-    $text = str_replace("ü", "&uuml;", $text); //ü
-    $text = str_replace("Ü", "&Uuml;", $text); // Ü        
+	$text = str_replace("ü", "&uuml;", $text); //ü
+	$text = str_replace("ü", "&uuml;", $text); //ü
+    $text = str_replace("Ü", "&Uuml;", $text); // Ü   
         
     $text = str_replace("Ã", "&Atilde;", $text); // Ã
     $text = str_replace("ã", "&atilde;", $text); // ã
@@ -1122,11 +1135,16 @@ function convert_wyswig_punctuation($text) {
 
 	$text = str_replace("ḥ", "&hunddot;", $text);
 	$text = str_replace("ḥ", "&hunddot;", $text); // ḥ ḥ
-	$text = str_replace("ṭ", "&tunddot;", $text); // ṭ ī
+	$text = str_replace("ṣ", "&sunddot;", $text); // ṣ
+	$text = str_replace("ṭ", "&tunddot;", $text); // ṭ 
+	$text = str_replace("ā", "&amacr;", $text); // ā
 	$text = str_replace("ā", "&amacr;", $text); // ā	
 	$text = str_replace("ī", "&imacr;", $text); // ī
 	$text = str_replace("ī", "&imacr;", $text); // ī
+	$text = str_replace("ū", "&umacr;", $text); // ū
 	$text = str_replace("ū", "&umacr;", $text); // ū	
+	$text = str_replace("ʹ", "&prime;", $text); // ʹ
+	$text = str_replace("ʻ", "&prime;", $text); // ʹ
 
 	return $text;
 }
