@@ -63,12 +63,16 @@
                     while($zip_entry = zip_read($zip)){
                         $name = zip_entry_name($zip_entry);
                         $ext = pathinfo($name, PATHINFO_EXTENSION);
-                        if(($ext == 'sgm' || $ext == 'txt') && zip_entry_open($zip, $zip_entry)){
+                        if((strtolower($ext) == 'sgm' || strtolower($ext) == 'txt') && zip_entry_open($zip, $zip_entry)){
                            // $content = zip_entry_read($zip_entry, 1024*1024*100);
-                            $content = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+                            $z = new zipFile();
+                            //get filename (for matching to entry Gale ID)
+                            $z->filename = pathinfo($name, PATHINFO_FILENAME);
+                            //get file contents
+                            $z->content = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
                             //determine if file contains SGML and add to array
-                            if (strpos($content, 'biography') !== false) {
-                                array_push($zip_contents, $content);
+                            if (strpos($z->content, 'biography') !== false) {
+                                array_push($zip_contents, $z);
                             }
                             // if(SGMLstartsWith($content, "&lt;biography")) {
                             //     array_push($zip_contents, $content);
@@ -84,7 +88,7 @@
                 foreach($zip_contents as $file) {
                     $canr = new CANR();
                     //var_dump($file);
-                    $text = $file;
+                    $text = $file->content;
                     //store DOCTYPE declaration for export
                     
 
@@ -208,7 +212,8 @@
                         echo "</ul>";
                     } else {
                         //push into array of entries
-                        $canr->sketch = $file;
+                        $canr->filename = $file->filename;
+                        $canr->sketch = $file->content;
                        // $canr->atlasuid = (string) $canr->xml->bio_head->bioname->attributes();
                         $canr->pen = (string) $canr->xml->galedata->infobase->pen;
                         array_push($canrEntries, $canr);
@@ -221,14 +226,24 @@
                     $entry = $canr->xml;
                     //$pen = (string) $entry->galedata->infobase->pen;
                     $posts = null;
-                    if($canr->pen) {
+                    // if($canr->pen) {
+                    //     $posts = get_posts(array(
+                    //         'post_type'        => 'post',
+                    //         'post_status'      => 'any',
+	                //         'meta_key'		=> 'pen_id',
+	                //         'meta_value'	=> $canr->pen                      
+                    //     ));
+                    // }
+
+                    //9-12-17 - updated to match on filename/gale id instead of PEN
+                    if($canr->filename) {
                         $posts = get_posts(array(
                             'post_type'        => 'post',
                             'post_status'      => 'any',
-	                        'meta_key'		=> 'pen_id',
-	                        'meta_value'	=> $canr->pen                      
+	                        'meta_key'		=> 'gale_id',
+	                        'meta_value'	=> $canr->filename                      
                         ));
-                    }
+                    }                    
                     if(isset($posts) && count($posts) == 1) {
                         foreach($posts as $post) {
                             #XML DECLARATION
@@ -935,28 +950,34 @@ function sanitizeXML($xml_content, $xml_followdepth=true){
 }
 
 
-    function get_text($xml){
-		return preg_replace("/^\<[^>]+?\>|\<[^>]+?\>$/",'',$xml->asXML());
-		/*
-        if($xml->count()==0)return $xml;
-        $text = '';
-        foreach($xml as $k=>$v)
-            if($k!='@attributes')
-                $text .= get_text($v)."\n";
-        return $text;
-		*/
-    }
+function get_text($xml){
+    return preg_replace("/^\<[^>]+?\>|\<[^>]+?\>$/",'',$xml->asXML());
+    /*
+    if($xml->count()==0)return $xml;
+    $text = '';
+    foreach($xml as $k=>$v)
+        if($k!='@attributes')
+            $text .= get_text($v)."\n";
+    return $text;
+    */
+}
 
-    class CANR {
-        public $XML_declaration;
-	    public $pen;
-        public $atlasuid;
-        public $xml;
-        public $sketch;
-        public $secondary_writings;
-        public $galedata;
-        public $name;
-    }
+class CANR {
+    public $filename;
+    public $XML_declaration;
+    public $pen;
+    public $atlasuid;
+    public $xml;
+    public $sketch;
+    public $secondary_writings;
+    public $galedata;
+    public $name;
+}
+
+class zipFile {
+    public $filename;
+    public $contents;
+}
     
 
 ?>
