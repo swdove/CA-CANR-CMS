@@ -130,11 +130,12 @@
                         $new_text = "\n" . $matches[0] .'</year>';
                         return $new_text;
                     }, $text);
-                    //convert angle brackets in media tags to square brackets so they don't break the XML conversion
+                    //strip <media> sections, contains image data from Gale that we don't need to preserve
                     $text = preg_replace_callback('/(<media>)(.*?)(<\/media>)/s', function($matches) {
-                        $new_text = $matches[0];
-                        $new_text = str_replace("<", "[", $new_text);
-                        $new_text = str_replace(">", "]", $new_text);
+                        // $new_text = $matches[0];
+                        // $new_text = str_replace("<", "[", $new_text);
+                        // $new_text = str_replace(">", "]", $new_text);
+                        $new_text = "";
                         return $new_text;
                     }, $text);                    
                     // isolate secondary writings text from Writings section
