@@ -15,7 +15,7 @@ Author URI: https://github.com/swdove
 // SECTION ON POST SAVE WHEN LOC EXPORT DATA IS PASTED INTO
 // RESEARCH "LOC ENTRIES" FIELD
 function generate_writings( $post_id ) {
-
+	
 	class LOC_citation {
 		public $title;
 		public $pubInfo;
@@ -51,7 +51,7 @@ function generate_writings( $post_id ) {
 				}
 			}
 		}
-    
+	
 		//IF NO LOC ENTRIES EXIST, GENERATE FROM RESEARCH
 		if($writings_field['value'] == false || $loc_count == 0) {
 			//get LOC citation text 
@@ -74,8 +74,14 @@ function generate_writings( $post_id ) {
 			//GET TITLE
 			$i = 0;
 			foreach($exploded as $key => $val) {
-				if($val == "LCCN" && $key > 1){
-					$title = $exploded[$key - 2];
+				if($val == "LCCN" && $key > 0){
+					//trying to account for different LOC formats here
+					//some have an empty node between the title and "LCCN", others don't
+					$title = $exploded[$key - 1];
+					$title = trim($title);
+					if(empty($title)){
+						$title = $exploded[$key - 2];
+					}
 					$citationList[$i]->title = substr($title, 4);
 					$i++;
 				}
@@ -83,7 +89,8 @@ function generate_writings( $post_id ) {
 			//GET PUBLISHER INFO
 			$i = 0;
 			foreach($exploded as $key => $val) {
-				if($val == "Published/Created"){
+				//if($val == "Published/Created" || $val == "Published/Produced"){
+				if(startsWith($val, 'Published')){
 					$citationList[$i]->pubInfo = $exploded[$key + 1];
 					$i++;
 				}
