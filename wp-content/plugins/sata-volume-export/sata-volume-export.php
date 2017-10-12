@@ -224,7 +224,7 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 		// 	$content .= $field->value;
 		// 	$content . PHP_EOL;
 		// }
-  		$zip->addFromString($file_name . '.txt', $content);
+  		$zip->addFromString($file_name . '.TXT', $content);
 	}
 	$zip->close();
 
@@ -493,7 +493,7 @@ function build_file_name($post) {
 	} else {
 		$filename = $post->title;
 	}
-	return $filename;
+	return strtoupper($filename);
 }
 
 function build_SGML_file($post) {
