@@ -811,6 +811,8 @@
         $text = str_replace("&szlig;", "&#xdf;", $text); // ß   
         $text = str_replace("&Tcedil;", "&#x162;", $text); // Ţ  
         $text = str_replace("&scedil;", "&#x15F;", $text); // ş  
+        $text = str_replace("&inodot;", "&#x131;", $text); // ı
+        $text = str_replace("&gbreve;", "&#x11f;", $text); // ğ          
 
 
         if($xml === false) {

@@ -866,6 +866,8 @@
         $text = str_replace("&abreve;", "&#x103;", $text); // ă     
         $text = str_replace("&iexcl;", "&#xa1;", $text); // ¡             
         $text = str_replace("&szlig;", "&#xdf;", $text); // ß   
+        $text = str_replace("&YAcy;", "&#x42f;", $text); // Я   
+        $text = str_replace("&omacr;", "&#x14d;", $text); // ō 
 
         if($xml === false) {
             // 3/7/17 - convert format tags for WYSIWIG
