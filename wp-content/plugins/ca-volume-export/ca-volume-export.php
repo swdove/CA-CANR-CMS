@@ -831,7 +831,10 @@ function build_SGML_file($post) {
 		foreach($post->biocrit_books as $book) {
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
-			$export .= WYSIWYG_conversion($book->entry_text, false, false);
+			$citation = WYSIWYG_conversion($book->entry_text, false, false);
+			//strip existing asterisks
+			$export .= str_replace("*", "", $citation);
+			//add asterisk to last entry
 			if($book->last === true){
 				$export .= " * </bibcit.composed>" . PHP_EOL;
 			} else {
@@ -845,7 +848,10 @@ function build_SGML_file($post) {
 		foreach($post->biocrit_periodicals as $periodical) {
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
-			$export .= WYSIWYG_conversion($periodical->entry_text, false, false);
+			$citation = WYSIWYG_conversion($periodical->entry_text, false, false);
+			//strip existing asterisks
+			$export .= str_replace("*", "", $citation);
+			//add asterisk to last entry
 			if($periodical->last === true){
 				$export .= " * </bibcit.composed>" . PHP_EOL;
 			} else {
@@ -859,7 +865,10 @@ function build_SGML_file($post) {
 		foreach($post->biocrit_online as $online) {
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
-			$export .= WYSIWYG_conversion($online->entry_text, false, false);
+			$citation = WYSIWYG_conversion($online->entry_text, false, false);
+			//strip existing asterisks
+			$export .= str_replace("*", "", $citation);
+			//add asterisk to last entry
 			if($online->last === true){
 				$export .= "*</bibcit.composed>" . PHP_EOL;
 			} else {
