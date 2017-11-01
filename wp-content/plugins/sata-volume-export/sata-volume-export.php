@@ -137,7 +137,7 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 		public $adaptations;
 		public $narrative;
 		public $loc_entries;
-		public $biocritEntries;
+		public $biocritEntries = Array();
 		public $biocrit_books = Array();
 		public $biocrit_periodicals = Array();
 		public $biocrit_online = Array();
@@ -184,6 +184,12 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 		public $year;
 	}
 
+	class BiocritEntry {
+		public $entry_type;
+		public $entry_text;
+		public $last = false;
+	}
+
 
 	$posts = array();
 
@@ -220,10 +226,12 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 	foreach ($posts as $post) {
 		$file_name = build_file_name($post);
 		$content = build_SGML_file($post);
-		// foreach($post->fields as $field) {
-		// 	$content .= $field->value;
-		// 	$content . PHP_EOL;
-		// }
+		//check for existing files in zip archive with same filename
+		$nameCheck = $file_name . ".txt";
+		$dupeCheck = $zip->locateName($nameCheck);
+		if ($dupeCheck !== false) {
+			$file_name = $file_name . "_2";
+		}
   		$zip->addFromString($file_name . '.TXT', $content);
 	}
 	$zip->close();
@@ -384,22 +392,28 @@ function get_repeater_values($post) {
 	$books = get_field('biocrit_books', $post->id);
 	if($books) {
 		foreach($books as $citation) {
-			$entry = $citation['biocrit_book_entry'];
-			array_push($post->biocrit_books, $entry);
+			$entry = new BiocritEntry();
+			$entry->entry_type = "b";			
+			$entry->entry_text = $citation['biocrit_book_entry'];
+			array_push($post->biocritEntries, $entry);
 		}
 	}	
 	$periodicals = get_field('biocrit_entries', $post->id);
 	if($periodicals) {
 		foreach($periodicals as $citation) {
-			$entry = $citation['biocrit_entry'];
-			array_push($post->biocrit_periodicals, $entry);
+			$entry = new BiocritEntry();
+			$entry->entry_type = "p";
+			$entry->entry_text = $citation['biocrit_entry'];
+			array_push($post->biocritEntries, $entry);
 		}
 	}
 	$online = get_field('online_biocrit_entries', $post->id);
 	if(is_array($online) || is_object($online)) {
 		foreach($online as $citation) {
-			$entry = $citation['online_biocrit_entry'];
-			array_push($post->biocrit_online, $entry);
+			$entry = new BiocritEntry();
+			$entry->entry_type = "o";
+			$entry->entry_text = $citation['online_biocrit_entry'];
+			array_push($post->biocritEntries, $entry);
 		}
 	}
 	$nationalities = get_field('nationalities', $post->id);
@@ -833,34 +847,57 @@ function build_SGML_file($post) {
 
 	$export .= "<bio.foot>" . PHP_EOL;
 	$export .= "<readinggroup>" . PHP_EOL;
+	//organize biocrits
+	sortBiocrit($post);
 	$export .= '<grouptitle level="1">BIOGRAPHICAL AND CRITICAL SOURCES:</grouptitle>' . PHP_EOL;
 	if(!empty($post->biocrit_books)) {
 		$export .= '<grouptitle level="2">BOOKS</grouptitle>' . PHP_EOL;
 		foreach($post->biocrit_books as $book) {
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
-			$export .= WYSIWYG_conversion($book, false, false);
-			$export .= "</bibcit.composed>" . PHP_EOL;
+			$citation = WYSIWYG_conversion($book->entry_text, false, false);
+			//strip existing asterisks
+			$export .= str_replace("*", "", $citation);
+			//add asterisk to last entry
+			if($book->last === true){
+				$export .= " * </bibcit.composed>" . PHP_EOL;
+			} else {
+				$export .= "</bibcit.composed>" . PHP_EOL;
+			}
 			$export .= "</bibcitation>" . PHP_EOL;
 		}
 	}			
 	if(is_array($post->biocrit_periodicals) || is_object($post->biocrit_periodicals)) {
 		$export .= '<grouptitle level="2">PERIODICALS</grouptitle>' . PHP_EOL;
-		foreach($post->biocrit_periodicals as $citation) {
+		foreach($post->biocrit_periodicals as $periodical) {
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
-			$export .= WYSIWYG_conversion($citation, false, false);
-			$export .= "</bibcit.composed>" . PHP_EOL;
+			$citation = WYSIWYG_conversion($periodical->entry_text, false, false);
+			//strip existing asterisks
+			$export .= str_replace("*", "", $citation);
+			//add asterisk to last entry
+			if($periodical->last === true){
+				$export .= " * </bibcit.composed>" . PHP_EOL;
+			} else {
+				$export .= "</bibcit.composed>" . PHP_EOL;
+			}
 			$export .= "</bibcitation>" . PHP_EOL;
 		}
 	}	
 	if(is_array($post->biocrit_online) || is_object($post->biocrit_online)) {
 		$export .= '<grouptitle level="2">ONLINE</grouptitle>' . PHP_EOL;
-		foreach($post->biocrit_online as $citation) {
+		foreach($post->biocrit_online as $online) {
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
-			$export .= WYSIWYG_conversion($citation, false, false);
-			$export .= "</bibcit.composed>" . PHP_EOL;
+			$citation = WYSIWYG_conversion($online->entry_text, false, false);
+			//strip existing asterisks
+			$export .= str_replace("*", "", $citation);
+			//add asterisk to last entry
+			if($online->last === true){
+				$export .= "*</bibcit.composed>" . PHP_EOL;
+			} else {
+				$export .= "</bibcit.composed>" . PHP_EOL;
+			}
 			$export .= "</bibcitation>" . PHP_EOL;
 		}
 	}				
@@ -879,6 +916,34 @@ function build_SGML_file($post) {
 
 	return $export;
 }
+
+function sortBiocrit($post) {
+	//mark last entry in list 
+	$i = 0;
+	$biocritList = $post->biocritEntries;
+	$len = count($biocritList);
+	foreach ($biocritList as $item) {
+		if ($i == $len - 1) {
+			$item->last = true;
+		}
+		$i++;
+	}
+	//sort entries into lists by type
+	foreach($biocritList as $entry) {
+		switch ($entry->entry_type) {
+			case "b":
+				array_push($post->biocrit_books, $entry);
+				break;
+			case "p":
+				array_push($post->biocrit_periodicals, $entry);
+				break;
+			case "o":
+				array_push($post->biocrit_online, $entry);
+				break;
+		}
+	}
+}
+
 
 function format_WYSIWYG_tags($text) {
 	$text = str_replace('<p>', '<para>', $text);
