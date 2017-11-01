@@ -223,6 +223,11 @@ function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $
 		// 	$content .= $field->value;
 		// 	$content . PHP_EOL;
 		// }
+		$nameCheck = $file_name . ".txt";
+		$dupeCheck = $zip->locateName($nameCheck);
+		if ($dupeCheck !== false) {
+			$file_name = $file_name . "_2";
+		}
   		$zip->addFromString($file_name . '.txt', $content);
 	}
 	$zip->close();
