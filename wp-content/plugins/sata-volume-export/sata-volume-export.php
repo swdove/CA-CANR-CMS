@@ -141,7 +141,7 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 		public $biocrit_books = Array();
 		public $biocrit_periodicals = Array();
 		public $biocrit_online = Array();
-		public $biocritTest;
+		public $biocrit_obits = Array();
 
 		public $fields = Array();
 	}
@@ -416,6 +416,15 @@ function get_repeater_values($post) {
 			array_push($post->biocritEntries, $entry);
 		}
 	}
+	$obits = get_field('biocrit_obits', $post->id);
+	if(is_array($obits) || is_object($obits)) {
+		foreach($obits as $citation) {
+			$entry = new BiocritEntry();
+			$entry->entry_type = "ob";
+			$entry->entry_text = $citation['biocrit_obituary_entry'];
+			array_push($post->biocritEntries, $entry);
+		}
+	}	
 	$nationalities = get_field('nationalities', $post->id);
 	if(is_array($nationalities) || is_object($nationalities)) {
 		foreach($nationalities as $nationality) {
@@ -900,7 +909,24 @@ function build_SGML_file($post) {
 			}
 			$export .= "</bibcitation>" . PHP_EOL;
 		}
-	}				
+	}	
+	if(is_array($post->biocrit_obits) || is_object($post->biocrit_obits)) {
+		$export .= '<grouptitle level="2">OBITUARIES</grouptitle>' . PHP_EOL;
+		foreach($post->biocrit_obits as $obit) {
+			$export .= "<bibcitation>" . PHP_EOL;
+			$export .= "<bibcit.composed>" . PHP_EOL;
+			$citation = WYSIWYG_conversion($obit->entry_text, false, false);
+			//strip existing asterisks
+			$export .= str_replace("*", "", $citation);
+			//add asterisk to last entry
+			if($obit->last === true){
+				$export .= "*</bibcit.composed>" . PHP_EOL;
+			} else {
+				$export .= "</bibcit.composed>" . PHP_EOL;
+			}
+			$export .= "</bibcitation>" . PHP_EOL;
+		}
+	}					
 	$export .= "</readinggroup>" . PHP_EOL;
 	$export .= "</bio.foot>" . PHP_EOL;
 	$export .= "</biography>" . PHP_EOL;
@@ -940,6 +966,9 @@ function sortBiocrit($post) {
 			case "o":
 				array_push($post->biocrit_online, $entry);
 				break;
+			case "ob":
+				array_push($post->biocrit_obits, $entry);
+				break;				
 		}
 	}
 }
