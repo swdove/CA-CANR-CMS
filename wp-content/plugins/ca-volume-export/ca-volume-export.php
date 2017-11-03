@@ -931,6 +931,9 @@ function build_SGML_file($post) {
 	//$export = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $export);
 	//$export = utf8_encode($export);
 
+	//strip empty lines
+	$export = preg_replace("/^\s*\n/m", "", $export);
+
 	return $export;
 }
 
@@ -978,6 +981,8 @@ function format_WYSIWYG_tags($text) {
 function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	//convert all non-quotation special characters to codes
 	$text = htmlentities($text);
+	//remove non-breaking spaces
+	$text = str_replace('&nbsp;', '', $text);		
 
 	//strip para tags from sections where they aren't required
 	if($includePara == false) {
@@ -1032,6 +1037,35 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	$text = str_replace('</emphasis>,', ',</emphasis>', $text);
 	$text = str_replace('</emphasis>;', ';</emphasis>', $text);
 
+	//11-12-17 find/replace tweaks
+	//eliminate spaces between title and em tags
+	$text = str_replace('<title> <emphasis n="1">', '<title><emphasis n="1">', $text);
+	$text = str_replace('</emphasis> </title>', '</emphasis></title>', $text);
+	//eliminate space after em tags
+	$text = str_replace('<emphasis n="1"> ', '<emphasis n="1">', $text);
+
+	//flip order of em/title tags to title/em
+	$text = str_replace('<emphasis n="1"><title>', '<title><emphasis n="1">', $text);
+	$text = str_replace('</title></emphasis>', '</emphasis></title>', $text);
+
+	//regex
+	// \<([^>\/][^>]*)><\/\1> - captures empty matching tags (no whitespace)
+	//preg_replace("\<([^>\/][^>]*)><\/\1>", "", $text);
+	// \<([^>\/][^>]*)>(\s*)<\/\1> - captures any amount of whitespace between two matching tags
+	//preg_replace("\<([^>\/][^>]*)>(\s*)<\/\1>", "", $text);
+	// \<title>\s*<\/title> - captures empty or whitespace between title tags
+	$text = preg_replace("/\<title>\s*<\/title>/", "", $text);
+	// \<emphasis n="1">\s*<\/emphasis> - captures empty or whitespace between em tags
+	$text = preg_replace('/\<emphasis n="1">\s*<\/emphasis>/', "", $text);
+	//captures empty or whitespace between para tags
+	$text = preg_replace('/\<para>\s*<\/para>/', "", $text);
+	//remove <title> tags within <head> sections
+	$text = preg_replace_callback('/<head n="5">(.*?)<\/head>/',function($matches) {
+		$new_text = str_replace("<title>", "", $matches[1]);
+		$new_text = str_replace("</title>", "", $new_text);
+		return '<head n="5">' . $new_text . '</head>';
+	}, $text);
+
 	$text = html_entity_decode($text);
 
 	$text = convert_wyswig_punctuation($text);
@@ -1044,8 +1078,19 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 function convert_wyswig_punctuation($text) {
 	$text = wptexturize($text);
 
+	$text = str_replace('&nbsp;', '', $text);
+
 	//remove spaces between tags
-	$text = str_replace('> <', '><', $text);
+	//$text = str_replace('> <', '><', $text); \>[ ]+\<
+	$text = preg_replace_callback('/\>[ ]+\</', function($matches) {
+		$new_text = "><";
+		return $new_text;
+	}, $text);
+	// $text = preg_replace_callback('(/\>)(\s*)(<\/)/', function($matches) {
+	// 	$new_text = "";
+	// 	return $new_text;
+	// }, $text); 
+
 
 	//remove para tags around subheads
 	$text = str_replace('<para><head n="5">', '<head n="5">', $text);
@@ -1112,13 +1157,11 @@ function convert_wyswig_punctuation($text) {
 	// $text = str_replace("' ", '&rsquo; ', $text);
 	// $text = str_replace("‘ ", '&rsquo; ', $text);
 
-	//remove non-breaking spaces
-	$text = str_replace('&nbsp;', '', $text);
 	//remove empty tags
-	$text = str_replace('<para></para>', '', $text);
 	$text = str_replace('<head n="5"></head>', '', $text);
 	$text = str_replace('<title></title>', '', $text);
 	$text = str_replace('<emphasis n="1"></emphasis>', '', $text);
+	$text = str_replace('<para></para>', '', $text);
 	//ampersand
 	$text = str_replace("&#038;", "&amp;", $text); // & 
 	$text = str_replace("&#38;", "&amp;", $text); // & 
