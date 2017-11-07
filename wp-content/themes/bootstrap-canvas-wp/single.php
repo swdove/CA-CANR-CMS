@@ -94,6 +94,7 @@
               <?php while( have_rows('collected_writings') ): $writing_row = the_row(true); ?>
               <li>
                 <?php if( get_row_layout() == 'loc_writing' ): ?>
+                  <?php if(get_sub_field("loc_is_handcoded")===false): ?>
                         <?php $role = get_sub_field( "loc_writing_role" );
                             if( $role ) { 
                                echo "(" . $role . ")";
@@ -120,7 +121,24 @@
                                 echo $rep_text;
                               }
                             }
-                        ?>                        
+                        ?> 
+                        <?php elseif(get_sub_field("loc_is_handcoded")===true): ?> 
+                          <?php $handcoded = get_sub_field('loc_handcoded_text'); 
+                                $handcoded = str_replace("<p>", "", $handcoded);
+                                $handcoded = str_replace("</p>", "", $handcoded);
+                                $handcoded = str_replace("<br />", "", $handcoded);
+                                $handcoded = str_replace("<bibcitation>", "", $handcoded);
+                                $handcoded = str_replace("</bibcitation>", "", $handcoded);
+                                $handcoded = str_replace("<bibcit.composed>", "", $handcoded);
+                                $handcoded = str_replace("</bibcit.composed>", "", $handcoded);                                
+                                $handcoded = str_replace("<title>", "<strong>", $handcoded);
+                                $handcoded = str_replace("</title>", "</strong>", $handcoded);
+                                $handcoded = str_replace('<emphasis n="1">', "<em>", $handcoded);
+                                $handcoded = str_replace("</emphasis>", "</em>", $handcoded);
+                                $handcoded = preg_replace("/^\s*\n/m", "", $handcoded);
+                                echo $handcoded;                         
+                          ?>
+                        <?php endif; ?>                        
                   <?php elseif( get_row_layout() == 'misc_writing' ): ?>
                         <?php $role = get_sub_field( "misc_writing_role" );
                             if( $role ) { 
@@ -209,6 +227,7 @@
             </ul>
           <?php endif; ?>          
           </p>
+          <p>
           <?php if( have_rows('online_biocrit_entries') ): ?>
           <u>ONLINE</u>
             <ul>
@@ -220,6 +239,17 @@
             </ul>
           <?php endif; ?>          
           </p>
+          <p>
+          <?php if( have_rows('biocrit_obits') ): ?>
+          <u>OBITUARIES</u>
+            <ul>
+              <?php while( have_rows('biocrit_obits') ): the_row(); ?>
+                <li><?php 
+                  the_sub_field('biocrit_obituary_entry');              
+                  ?></li>    
+              <?php endwhile; ?> 
+            </ul>
+          <?php endif; ?>       
 
           </div>
           <!--LOC-->

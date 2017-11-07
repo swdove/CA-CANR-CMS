@@ -1,14 +1,14 @@
-# Copyright (C) 2016 Admin Columns Pro
+# Copyright (C) 2017 Admin Columns Pro
 # This file is distributed under the same license as the Admin Columns Pro package.
 # Translators:
 # André Mácola Machado <andremacola@gmail.com>, 2014
-# André Mácola Machado <andremacola@gmail.com>, 2014-2015
+# André Mácola Machado <andremacola@gmail.com>, 2014-2016
 # kevin chevallier <kevinchevallier@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns Pro\n"
 "Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2016-03-23 15:14+0000\n"
+"PO-Revision-Date: 2017-09-20 03:11+0000\n"
 "Last-Translator: Tobias Schutter <info@codepress.nl>\n"
 "Language-Team: Portuguese (Brazil) (http://www.transifex.com/codepress/admin-columns-pro/language/pt_BR/)\n"
 "MIME-Version: 1.0\n"
@@ -17,988 +17,1291 @@ msgstr ""
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: ../classes/api.php:264
-msgid "Empty response from API."
-msgstr "Resposta vazia da API."
-
-#: ../classes/licence-manager-settings.php:138
+#: ../../ac-addon-types/ac-addon-types.php:54
 msgid ""
-"Licence not active. Enter your licence key on <a href='%s'>the settings "
-"page</a>."
+"The current version of this add-on is not compatible with Admin Columns Pro."
 msgstr ""
 
-#: ../classes/licence-manager-settings.php:222
-msgid "Empty licence."
-msgstr "Licença vazia."
-
-#: ../classes/licence-manager-settings.php236,
-#: ../classes/licence-manager-settings.php246,
-#: ../classes/licence-manager-settings.php:252
-msgid "Wrong response from API."
-msgstr "Resposta errada da API."
-
-#: ../classes/licence-manager-settings.php:286
-msgid "Updates"
-msgstr "Atualizações"
-
-#: ../classes/licence-manager-settings.php287,
-#: ../classes/licence-manager-settings.php:383
-msgid "Enter your licence code to receive automatic updates."
-msgstr "Entre com a sua licença para receber atualizações automáticas."
-
-#: ../classes/licence-manager-settings.php:318
-msgid "network settings page"
+#: ../../ac-addon-types/ac-addon-types.php:54
+msgid "Please update this add-on to the latest version."
 msgstr ""
 
-#: ../classes/licence-manager-settings.php:324
-msgid "The license can be managed on the %s."
+#: ../acp.php:397
+msgid "You are using a beta version of %s."
 msgstr ""
 
-#: ../classes/licence-manager-settings.php:372
-msgid "Automatic updates are enabled."
-msgstr "Atualizações automáticas habilitadas."
-
-#: ../classes/licence-manager-settings.php:373
-msgid "Deactivate licence"
-msgstr "Desativar licença"
-
-#: ../classes/licence-manager-settings.php:380
-msgid "Enter your licence code"
-msgstr "Digite seu código de licença"
-
-#: ../classes/licence-manager-settings.php:381
-msgid "Update licence"
-msgstr "Atualizar licença"
-
-#: ../classes/licence-manager-settings.php:385
-msgid "You can find your license key on your %s."
-msgstr "Você pode achar sua chave de licença em seu %s."
-
-#: ../classes/licence-manager-settings.php:385
-msgid "account page"
-msgstr "Página da conta"
-
-#: ../classes/licence-manager-settings.php:396
+#: ../acp.php:398
 msgid ""
-"Could not connect to %s — You will not receive update notifications or be "
-"able to activate your license until this is fixed. This issue is often "
-"caused by an improperly configured SSL server (https). We recommend fixing "
-"the SSL configuration on your server, but if you need a quick fix you can:"
+"Please provide us with any feedback (bugs, UI or improvements) on the beta "
+"by creating a new topic on %s."
 msgstr ""
 
-#: ../classes/licence-manager-settings.php:401
-msgid "Enable SSL"
-msgstr "Habilitar SSL"
-
-#: ../classes/licence-manager-settings.php:405
-msgid "Disable SSL"
-msgstr "Desabilitar SSL"
-
-#: ../classes/licence-manager-settings.php:433
-msgid "1 day"
-msgid_plural "%s days"
-msgstr[0] "1 dia"
-msgstr[1] "%s dias"
-
-#: ../classes/licence-manager-settings.php:436
-msgid ""
-"Your Admin Columns Pro license will expire in %s. %s now and get a %d%% "
-"discount!"
-msgstr "Sua licença de Admin Columns Pro irá expirar em %s. %s agora e recebe um %d%% desconto!"
-
-#: ../classes/licence-manager-settings.php438,
-#: ../classes/licence-manager-settings.php:447
-msgid "Renew your license"
-msgstr "Renove sua licença"
-
-#: ../classes/licence-manager-settings.php:445
-msgid ""
-"Your Admin Columns Pro license will expire in %s. %s now and get a discount!"
-msgstr "Sua licença de Admin Columns Pro irá expirar em %s. %s agora e recebe um desconto!"
-
-#: ../classes/licence-manager-settings.php:454
-msgid ""
-"Your Admin Columns Pro license has expired on %s! Renew your license now by "
-"going to your %s."
-msgstr "Sua licença do Admin de Colunas Pro expirou em %s! Renove sua licença agora indo em seu %s."
-
-#: ../classes/licence-manager-settings.php:456
-msgid "My Account page"
-msgstr "Página da Minha Conta"
-
-#: ../classes/licence-manager-settings.php:471
-msgid "Your license was successfully renewed!"
-msgstr "Sua licença foi renovada com sucesso!"
-
-#: ../classes/licence-manager-settings.php:472
-msgid "Your license has not been renewed yet."
-msgstr "Sua licença ainda não foi renovada."
-
-#: ../classes/licence-manager-settings.php:474
-msgid "Check my license"
-msgstr "Verificar minha licença"
-
-#: ../classes/licence-manager-settings.php:577
-msgid "To finish activating Admin Columns Pro, please "
-msgstr "Para finalizar ative o Admin de Colunas Pro, por favor"
-
-#: ../classes/licence-manager-settings.php:579
-msgid "To update, "
-msgstr "Para atualizar,"
-
-#: ../classes/licence-manager-settings.php:583
-msgid ""
-"go to %s and enter your licence key. If you don't have a licence key, you "
-"may <a href='%s' target='_blank'>purchase one</a>."
+#: ../acp.php:398
+msgid "our forum"
 msgstr ""
 
-#: ../classes/licence-manager-settings.php587, ../admin-columns-pro.php:101
-msgid "Settings"
-msgstr "Configurações"
-
-#: ../classes/licence-manager-settings.php:822
-msgid ""
-"To enable updates for this product, please <a href='%s'>activate your "
-"license</a>."
-msgstr "Para ativar as atualizações deste produto, por favor <a href='%s'>ative a sua licença</a>."
-
-#: ../classes/filtering/filtering.php411,
-#: ../classes/filtering/filtering.php:515
-msgid "Enable filtering?"
-msgstr "Ativar filtragem?"
-
-#: ../classes/filtering/filtering.php:411
-msgid "This will make the column support filtering."
-msgstr "Isso adicionará o suporte à filtragem da coluna."
-
-#: ../classes/filtering/filtering.php:459
-msgid "Future / Past"
+#: ../../ac-addon-pods/classes/Column.php:18
+msgid "Pods"
 msgstr ""
 
-#: ../classes/filtering/filtering.php461,
-#: ../classes/filtering/filtering.php:473
-msgid "Range"
+#: ../../ac-addon-pods/classes/Dependencies.php55,
+#: ../../ac-addon-types/classes/Dependencies.php55,
+#: ../../cac-addon-acf/classes/Dependencies.php55,
+#: ../../cac-addon-woocommerce/v2/classes/Dependencies.php55,
+#: ../../cac-addon-woocommerce/v3/classes/Dependencies.php:55
+msgid "version %s or later"
 msgstr ""
 
-#: ../classes/filtering/filtering.php:471
-msgid "Exact match"
+#: ../../ac-addon-pods/classes/Dependencies.php99,
+#: ../../ac-addon-types/classes/Dependencies.php99,
+#: ../../cac-addon-acf/classes/Dependencies.php99,
+#: ../../cac-addon-woocommerce/v2/classes/Dependencies.php99,
+#: ../../cac-addon-woocommerce/v3/classes/Dependencies.php:99
+msgid " and "
 msgstr ""
 
-#: ../classes/filtering/filtering.php:489
-msgid "Filter by:"
+#: ../../ac-addon-pods/classes/Dependencies.php101,
+#: ../../ac-addon-types/classes/Dependencies.php101,
+#: ../../cac-addon-acf/classes/Dependencies.php101,
+#: ../../cac-addon-woocommerce/v2/classes/Dependencies.php101,
+#: ../../cac-addon-woocommerce/v3/classes/Dependencies.php:101
+msgid "This add-on requires %s to be installed and activated."
 msgstr ""
 
-#: ../classes/filtering/filtering.php:493
-msgid "This will allow you to set the filter format."
+#: ../classes/Layout.php172, ../classes/LayoutScreen/Columns.php543,
+#: ../classes/Column/User/Roles.php:8
+msgid "Roles"
+msgstr "Regras"
+
+#: ../classes/Layout.php179, ../classes/Settings/Column/CustomFieldType.php:63
+msgid "User"
 msgstr ""
 
-#: ../classes/inline-edit/cac-addon-inline-edit.php:132
+#: ../classes/NetworkAdmin.php:26
+msgid "Admin Columns Settings"
+msgstr "Configurações do Admin de Colunas"
+
+#: ../classes/NetworkAdmin.php26, ../classes/NetworkAdmin.php:53
+msgid "Admin Columns"
+msgstr "Admin de Colunas"
+
+#: ../classes/PluginActions.php:64
+msgid "This add-on is no longer compatible with the current version of %s."
+msgstr ""
+
+#: ../classes/PluginActions.php:64
+msgid "Admin Columns Pro"
+msgstr ""
+
+#: ../classes/PluginActions.php:64
+msgid "Add-on should be at least version %s."
+msgstr ""
+
+#: ../../cac-addon-acf/classes/Column.php:15
+msgid "Advanced Custom Fields"
+msgstr "Campos Personalizados"
+
+#: ../../cac-addon-woocommerce/v2/wc.php197,
+#: ../../cac-addon-woocommerce/v3/wc.php:202
+msgid "Regular"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/wc.php199,
+#: ../../cac-addon-woocommerce/v3/wc.php:204
+msgid "Sale from"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/wc.php200,
+#: ../../cac-addon-woocommerce/v3/wc.php:205
+msgid "Sale To"
+msgstr ""
+
+#: ../../ac-addon-pods/classes/Filtering/TrueFalse.php36,
+#: ../../cac-addon-acf/classes/Filtering/TrueFalse.php36,
+#: ../classes/Filtering/classes/Model/CustomField/Checkmark.php:9
+msgid "False"
+msgstr "Falso"
+
+#: ../../ac-addon-pods/classes/Filtering/TrueFalse.php39,
+#: ../../cac-addon-acf/classes/Filtering/TrueFalse.php39,
+#: ../classes/Filtering/classes/Model/CustomField/Checkmark.php:8
+msgid "True"
+msgstr "Verdadeiro"
+
+#: ../../ac-addon-pods/classes/Setting/Field.php24,
+#: ../../ac-addon-types/classes/Settings/Field.php25,
+#: ../../cac-addon-acf/classes/Setting/Field.php:26
+msgid "No %s fields available."
+msgstr ""
+
+#: ../../ac-addon-pods/classes/Setting/Field.php:25
+msgid "Create your first %s field."
+msgstr ""
+
+#: ../../ac-addon-pods/classes/Setting/Field.php34,
+#: ../../ac-addon-types/classes/Settings/Field.php31,
+#: ../../cac-addon-acf/classes/Setting/Field.php:34
+msgid "Field"
+msgstr "Campo"
+
+#: ../../ac-addon-pods/classes/Setting/Field.php83,
+#: ../../cac-addon-acf/classes/Setting/Field.php147,
+#: ../../cac-addon-acf/classes/Free/Setting/Field.php:25
+msgid "empty label"
+msgstr "label vazia"
+
+#: ../../ac-addon-types/classes/Settings/Field.php25,
+#: ../../ac-addon-types/classes/Settings/Field.php:32
+msgid "Types"
+msgstr ""
+
+#: ../../ac-addon-types/classes/Settings/Field.php:32
+msgid "Select your %s field."
+msgstr ""
+
+#: ../../ac-addon-types/classes/Settings/Field.php:32
+msgid "Type"
+msgstr ""
+
+#: ../classes/Editing/Addon.php:117
 msgid "Enable inline editing for Custom Fields. Default is <code>off</code>"
 msgstr "Habilitar edição inline para Campos Personalizados. Padrão: <code>desativado</code>"
 
-#: ../classes/inline-edit/cac-addon-inline-edit.php134,
-#: ../classes/layouts/layouts.php419,
-#: ../classes/export-import/classes/export_import.php1037,
-#: ../classes/export-import/classes/export_import.php:1219
-msgid "Instructions"
-msgstr "Instruções"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:137
-msgid "Notice"
-msgstr "Aviso"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:139
+#: ../classes/Editing/Addon.php:120
 msgid "Inline edit will display all the raw values in an editable text field."
 msgstr "Edição Inline mostrará todos os valores em um campo de texto editável"
 
-#: ../classes/inline-edit/cac-addon-inline-edit.php:142
-msgid "Except for Checkmark, Media Library, Post Title and Username."
-msgstr "Com exceção para Checkmark, Biblioteca de Mídia, Título do Post e Usuário"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:145
+#: ../classes/Editing/Addon.php:122
 msgid ""
 "Please read <a href='%s'>our documentation</a> if you plan to use these "
 "fields."
+msgstr "Por favor leia <a href=\"%s\">nossa documentação</a> se você planeja usar estes campos."
+
+#: ../classes/LayoutScreen/Columns.php:39
+msgid "You can make an editable copy of this set by clicking %s on the right."
 msgstr ""
 
-#: ../classes/inline-edit/cac-addon-inline-edit.php:208
-msgid "Select author"
-msgstr "Selecionar autor"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:210
-msgid "Redo"
-msgstr "Refazer"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:211
-msgid "Undo"
-msgstr "Desfazer"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php212,
-#: ../classes/layouts/layouts.php:479
-msgid "Delete"
-msgstr "Excluir"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:213
-msgid "Download"
-msgstr "Download"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:215
-msgid "This field is required."
-msgstr "Campo obrigatório"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:216
-msgid "Please enter a valid float value."
-msgstr "Por favor entre um valor 'float' válido."
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:217
-msgid "Please enter valid float values."
-msgstr "Por favor entre um valor 'float' válido."
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:219
-msgid "Inline Edit"
-msgstr "Edição Inline"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php279,
-#: ../classes/inline-edit/cac-addon-inline-edit.php:319
-msgid "Enable editing?"
-msgstr "Habilitar Edição?"
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:279
-msgid "This will make the column support inline editing."
-msgstr "Isso adicionará a edição inline da coluna."
-
-#: ../classes/inline-edit/cac-addon-inline-edit.php:300
-msgid "Allow creating new terms"
-msgstr ""
-
-#: ../classes/layouts/layouts.php:83
-msgid "Select roles"
-msgstr ""
-
-#: ../classes/layouts/layouts.php:84
-msgid "Select users"
-msgstr ""
-
-#: ../classes/layouts/layouts.php124,
-#: ../classes/export-import/classes/export_import.php:407
+#: ../classes/LayoutScreen/Columns.php95,
+#: ../classes/Admin/Page/ExportImport.php:148
 msgid "Original"
+msgstr "Original"
+
+#: ../classes/LayoutScreen/Columns.php:106
+msgid "Column set not created."
 msgstr ""
 
-#: ../classes/layouts/layouts.php:145
+#: ../classes/LayoutScreen/Columns.php:121
 msgid "Set %s succesfully created."
-msgstr ""
+msgstr "Configuração %s foi criado com sucesso."
 
-#: ../classes/layouts/layouts.php:162
-msgid "Set %s succesfully deleted."
-msgstr ""
-
-#: ../classes/layouts/layouts.php:165
+#: ../classes/LayoutScreen/Columns.php:140
 msgid "Screen does not exist."
+msgstr "Tela não existe."
+
+#: ../classes/LayoutScreen/Columns.php:153
+msgid "Column set %s succesfully deleted."
 msgstr ""
 
-#: ../classes/layouts/layouts.php:264
-msgid "Default"
-msgstr ""
+#: ../classes/LayoutScreen/Columns.php:221
+msgid "Select roles"
+msgstr "Selecione regras"
 
-#: ../classes/layouts/layouts.php:269
-msgid "Shop"
-msgstr ""
+#: ../classes/LayoutScreen/Columns.php:222
+msgid "Select users"
+msgstr "Selecione usuários"
 
-#: ../classes/layouts/layouts.php274, ../classes/third-party/bbpress.php:15
-msgid "bbPress"
-msgstr "bbPress"
-
-#: ../classes/layouts/layouts.php:291
-msgid "Column Set"
-msgstr ""
-
-#: ../classes/layouts/layouts.php315, ../classes/layouts/layouts.php430,
-#: ../classes/layouts/layouts.php:535
-msgid "Sets"
-msgstr ""
-
-#: ../classes/layouts/layouts.php:373
-msgid "Name"
-msgstr ""
-
-#: ../classes/layouts/layouts.php:378
-msgid "Please enter a name."
-msgstr ""
-
-#: ../classes/layouts/layouts.php:385
-msgid "Make this set available only for specific users or roles (optional)"
-msgstr ""
-
-#: ../classes/layouts/layouts.php389, ../classes/columns/user/roles.php:21
-msgid "Roles"
-msgstr ""
-
-#: ../classes/layouts/layouts.php390, ../classes/layouts/layouts.php:399
-msgid "optional"
-msgstr ""
-
-#: ../classes/layouts/layouts.php:398
-msgid "Users"
-msgstr ""
-
-#: ../classes/layouts/layouts.php:410
-msgid "roles"
-msgstr ""
-
-#: ../classes/layouts/layouts.php:411
-msgid "users"
-msgstr ""
-
-#: ../classes/layouts/layouts.php:431
+#: ../classes/LayoutScreen/Columns.php:228
 msgid "+ Add set"
+msgstr "+ Adicionar Configuração"
+
+#: ../classes/LayoutScreen/Columns.php239,
+#: ../classes/LayoutScreen/Columns.php:511
+msgid "Column Sets"
 msgstr ""
 
-#: ../classes/layouts/layouts.php:451
+#: ../classes/LayoutScreen/Columns.php:242
+msgid "Cancel"
+msgstr ""
+
+#: ../classes/LayoutScreen/Columns.php:257
+msgid ""
+"Create new sets to switch between different column views on the %s screen."
+msgstr "Criar nova configuração para alternar entre diferentes visualizações de colunas na tela de %s"
+
+#: ../classes/LayoutScreen/Columns.php:266
 msgid "Add"
-msgstr ""
+msgstr "Adicionar"
 
-#: ../classes/layouts/layouts.php:460
+#: ../classes/LayoutScreen/Columns.php:275
 msgid ""
 "Warning! The %s columns data will be deleted. This cannot be undone. 'OK' to"
 " delete, 'Cancel' to stop"
-msgstr ""
+msgstr "Atenção! Os dados das colunas %s serão deletados. Isto não poderá ser desfeito. 'OK' para deletar, 'Cancelar' para interromper."
 
-#: ../classes/layouts/layouts.php:470
-msgid "Not editable"
-msgstr ""
+#: ../classes/LayoutScreen/Columns.php292,
+#: ../classes/Editing/classes/TableScreen.php:67
+msgid "Delete"
+msgstr "Excluir"
 
-#: ../classes/layouts/layouts.php:485
+#: ../classes/LayoutScreen/Columns.php:298
 msgid "Select"
-msgstr ""
+msgstr "Selecione"
 
-#: ../classes/layouts/layouts.php:498
+#: ../classes/LayoutScreen/Columns.php:311
 msgid "Saved"
-msgstr ""
+msgstr "Salvo"
 
-#: ../classes/layouts/layouts.php:503
+#: ../classes/LayoutScreen/Columns.php:316
 msgid "This set is loaded via PHP and can therefore not be edited"
-msgstr ""
+msgstr "Essa configuração é carregada via PHP e portanto não é editável"
 
-#: ../classes/layouts/layouts.php:517
+#: ../classes/LayoutScreen/Columns.php:331
 msgid "Update"
-msgstr ""
+msgstr "Atualizar"
 
-#: ../classes/layouts/layouts.php:538
+#: ../classes/LayoutScreen/Columns.php:352
+msgid "Sets"
+msgstr "Configurações"
+
+#: ../classes/LayoutScreen/Columns.php:355
 msgid "Sets allow users to switch between different column views."
-msgstr ""
+msgstr "Configuração para permitir usuários alternar entre diferentes visualizações de colunas."
 
-#: ../classes/layouts/layouts.php:541
+#: ../classes/LayoutScreen/Columns.php:358
 msgid ""
 "Available sets are selectable from the overview screen. Users can have their"
 " own column view preference."
 msgstr ""
 
-#: ../classes/sortable/sortable.php:331
-msgid "Show all results when sorting. Default is <code>off</code>."
-msgstr "Mostrar todos os resultados quando ordenado. Padrão é: <code>desativado</code>."
+#: ../classes/LayoutScreen/Columns.php:364
+msgid "Online documentation"
+msgstr ""
 
-#: ../classes/sortable/sortable.php:355
-msgid "Sortable add-on"
-msgstr "Complemento de Ordenação/Classificação"
+#: ../classes/LayoutScreen/Columns.php527,
+#: ../classes/Column/NetworkSite/Name.php:7
+msgid "Name"
+msgstr "Nome"
 
-#: ../classes/sortable/sortable.php447, ../classes/sortable/sortable.php:493
-msgid "Enable sorting?"
-msgstr "Ativar ordenação?"
+#: ../classes/LayoutScreen/Columns.php:532
+msgid "Please enter a name."
+msgstr "Por favor digite um nome."
 
-#: ../classes/sortable/sortable.php:447
-msgid "This will make the column support sorting."
-msgstr "Isso fará com que a coluna suporte ordenação."
+#: ../classes/LayoutScreen/Columns.php:539
+msgid "Make this set available only for specific users or roles (optional)"
+msgstr "Faça esta configuração disponível somente para usuários ou regras específicas (opcional)"
 
-#: ../classes/sortable/sortable.php:525
+#: ../classes/LayoutScreen/Columns.php544,
+#: ../classes/LayoutScreen/Columns.php:553
+msgid "optional"
+msgstr "opcional"
+
+#: ../classes/LayoutScreen/Columns.php597,
+#: ../classes/Admin/Page/ExportImport.php641,
+#: ../classes/Admin/Page/ExportImport.php:741
+msgid "Instructions"
+msgstr "Instruções"
+
+#: ../classes/LayoutScreen/Columns.php:617
+msgid "Default"
+msgstr "Padrão"
+
+#: ../classes/LayoutScreen/Table.php:57
+msgid "Column View"
+msgstr ""
+
+#: ../classes/License/API.php:278
+msgid "Empty response from API."
+msgstr "Resposta vazia da API."
+
+#: ../classes/License/Manager.php:626
+msgid "Your license was successfully renewed!"
+msgstr "Sua licença foi renovada com sucesso!"
+
+#: ../classes/License/Manager.php:630
+msgid "Your license has not been renewed yet."
+msgstr "Sua licença ainda não foi renovada."
+
+#: ../classes/License/Manager.php:698
+msgid ""
+"Licence not active. Enter your licence key on <a href='%s'>the settings "
+"page</a>."
+msgstr "Licença não ativada. Digite a sua chave de licença na tela de <a href='%s'>configurações</a>."
+
+#: ../classes/License/Manager.php:775
+msgid "Empty licence."
+msgstr "Licença vazia."
+
+#: ../classes/License/Manager.php787, ../classes/License/Manager.php797,
+#: ../classes/License/Manager.php:801
+msgid "Wrong response from API."
+msgstr "Resposta errada da API."
+
+#: ../classes/License/Manager.php:832
+msgid "Updates"
+msgstr "Atualizações"
+
+#: ../classes/License/Manager.php:833
+msgid "Enter your licence code to receive automatic updates."
+msgstr "Entre com a sua licença para receber atualizações automáticas."
+
+#: ../classes/License/Manager.php:867
+msgid "network settings page"
+msgstr "página de configurações da rede"
+
+#: ../classes/License/Manager.php:873
+msgid "The license can be managed on the %s."
+msgstr "A licensa pode ser gerenciada em %s"
+
+#: ../classes/License/Manager.php:906
+msgid "Automatic updates are enabled."
+msgstr "Atualizações automáticas habilitadas."
+
+#: ../classes/License/Manager.php:907
+msgid "Deactivate licence"
+msgstr "Desativar licença"
+
+#: ../classes/License/Manager.php:914
+msgid "Enter your licence code"
+msgstr "Digite seu código de licença"
+
+#: ../classes/License/Manager.php:915
+msgid "Update licence"
+msgstr "Atualizar licença"
+
+#: ../classes/License/Manager.php:917
+msgid "You can find your license key on your %s."
+msgstr "Você pode achar sua chave de licença em seu %s."
+
+#: ../classes/License/Manager.php:917
+msgid "account page"
+msgstr "Página da conta"
+
+#: ../classes/License/Manager.php:929
+msgid ""
+"Could not connect to %s — You will not receive update notifications or be "
+"able to activate your license until this is fixed. This issue is often "
+"caused by an improperly configured SSL server (https). We recommend fixing "
+"the SSL configuration on your server, but if you need a quick fix you can:"
+msgstr "Não foi possível conectar-se ao %s - Você não receberá notificações de atualização ou ser capaz de ativar a sua licença até que isso seja corrigido. Esse problema geralmente é causado por um servidor SSL configurado incorretamente (https). Recomendamos que ajuste a configuração SSL em seu servidor, mas se você precisa de uma solução rápida, você pode:"
+
+#: ../classes/License/Manager.php:934
+msgid "Enable SSL"
+msgstr "Habilitar SSL"
+
+#: ../classes/License/Manager.php:938
+msgid "Disable SSL"
+msgstr "Desabilitar SSL"
+
+#: ../classes/License/Manager.php:966
+msgid "1 day"
+msgid_plural "%s days"
+msgstr[0] "1 dia"
+msgstr[1] "%s dias"
+
+#: ../classes/License/Manager.php:969
+msgid ""
+"Your Admin Columns Pro license will expire in %s. %s now and get a %d%% "
+"discount!"
+msgstr "Sua licença de Admin Columns Pro irá expirar em %s. %s agora e recebe um %d%% desconto!"
+
+#: ../classes/License/Manager.php971, ../classes/License/Manager.php:978
+msgid "Renew your license"
+msgstr "Renove sua licença"
+
+#: ../classes/License/Manager.php:976
+msgid ""
+"Your Admin Columns Pro license will expire in %s. %s now and get a discount!"
+msgstr "Sua licença de Admin Columns Pro irá expirar em %s. %s agora e recebe um desconto!"
+
+#: ../classes/License/Manager.php:984
+msgid ""
+"Your Admin Columns Pro license has expired on %s! Renew your license now by "
+"going to your %s."
+msgstr "Sua licença do Admin de Colunas Pro expirou em %s! Renove sua licença agora indo em seu %s."
+
+#: ../classes/License/Manager.php:986
+msgid "My Account page"
+msgstr "Página da Minha Conta"
+
+#: ../classes/License/Manager.php:1015
+msgid "Check my license"
+msgstr "Verificar minha licença"
+
+#: ../classes/Sorting/Addon.php:279
+msgid "Show all results when sorting."
+msgstr ""
+
+#: ../classes/Sorting/Addon.php:365
 msgid "Sorting Preferences"
-msgstr ""
+msgstr "Ordenar Preferências"
 
-#: ../classes/sortable/sortable.php:527
+#: ../classes/Sorting/Addon.php:366
 msgid "This will reset the sorting preference for all users."
-msgstr ""
+msgstr "Isto irá resetar a ordenação de preferência para todos os usuários."
 
-#: ../classes/sortable/sortable.php:547
+#: ../classes/Sorting/Addon.php:380
 msgid "Reset sorting preferences"
-msgstr ""
+msgstr "Resetar ordenação de preferências"
 
-#: ../classes/sortable/sortable.php:567
+#: ../classes/Sorting/Addon.php:397
 msgid "All sorting preferences have been reset."
 msgstr ""
 
-#: ../classes/third-party/wordpress-seo.php:21
-msgid "Enter your SEO Title"
-msgstr "Digite o seu Título SEO"
+#: ../classes/Sorting/Addon.php:467
+msgid "Reset sorting"
+msgstr "Resetar ordem"
 
-#: ../classes/third-party/wordpress-seo.php:25
-msgid "Enter your SEO Meta Description"
-msgstr "Digite o seu SEO Meta Descrição"
-
-#: ../classes/third-party/wordpress-seo.php:29
-msgid "Enter your SEO Focus Keywords"
-msgstr "Digite suas palavras-chave principais para SEO"
-
-#: ../classes/columns/post/child-pages.php:17
-msgid "Child Pages"
+#: ../classes/Table/ScreenOptions.php:79
+msgid "Horizontal scrollable table"
 msgstr ""
 
-#: ../classes/export-import/classes/export_import.php:241
+#: ../../cac-addon-acf/classes/Field/File.php:15
+msgid "Invalid attachment"
+msgstr "Anexo inválido"
+
+#: ../../cac-addon-acf/classes/Setting/Date.php:20
+msgid "ACF Date Format"
+msgstr ""
+
+#: ../../cac-addon-acf/classes/Setting/Date.php:26
+msgid "%s uses the %s from it's field settings."
+msgstr ""
+
+#: ../../cac-addon-acf/classes/Setting/Date.php26,
+#: ../classes/Settings/Column/NetworkSite/Plugins.php:20
+msgid "Display Format"
+msgstr ""
+
+#: ../../cac-addon-acf/classes/Setting/Field.php:77
+msgid "The previous selected option %s no longer exists."
+msgstr ""
+
+#: ../../cac-addon-acf/classes/Setting/Oembed.php:34
+msgid "Display format"
+msgstr "Formato de exibição"
+
+#: ../../cac-addon-acf/classes/Setting/Subfield.php:21
+msgid "No %s subfields available."
+msgstr ""
+
+#: ../../cac-addon-acf/classes/Setting/Subfield.php:26
+msgid "Subfield"
+msgstr ""
+
+#: ../../cac-addon-acf/classes/Setting/Subfield.php:27
+msgid "Select a repeater sub field."
+msgstr "Selecione um subcampo repetidor."
+
+#: ../classes/Admin/Page/ExportImport.php:22
+msgid "Export/Import"
+msgstr "Exportar/Importar"
+
+#: ../classes/Admin/Page/ExportImport.php:51
 msgid "Export field is empty. Please select your types from the left column."
 msgstr "Campo de exportação vazio. Por favor selecione seus tipos na coluna à esquerda."
 
-#: ../classes/export-import/classes/export_import.php327,
-#: ../classes/export-import/classes/export_import.php:333
+#: ../classes/Admin/Page/ExportImport.php109,
+#: ../classes/Admin/Page/ExportImport.php:115
 msgid "Sorry, there has been an error."
 msgstr "Desculpe, um erro ocorreu."
 
-#: ../classes/export-import/classes/export_import.php:333
+#: ../classes/Admin/Page/ExportImport.php:115
 msgid ""
 "The export file could not be found at %s. It is likely that this was caused "
 "by a permissions problem."
 msgstr ""
 
-#: ../classes/export-import/classes/export_import.php:371
+#: ../classes/Admin/Page/ExportImport.php:128
 msgid "Import failed. File does not contain Admin Column settings."
 msgstr "Falha na importação. Arquivo não contem configurações do Admin de Colunas."
 
-#: ../classes/export-import/classes/export_import.php:389
+#: ../classes/Admin/Page/ExportImport.php:137
 msgid "Screen %s does not exist."
 msgstr "Tela %s não existe."
 
-#: ../classes/export-import/classes/export_import.php:421
+#: ../classes/Admin/Page/ExportImport.php:156
 msgid "Imported"
-msgstr ""
+msgstr "Impordado"
 
-#: ../classes/export-import/classes/export_import.php:481
+#: ../classes/Admin/Page/ExportImport.php:184
 msgid "Import failed."
+msgstr "Importação falhou."
+
+#: ../classes/Admin/Page/ExportImport.php:195
+msgid "Succesfully created %s for %s."
 msgstr ""
 
-#: ../classes/export-import/classes/export_import.php:503
-msgid "Succesfully created %s %s for %s."
-msgstr ""
-
-#: ../classes/export-import/classes/export_import.php:507
+#: ../classes/Admin/Page/ExportImport.php:196
 msgid "set"
 msgid_plural "sets"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Configuração"
+msgstr[1] "Configurações"
 
-#: ../classes/export-import/classes/export_import.php:1001
-msgid "Export/Import"
-msgstr "Exportar/Importar"
+#: ../classes/Admin/Page/ExportImport.php:306
+msgid "read only"
+msgstr ""
 
-#: ../classes/export-import/classes/export_import.php:1033
+#: ../classes/Admin/Page/ExportImport.php:639
 msgid "Results"
 msgstr "Resultados"
 
-#: ../classes/export-import/classes/export_import.php:1043
+#: ../classes/Admin/Page/ExportImport.php:644
 msgid "Using the PHP export"
 msgstr "Exportar em PHP"
 
-#: ../classes/export-import/classes/export_import.php1047,
-#: ../classes/export-import/classes/export_import.php:1189
+#: ../classes/Admin/Page/ExportImport.php646,
+#: ../classes/Admin/Page/ExportImport.php:726
 msgid "Copy the generated PHP code in the right column"
 msgstr "Copie o código gerado em PHP na coluna da direita"
 
-#: ../classes/export-import/classes/export_import.php1049,
-#: ../classes/export-import/classes/export_import.php:1191
+#: ../classes/Admin/Page/ExportImport.php647,
+#: ../classes/Admin/Page/ExportImport.php:727
 msgid ""
 "Insert the code in your themes functions.php or in your plugin (on the init "
 "action)"
 msgstr "Insira o código no functions.php do seu tema ou em seu plugin (no action init)"
 
-#: ../classes/export-import/classes/export_import.php1051,
-#: ../classes/export-import/classes/export_import.php:1193
+#: ../classes/Admin/Page/ExportImport.php648,
+#: ../classes/Admin/Page/ExportImport.php:728
 msgid ""
 "Your columns settings are now loaded from your PHP code instead of from your"
 " stored settings!"
 msgstr "Suas configurações agora são carregadas a partir de seu código PHP ao invés de suas configurações armazenadas"
 
-#: ../classes/export-import/classes/export_import.php:1077
+#: ../classes/Admin/Page/ExportImport.php:661
 msgid "Columns"
 msgstr "Colunas"
 
-#: ../classes/export-import/classes/export_import.php:1079
+#: ../classes/Admin/Page/ExportImport.php:662
 msgid "Select the columns to be exported."
 msgstr "Seleciona as colunas para exportação."
 
-#: ../classes/export-import/classes/export_import.php:1117
+#: ../classes/Admin/Page/ExportImport.php:685
 msgid "select all"
 msgstr "Selecionar todos"
 
-#: ../classes/export-import/classes/export_import.php:1121
+#: ../classes/Admin/Page/ExportImport.php:688
+msgid "deselect all"
+msgstr ""
+
+#: ../classes/Admin/Page/ExportImport.php:692
 msgid "Export PHP"
 msgstr "Exportar PHP"
 
-#: ../classes/export-import/classes/export_import.php1123,
-#: ../classes/export-import/classes/export_import.php:1153
+#: ../classes/Admin/Page/ExportImport.php693,
+#: ../classes/Admin/Page/ExportImport.php:708
 msgid "Download export file"
 msgstr "Baixar o arquivo de exportação"
 
-#: ../classes/export-import/classes/export_import.php:1131
+#: ../classes/Admin/Page/ExportImport.php:697
 msgid "No stored column settings are found."
 msgstr "Nenhuma configuração de coluna encontrada."
 
-#: ../classes/export-import/classes/export_import.php:1155
+#: ../classes/Admin/Page/ExportImport.php:709
 msgid ""
 "Admin Columns will export to a format compatible with the Admin Columns "
 "import functionality."
 msgstr "Admin de Colunas irá exportar para um formato compatível com a funcionalidade de importação do Admin de Colunas."
 
-#: ../classes/export-import/classes/export_import.php1159,
-#: ../classes/export-import/classes/export_import.php:1185
+#: ../classes/Admin/Page/ExportImport.php711,
+#: ../classes/Admin/Page/ExportImport.php:724
 msgid ""
 "Select the columns you which to export from the list in the left column"
 msgstr "Selecione as colunas que você quer exportar na lista coluna da esquerda"
 
-#: ../classes/export-import/classes/export_import.php:1161
+#: ../classes/Admin/Page/ExportImport.php:712
 msgid "Click the &quot;Download export file&quot; button"
 msgstr "Clique no botão &quot;Download do arquivo de exportaçãoe&quot; "
 
-#: ../classes/export-import/classes/export_import.php:1163
+#: ../classes/Admin/Page/ExportImport.php:713
 msgid "Save the .json-file when prompted"
 msgstr "Salve o arquivo .json quando solicitado"
 
-#: ../classes/export-import/classes/export_import.php:1165
+#: ../classes/Admin/Page/ExportImport.php:714
 msgid "Go to the Admin Columns import/export page in your other installation"
 msgstr "Va para a página de importar/exportar em sua outra instalação do Admin de Colunas"
 
-#: ../classes/export-import/classes/export_import.php:1167
+#: ../classes/Admin/Page/ExportImport.php:715
 msgid "Select the export .json-file"
 msgstr "Selecione o arquivo de exportação .json"
 
-#: ../classes/export-import/classes/export_import.php:1169
+#: ../classes/Admin/Page/ExportImport.php:716
 msgid "Click the &quot;Start import&quot; button"
 msgstr "Clique no botão &quot;Iniciar importação&quot;"
 
-#: ../classes/export-import/classes/export_import.php:1171
+#: ../classes/Admin/Page/ExportImport.php:717
 msgid "That's it!"
 msgstr "É isso aí!"
 
-#: ../classes/export-import/classes/export_import.php:1179
+#: ../classes/Admin/Page/ExportImport.php:721
 msgid "Export to PHP"
 msgstr "Exportar para PHP"
 
-#: ../classes/export-import/classes/export_import.php:1181
+#: ../classes/Admin/Page/ExportImport.php:722
 msgid ""
 "Admin Columns will export PHP code you can directly insert in your plugin or"
 " theme."
 msgstr "Admin de Colunas irá exportar o código PHP que poderá ser inserido diretamente no seu tema ou plugin."
 
-#: ../classes/export-import/classes/export_import.php:1187
+#: ../classes/Admin/Page/ExportImport.php:725
 msgid "Click the &quot;Export to PHP&quot; button"
 msgstr "Clique no botão &quot;Exportar para PHP&quot;"
 
-#: ../classes/export-import/classes/export_import.php:1213
+#: ../classes/Admin/Page/ExportImport.php:738
 msgid "Import"
 msgstr "Importar"
 
-#: ../classes/export-import/classes/export_import.php:1215
+#: ../classes/Admin/Page/ExportImport.php:739
 msgid "Import your Admin Column settings here."
 msgstr "Importe seus configurações de coluna de administrador aqui."
 
-#: ../classes/export-import/classes/export_import.php:1225
+#: ../classes/Admin/Page/ExportImport.php:744
 msgid "Import Columns Types"
 msgstr "Importar tipos de colunas"
 
-#: ../classes/export-import/classes/export_import.php:1229
+#: ../classes/Admin/Page/ExportImport.php:746
 msgid "Choose a Admin Columns Export file to upload."
 msgstr "Escolha o arquivo de Exportação do Admin de Colunas para enviar."
 
-#: ../classes/export-import/classes/export_import.php:1231
+#: ../classes/Admin/Page/ExportImport.php:747
 msgid "Click upload file and import."
 msgstr "Clique enviar arquivo e importar."
 
-#: ../classes/export-import/classes/export_import.php:1233
+#: ../classes/Admin/Page/ExportImport.php:748
 msgid "That's it! You imported settings are now active."
 msgstr "É isso! Suas configurações de importação estão ativadas."
 
-#: ../classes/export-import/classes/export_import.php:1251
+#: ../classes/Admin/Page/ExportImport.php:759
 msgid "Upload file and import"
 msgstr "Enviar arquivo e importar"
 
-#: ../classes/filtering/classes/model.php:1307
-msgid "False"
-msgstr "Falso"
-
-#: ../classes/filtering/classes/model.php:1313
-msgid "True"
-msgstr "Verdadeiro"
-
-#: ../classes/filtering/classes/model.php:1435
-msgid "Future dates"
+#: ../classes/Column/Media/Image.php10,
+#: ../classes/Editing/classes/TableScreen.php76,
+#: ../../cac-addon-woocommerce/v2/classes/Filtering/Product/Thumb.php8,
+#: ../../cac-addon-woocommerce/v2/classes/Filtering/Product/Thumb.php9,
+#: ../../cac-addon-woocommerce/v3/classes/Filtering/Product/Thumb.php8,
+#: ../../cac-addon-woocommerce/v3/classes/Filtering/Product/Thumb.php:9
+msgid "Image"
 msgstr ""
 
-#: ../classes/filtering/classes/model.php:1437
-msgid "Past dates"
+#: ../classes/Column/NetworkSite/BlogID.php:7
+msgid "Blog ID"
 msgstr ""
 
-#: ../classes/filtering/classes/model.php:1597
-msgid "Start date"
+#: ../classes/Column/NetworkSite/CommentCount.php:7
+msgid "Comments"
 msgstr ""
 
-#: ../classes/filtering/classes/model.php:1599
-msgid "until"
+#: ../classes/Column/NetworkSite/Domain.php:7
+msgid "Domain"
 msgstr ""
 
-#: ../classes/filtering/classes/model.php:1601
-msgid "End date"
+#: ../classes/Column/NetworkSite/Options.php:7
+msgid "Options"
 msgstr ""
 
-#: ../classes/filtering/classes/model.php:1635
-msgid "Min"
+#: ../classes/Column/NetworkSite/Path.php:7
+msgid "Path"
 msgstr ""
 
-#: ../classes/filtering/classes/model.php:1637
-msgid "to"
+#: ../classes/Column/NetworkSite/PostCount.php:7
+msgid "Post Count"
 msgstr ""
 
-#: ../classes/filtering/classes/model.php:1639
-msgid "Max"
+#: ../classes/Column/NetworkSite/SiteID.php:7
+msgid "Site ID"
 msgstr ""
 
-#: ../classes/filtering/classes/model.php1685,
-#: ../classes/filtering/classes/post.php985,
-#: ../classes/filtering/classes/post.php:1353
-msgid "Empty"
-msgstr "Vazio"
-
-#: ../classes/filtering/classes/model.php:1687
-msgid "Not empty"
-msgstr "Não vazio"
-
-#: ../classes/filtering/classes/model.php:1775
-msgid "All %s"
-msgstr "%s"
-
-#: ../classes/filtering/classes/model.php:1913
-msgid "Loading values .."
+#: ../classes/Column/NetworkSite/Status.php:7
+msgid "Status"
 msgstr ""
 
-#: ../classes/filtering/classes/post.php:897
-msgid "Not sticky"
-msgstr "Not sticky"
-
-#: ../classes/filtering/classes/post.php:899
-msgid "Sticky"
-msgstr "Sticky"
-
-#: ../classes/filtering/classes/post.php:987
-msgid "Has excerpt"
-msgstr "Tem resumo"
-
-#: ../classes/filtering/classes/post.php:1017
-msgid "Without more tag"
+#: ../classes/Column/NetworkSite/Theme.php:7
+msgid "Theme"
 msgstr ""
 
-#: ../classes/filtering/classes/post.php:1019
-msgid "Has more tag"
-msgstr "Tem mais tag"
-
-#: ../classes/filtering/classes/post.php:1355
-msgid "Has customer message"
+#: ../classes/Column/NetworkSite/UploadSpace.php:7
+msgid "Storage Space"
 msgstr ""
 
-#: ../classes/inline-edit/classes/model.php:356
-msgid "Invalid request."
-msgstr "Pedido inválido."
-
-#: ../classes/inline-edit/classes/model.php364,
-#: ../classes/inline-edit/classes/model.php:976
-msgid "Invalid column."
-msgstr "Coluna inválida"
-
-#: ../classes/inline-edit/classes/model.php:733
-msgid "- Select -"
-msgstr "- Selecione -"
-
-#: ../classes/inline-edit/classes/model.php:962
-msgid "Required fields missing."
-msgstr "Campos requeridos faltando."
-
-#: ../classes/inline-edit/classes/model.php:967
-msgid "Invalid item ID."
-msgstr "ID inválido do ítem"
-
-#: ../classes/inline-edit/classes/post.php:236
-msgid "No shipping class"
-msgstr "Nenhuma classe de transporte"
-
-#: ../classes/inline-edit/classes/post.php:370
-msgid "Excerpt automatically generated from content."
-msgstr "Resumos são gerados automaticamente a partir do conteúdo."
-
-#: ../classes/inline-edit/classes/post.php:1064
-msgid "The SKU must be unique."
-msgstr "O SKU precisa ser único."
-
-#: ../classes/inline-edit/classes/user.php:378
-msgid "The username already exists."
+#: ../classes/Column/NetworkSite/UploadSpace.php22,
+#: ../classes/Column/NetworkSite/UploadSpace.php:26
+msgid "%s MB"
 msgstr ""
 
-#: ../classes/sortable/classes/model.php227,
-#: ../classes/sortable/classes/model.php:227
-msgid "Reset sorting"
-msgstr "Resetar ordem"
+#: ../classes/Column/Post/ChildPages.php:8
+msgid "Child Pages"
+msgstr "Páginas Filhas"
 
-#: ../classes/taxonomy/column/ID.php27,
-#: ../../cac-addon-woocommerce/classes/column/wc-column.php:43
-msgid "ID"
-msgstr "ID"
+#: ../classes/Column/Post/Images.php:11
+msgid "Images"
+msgstr ""
 
-#: ../classes/taxonomy/column/excerpt.php:29
+#: ../classes/Column/Post/Images.php:124
+msgid "%s image"
+msgid_plural "%s images"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../classes/Column/Taxonomy/Excerpt.php:11
 msgid "Excerpt"
 msgstr "Resumo"
 
-#: ../classes/taxonomy/column/parent.php:13
+#: ../classes/Column/Taxonomy/ID.php:10
+msgid "ID"
+msgstr "ID"
+
+#: ../classes/Column/Taxonomy/Parent.php:8
 msgid "Parent"
+msgstr "Pai"
+
+#: ../classes/Column/User/Gravatar.php:10
+msgid "Profile Picture"
 msgstr ""
 
-#: ../classes/taxonomy/column/parent.php:63
-msgid "Display"
+#: ../classes/Editing/classes/Settings.php:16
+msgid "Enable Editing"
 msgstr ""
 
-#: ../classes/taxonomy/storage_model/taxonomy.php:35
-msgid "Taxonomy"
+#: ../classes/Editing/classes/Settings.php:36
+msgid "This will make the column support inline editing."
+msgstr "Isso adicionará a edição inline da coluna."
+
+#: ../classes/Editing/classes/Settings.php35,
+#: ../classes/Editing/classes/Model/CustomField.php:56
+msgid "Inline Editing"
 msgstr ""
 
-#: ../cac-addon-pro.php:489
-msgid "Admin Columns Settings"
+#: ../classes/Editing/classes/TableScreen.php:63
+msgid "Select author"
+msgstr "Selecionar autor"
+
+#: ../classes/Editing/classes/TableScreen.php:65
+msgid "Redo"
+msgstr "Refazer"
+
+#: ../classes/Editing/classes/TableScreen.php:66
+msgid "Undo"
+msgstr "Desfazer"
+
+#: ../classes/Editing/classes/TableScreen.php:68
+msgid "Download"
+msgstr "Download"
+
+#: ../classes/Editing/classes/TableScreen.php:70
+msgid "This field is required."
+msgstr "Campo obrigatório"
+
+#: ../classes/Editing/classes/TableScreen.php:71
+msgid "Please enter a valid float value."
+msgstr "Por favor entre um valor 'float' válido."
+
+#: ../classes/Editing/classes/TableScreen.php:72
+msgid "Please enter valid float values."
+msgstr "Por favor entre um valor 'float' válido."
+
+#: ../classes/Editing/classes/TableScreen.php:74
+msgid "Inline Edit"
+msgstr "Edição Inline"
+
+#: ../classes/Editing/classes/TableScreen.php:75
+msgid "Media"
 msgstr ""
 
-#: ../cac-addon-pro.php489, ../../cac-addon-acf/cac-addon-acf.php164,
-#: ../../cac-addon-woocommerce/cac-addon-woocommerce.php:334
-msgid "Admin Columns"
+#: ../classes/Editing/classes/TableScreen.php:77
+msgid "Audio"
 msgstr ""
 
-#: ../../cac-addon-acf/cac-addon-acf.php168,
-#: ../../cac-addon-acf/classes/column/acf-field.php21,
-#: ../../cac-addon-acf/classes/column/acf-field.php:23
-msgid "Advanced Custom Fields"
+#: ../classes/Editing/classes/TableScreen.php:125
+msgid "Invalid item ID."
+msgstr "ID inválido do ítem"
+
+#: ../classes/Editing/classes/TableScreen.php131,
+#: ../classes/Editing/classes/TableScreen.php:257
+msgid "Invalid list screen."
 msgstr ""
 
-#: ../../cac-addon-acf/cac-addon-acf.php177,
-#: ../../cac-addon-woocommerce/cac-addon-woocommerce.php:347
-msgid "%s and %s"
+#: ../classes/Editing/classes/TableScreen.php140,
+#: ../classes/Editing/classes/TableScreen.php265,
+#: ../classes/Editing/classes/TableScreen.php:269
+msgid "Invalid column."
+msgstr "Coluna inválida"
+
+#: ../classes/Editing/classes/TableScreen.php:144
+msgid "Column does not support editing."
 msgstr ""
 
-#: ../../cac-addon-acf/cac-addon-acf.php:184
-msgid ""
-"The ACF add-on is enabled but not effective. It requires %s in order to "
-"work."
+#: ../classes/Editing/classes/TableScreen.php:150
+msgid "User does not have write permissions"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field-acf4.php116,
-#: ../../cac-addon-acf/classes/column/acf-field-acf5.php:173
-msgid "Field"
+#: ../classes/Editing/classes/TableScreen.php:251
+msgid "Invalid request."
+msgstr "Pedido inválido."
+
+#: ../classes/Filtering/classes/Dropdown.php96,
+#: ../classes/Filtering/classes/Settings.php:56
+msgid "All %s"
+msgstr "%s"
+
+#: ../classes/Filtering/classes/Dropdown.php146,
+#: ../../cac-addon-woocommerce/v2/classes/Filtering/ShopOrder/CustomerMessage.php25,
+#: ../../cac-addon-woocommerce/v3/classes/Filtering/ShopOrder/CustomerMessage.php:25
+msgid "Empty"
+msgstr "Vazio"
+
+#: ../classes/Filtering/classes/Dropdown.php:158
+msgid "Not empty"
+msgstr "Não vazio"
+
+#: ../classes/Filtering/classes/Dropdown.php:297
+msgid "Loading values .."
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field-acf4.php116,
-#: ../../cac-addon-acf/classes/column/acf-field-acf5.php:173
-msgid "Select your ACF field."
+#: ../classes/Filtering/classes/Dropdown.php:361
+msgid "Filter by %s"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field-acf4.php130,
-#: ../../cac-addon-acf/classes/column/acf-field-acf5.php:187
-msgid "No ACF fields available."
+#: ../classes/Filtering/classes/Model.php:221
+msgid "Future dates"
+msgstr "Datas futuras"
+
+#: ../classes/Filtering/classes/Model.php:222
+msgid "Past dates"
+msgstr "Datas passadas"
+
+#: ../classes/Filtering/classes/Model.php246,
+#: ../../cac-addon-woocommerce/v2/classes/Filtering/Product/Thumb.php8,
+#: ../../cac-addon-woocommerce/v3/classes/Filtering/Product/Thumb.php:8
+msgid "Without %s"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field-acf5.php:181
-msgid "empty label"
+#: ../classes/Filtering/classes/Model.php247,
+#: ../../cac-addon-woocommerce/v2/classes/Filtering/Product/Thumb.php9,
+#: ../../cac-addon-woocommerce/v3/classes/Filtering/Product/Thumb.php:9
+msgid "Has %s"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:236
-msgid "Invalid attachment"
+#: ../classes/Filtering/classes/Settings.php:31
+msgid "Enable Filtering"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:579
-msgid "Sub Field"
+#: ../classes/Filtering/classes/Settings.php:52
+msgid "This will make the column support filtering."
+msgstr "Isso adicionará o suporte à filtragem da coluna."
+
+#: ../classes/Filtering/classes/Settings.php:51
+msgid "Filtering"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:579
-msgid "Select a repeater sub field."
+#: ../classes/Filtering/classes/Settings.php:61
+msgid "Set the name of the label in the filter menu"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:590
-msgid "No ACF subfields available."
+#: ../classes/Filtering/classes/Settings.php:60
+msgid "Top label"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:603
-msgid "Single Space"
+#: ../classes/Filtering/classes/TableScreen.php:344
+msgid "Filter"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:604
-msgid "Comma Separated"
+#: ../classes/Filtering/classes/TableScreen.php:392
+msgid "Start date"
+msgstr "Data inicial"
+
+#: ../classes/Filtering/classes/TableScreen.php:393
+msgid "End date"
+msgstr "Data final"
+
+#: ../classes/Filtering/classes/TableScreen.php:401
+msgid "Min"
+msgstr "Min"
+
+#: ../classes/Filtering/classes/TableScreen.php:402
+msgid "Max"
+msgstr "Max"
+
+#: ../classes/Filtering/classes/TableScreen.php:457
+msgid "until"
+msgstr "até"
+
+#: ../classes/Settings/Column/CustomFieldType.php:62
+msgid "Post"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:605
-msgid "New line"
+#: ../classes/Sorting/classes/Settings.php:16
+msgid "Enable Sorting"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:609
-msgid "Display subitems"
+#: ../classes/Sorting/classes/Settings.php:35
+msgid "This will make the column support sorting."
+msgstr "Isso fará com que a coluna suporte ordenação."
+
+#: ../classes/Sorting/classes/Settings.php:34
+msgid "Sorting"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:609
-msgid "Select a display format for sub field."
+#: ../classes/ThirdParty/bbPress/Addon.php:78
+msgid "bbPress"
+msgstr "bbPress"
+
+#: ../classes/ThirdParty/RelatedPosts/Addon.php25,
+#: ../classes/ThirdParty/RelatedPosts/Column.php:16
+msgid "Related Posts"
 msgstr ""
 
-#: ../../cac-addon-acf/classes/column/acf-field.php:630
-msgid "Display format"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/cac-addon-woocommerce.php338,
-#: ../../cac-addon-woocommerce/classes/column/product/reviews-enabled.php:18
-msgid "WooCommerce"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/cac-addon-woocommerce.php:354
-msgid ""
-"The WooCommerce add-on is enabled but not effective. It requires %s in order"
-" to work."
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/wc-column.php:40
-msgid "Property To Display"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/wc-column.php:42
-msgid "Title"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/wc-column.php:47
-msgid "Product property to display for related post(s)."
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/product/attributes.php:75
-msgid "Is a taxonomy"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/product/attributes.php:120
+#: ../../cac-addon-woocommerce/v2/classes/Settings/ProductAttributes.php98,
+#: ../../cac-addon-woocommerce/v3/classes/Settings/ProductAttributes.php:26
 msgid "Show all attributes"
-msgstr ""
+msgstr "Mostrar todos os atributos"
 
-#: ../../cac-addon-woocommerce/classes/column/product/attributes.php:124
+#: ../../cac-addon-woocommerce/v2/classes/Settings/ProductAttributes.php104,
+#: ../../cac-addon-woocommerce/v3/classes/Settings/ProductAttributes.php:32
 msgid "Show Single"
+msgstr "Mostrar Única"
+
+#: ../../cac-addon-woocommerce/v2/classes/Settings/ProductAttributes.php105,
+#: ../../cac-addon-woocommerce/v3/classes/Settings/ProductAttributes.php:33
+msgid "Display a single attribute."
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/attributes.php:126
-msgid "Display a single attribute. Only works for taxonomy attributes."
+#: ../../cac-addon-woocommerce/v2/classes/Settings/ProductAttributes.php105,
+#: ../../cac-addon-woocommerce/v3/classes/Settings/ProductAttributes.php:33
+msgid "Only works for taxonomy attributes."
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/backorders-allowed.php:18
+#: ../../cac-addon-woocommerce/v2/classes/Settings/ProductAttributes.php166,
+#: ../../cac-addon-woocommerce/v3/classes/Settings/ProductAttributes.php:101
+msgid "Is a taxonomy"
+msgstr "É uma taxonomia"
+
+#: ../classes/Editing/classes/Model/CustomField.php:57
+msgid ""
+"Inline Editing for Custom Fields is not enabled. Enable inline editing for "
+"Custom Fields on the %s."
+msgstr ""
+
+#: ../classes/Editing/classes/Model/CustomField.php:57
+msgid "settings screen"
+msgstr ""
+
+#: ../classes/Editing/classes/Settings/Taxonomy.php:35
+msgid "Allow new %s to be created whilst editing"
+msgstr ""
+
+#: ../classes/Editing/classes/Settings/Taxonomy.php:34
+msgid "Allow new %s?"
+msgstr ""
+
+#: ../classes/Filtering/classes/Settings/Date.php:10
+msgid "Future / Past"
+msgstr "Futuro / Passado"
+
+#: ../classes/Filtering/classes/Settings/Ranged.php:26
+msgid "Range"
+msgstr "Alcance"
+
+#: ../classes/Filtering/classes/Settings/Ranged.php:32
+msgid "This will allow you to set the filter format."
+msgstr "Isso permitirá você definir o formato do filtro."
+
+#: ../classes/Filtering/classes/Settings/Ranged.php:31
+msgid "Filter by"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/Options.php:12
+msgid "Option"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/Plugins.php:15
+msgid "Count"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/Plugins.php:16
+msgid "List"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/PluginsInclude.php:18
+msgid "Include network plugins"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/PostCount.php:27
+msgid "Post Type"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/PostCount.php:38
+msgid "Does not include %s"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/PostCount.php:42
+msgid "Post Status"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/PostCount.php:48
+msgid "Display Options"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/PostCount.php:111
+msgid "All post types"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/PostCount.php:141
+msgid "Any post status"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/PostCount.php:142
+msgid "Any post status without Trash"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/Theme.php:19
+msgid "Display"
+msgstr "Tela"
+
+#: ../classes/Settings/Column/NetworkSite/Theme.php:28
+msgid "Active Theme"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/Theme.php:29
+msgid "Allowed Themes"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/Theme.php:30
+msgid "Available Themes"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/Theme.php:81
+msgid "Active"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/Theme.php:85
+msgid "Network Enabled"
+msgstr ""
+
+#: ../classes/Settings/Column/NetworkSite/Theme.php:89
+msgid "Site Enabled"
+msgstr ""
+
+#: ../classes/ThirdParty/YoastSeo/Editing/FocusKW.php:12
+msgid "Enter your SEO Focus Keywords"
+msgstr "Digite suas palavras-chave principais para SEO"
+
+#: ../classes/ThirdParty/YoastSeo/Editing/MetaDesc.php:12
+msgid "Enter your SEO Meta Description"
+msgstr "Digite o seu SEO Meta Descrição"
+
+#: ../classes/ThirdParty/YoastSeo/Editing/Title.php:12
+msgid "Enter your SEO Title"
+msgstr "Digite o seu Título SEO"
+
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/BackordersAllowed.php8,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/BackordersAllowed.php:8
 msgid "Backorders Allowed"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/crosssells.php:18
-msgid "Crosssells"
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/Crosssells.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/Crosssells.php:11
+msgid "Cross Sells"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/order-total.php:19
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/Dimensions.php61,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/Dimensions.php:61
+msgid "Length"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/Dimensions.php62,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/Dimensions.php:62
+msgid "Width"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/Dimensions.php63,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/Dimensions.php:63
+msgid "Height"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/OrderTotal.php10,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/OrderTotal.php:10
 msgid "Total order amount"
-msgstr ""
+msgstr "Valor total do pedido"
 
-#: ../../cac-addon-woocommerce/classes/column/product/parent.php:19
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/Parent.php:11
 msgid "Parent product"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/product-type.php:17
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/ProductType.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/ProductType.php:11
 msgid "Product type"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/reviews-enabled.php:17
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/ReviewsEnabled.php13,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/ReviewsEnabled.php:13
 msgid "Reviews enabled"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/stock-status.php:33
-msgid ""
-"Stock status editing not supported for variable, grouped and external "
-"products."
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/StockStatus.php33,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/StockStatus.php:33
+msgid "Stock status editing is only supported for %s products."
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/stock-status.php:37
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/StockStatus.php39,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/StockStatus.php:39
 msgid "In stock"
+msgstr "Em estoque"
+
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/StockStatus.php43,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/StockStatus.php:43
+msgid "Out of stock"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/tax-class.php:49
-msgid "Standard"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/product/upsells.php:17
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/Upsells.php12,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/Upsells.php:12
 msgid "Upsells"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/product/visibility.php:13
+#: ../../cac-addon-woocommerce/v2/classes/Column/Product/Visibility.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/Product/Visibility.php:11
 msgid "Visiblity"
-msgstr ""
+msgstr "Visibilidade"
 
-#: ../../cac-addon-woocommerce/classes/column/shop_coupon/amount.php:17
-msgid "Amount"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/shop_coupon/apply-before-tax.php:17
-msgid "Applied before tax"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/shop_coupon/apply-before-tax.php:28
-msgid "The coupon is applied before calculating cart tax."
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/shop_coupon/apply-before-tax.php:31
-msgid "The coupon is applied after calculating cart tax."
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/shop_coupon/exclude-products.php:17
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopCoupon/ExcludeProducts.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopCoupon/ExcludeProducts.php:11
 msgid "Excluded products"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/shop_coupon/free-shipping.php:17
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopCoupon/FreeShipping.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopCoupon/FreeShipping.php:11
 msgid "Free shipping"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/shop_coupon/free-shipping.php:28
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopCoupon/FreeShipping.php27,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopCoupon/FreeShipping.php:27
 msgid ""
 "The free shipping method must be enabled with the &quot;must use "
 "coupon&quot; setting."
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/shop_coupon/include-products.php:17
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopCoupon/IncludeProducts.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopCoupon/IncludeProducts.php:11
 msgid "Included products"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/shop_coupon/minimum-amount.php:13
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopCoupon/MaximumAmount.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopCoupon/MaximumAmount.php:11
+msgid "Maximum amount"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopCoupon/MinimumAmount.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopCoupon/MinimumAmount.php:11
 msgid "Minimum amount"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/shop_order/order-coupons-used.php13,
-#: ../../cac-addon-woocommerce/classes/column/user/coupons-used.php:13
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopCoupon/Orders.php10,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopCoupon/Orders.php:11
+msgid "Orders"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopCoupon/UsedBy.php10,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopCoupon/UsedBy.php:10
+msgid "Used By"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopCoupon/UsedBy.php29,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopCoupon/UsedBy.php:30
+msgid "Not a registered user"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopOrder/CouponsUsed.php11,
+#: ../../cac-addon-woocommerce/v2/classes/Column/User/CouponsUsed.php10,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopOrder/CouponsUsed.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/User/CouponsUsed.php:10
 msgid "Coupons Used"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/shop_order/order-discount.php:17
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopOrder/Discount.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopOrder/Discount.php:11
 msgid "Order Discount"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/shop_order/order-status.php:17
-msgid "Order Status"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/shop_order/payment-method.php:17
+#: ../../cac-addon-woocommerce/v2/classes/Column/ShopOrder/PaymentMethod.php8,
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopOrder/PaymentMethod.php:8
 msgid "Payment method"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/user/order-custom-field.php:13
-msgid "Custom Field Orders"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/user/orders.php:20
+#: ../../cac-addon-woocommerce/v2/classes/Column/User/Orders.php67,
+#: ../../cac-addon-woocommerce/v3/classes/Column/User/Orders.php:67
 msgid "items"
-msgstr ""
+msgstr "Itens"
 
-#: ../../cac-addon-woocommerce/classes/column/user/total-sales.php:13
+#: ../../cac-addon-woocommerce/v2/classes/Column/User/TotalSales.php11,
+#: ../../cac-addon-woocommerce/v3/classes/Column/User/TotalSales.php:11
 msgid "Total Sales"
 msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/classes/Editing/Product/SKU.php:26
+msgid "The SKU must be unique."
+msgstr "O SKU precisa ser único."
+
+#: ../../cac-addon-woocommerce/v2/classes/Editing/Product/SKU.php:34
+msgid "The SKU is the same."
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v2/classes/Editing/Product/TaxClass.php13,
+#: ../../cac-addon-woocommerce/v3/classes/Editing/Product/TaxClass.php:13
+msgid "Standard"
+msgstr "Padrão"
+
+#: ../../cac-addon-woocommerce/v2/classes/Filtering/ShopOrder/CustomerMessage.php26,
+#: ../../cac-addon-woocommerce/v3/classes/Filtering/ShopOrder/CustomerMessage.php:26
+msgid "Has customer message"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopOrder/Purchased.php:12
+msgid "Purchased"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/v3/classes/Column/ShopOrder/Purchased.php:27
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: ../classes/Editing/classes/Model/Post/Excerpt.php:8
+msgid "Excerpt automatically generated from content."
+msgstr "Resumos são gerados automaticamente a partir do conteúdo."
+
+#: ../classes/Editing/classes/Model/User/Username.php:31
+msgid "The username already exists."
+msgstr ""
+
+#: ../classes/Filtering/classes/Model/CustomField/Hascontent.php:7
+msgid "Content"
+msgstr ""
+
+#: ../classes/Filtering/classes/Model/Media/Comments.php:27
+msgid "No comments"
+msgstr ""
+
+#: ../classes/Filtering/classes/Model/Media/Comments.php:28
+msgid "Has comments"
+msgstr ""
+
+#: ../classes/Filtering/classes/Model/Post/Excerpt.php:8
+msgid "Without Excerpt"
+msgstr ""
+
+#: ../classes/Filtering/classes/Model/Post/Excerpt.php:9
+msgid "Has Excerpt"
+msgstr ""
+
+#: ../classes/Filtering/classes/Model/Post/Sticky.php:31
+msgid "Not sticky"
+msgstr "Not sticky"
+
+#: ../classes/Filtering/classes/Model/Post/Sticky.php:32
+msgid "Sticky"
+msgstr "Sticky"

@@ -139,6 +139,7 @@ function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $
 		public $biocrit_books = Array();
 		public $biocrit_periodicals = Array();
 		public $biocrit_online = Array();
+		public $biocrit_obits = Array();
 
 		public $fields = Array();
 	}
@@ -172,6 +173,8 @@ function ca_export_wp_xml($author='', $category='', $post_type='', $status='', $
 		public $role;
 		public $reprints = Array();
 		public $text;
+		public $isHandcoded;
+		public $handcodedText;
 	}
 
 	class Reprint {
@@ -408,6 +411,15 @@ function get_repeater_values($post) {
 			array_push($post->biocritEntries, $entry);
 		}
 	}
+	$obits = get_field('biocrit_obits', $post->id);
+	if(is_array($obits) || is_object($obits)) {
+		foreach($obits as $citation) {
+			$entry = new BiocritEntry();
+			$entry->entry_type = "ob";
+			$entry->entry_text = $citation['biocrit_obituary_entry'];
+			array_push($post->biocritEntries, $entry);
+		}
+	}
 	$nationalities = get_field('nationalities', $post->id);
 	if(is_array($nationalities) || is_object($nationalities)) {
 		foreach($nationalities as $nationality) {
@@ -424,25 +436,30 @@ function get_repeater_values($post) {
         	if( get_row_layout() == 'loc_writing' ):
 			//$writing = get_sub_field('loc_writing_title');
 				$wrt->id = "loc";
-				$wrt->title = get_sub_field('loc_writing_title');
-				$wrt->type = get_sub_field('loc_writing_type');
-				$wrt->publisher = get_sub_field('loc_writing_publisher');
-				$wrt->location = get_sub_field('loc_writing_location');
-				$wrt->year = get_sub_field('loc_writing_year');
-				$wrt->role = get_sub_field('loc_writing_role');
-        		// check if the nested repeater field has rows of data
-				//if( have_rows('loc_reprinted_as') ):
-				if( $writing_row['loc_writing_reprinted'] === true ):
-			 		// loop through the rows of data
-					$rpt = new Reprint();
-			    	while ( have_rows('loc_reprinted_as') ) : the_row();
-						$rpt->title = get_sub_field('loc_reprinted_title');
-						$rpt->publisher = get_sub_field('loc_reprinted_publisher');
-						$rpt->location = get_sub_field('loc_reprinted_location');
-						$rpt->year = get_sub_field('loc_reprinted_year');
-						array_push($wrt->reprints, $rpt);
-					endwhile;
-				endif;
+				$wrt->isHandcoded = get_sub_field("loc_is_handcoded");
+				if($wrt->isHandcoded === false) {
+					$wrt->title = get_sub_field('loc_writing_title');
+					$wrt->type = get_sub_field('loc_writing_type');
+					$wrt->publisher = get_sub_field('loc_writing_publisher');
+					$wrt->location = get_sub_field('loc_writing_location');
+					$wrt->year = get_sub_field('loc_writing_year');
+					$wrt->role = get_sub_field('loc_writing_role');
+					// check if the nested repeater field has rows of data
+					//if( have_rows('loc_reprinted_as') ):
+					if( $writing_row['loc_writing_reprinted'] === true ):
+						 // loop through the rows of data
+						$rpt = new Reprint();
+						while ( have_rows('loc_reprinted_as') ) : the_row();
+							$rpt->title = get_sub_field('loc_reprinted_title');
+							$rpt->publisher = get_sub_field('loc_reprinted_publisher');
+							$rpt->location = get_sub_field('loc_reprinted_location');
+							$rpt->year = get_sub_field('loc_reprinted_year');
+							array_push($wrt->reprints, $rpt);
+						endwhile;
+					endif;
+				} else {
+					$wrt->handcodedText = get_sub_field('loc_handcoded_text');
+				}
 				array_push($post->writings, $wrt);
 			elseif( get_row_layout() == 'misc_writing' ):
 				$wrt->id = "misc";
@@ -778,35 +795,42 @@ function build_SGML_file($post) {
 			$export .= "</bibcit.composed>" . PHP_EOL;
 			$export .= "</bibcitation>" . PHP_EOL;	
 		} else {
-			$writing_role = WYSIWYG_conversion($writing->role, false);
-			$writing_title = WYSIWYG_conversion($writing->title, false);
-			$writing_publisher = WYSIWYG_conversion($writing->publisher, false);
-			$writing_location = WYSIWYG_conversion($writing->location, false);
-			$export .= "<bibcitation>" . PHP_EOL;
-			$export .= "<bibcit.composed>" . PHP_EOL;
-			if(!empty($writing_role)) {
-				$export .= "(" . $writing_role . ")" ;
-			}
-			if(!empty($writing->reprints)){
-				$reprint_text = "";
-				foreach($writing->reprints as $reprint){
-					if(!empty($reprint->title)){
-						$reprint_title = WYSIWYG_conversion($reprint->title, false);
-						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
-						$reprint_location = WYSIWYG_conversion($reprint->location, false);
-						$reprint_text .= ', published as <title><emphasis n="1">' . $reprint_title . ',</emphasis></title> ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
-					} else {
-						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
-						$reprint_location = WYSIWYG_conversion($reprint->location, false);
-						$reprint_text .= ', reprinted, ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
-					}
-				}
-				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
+			if($writing->isHandcoded) {
+				$handcodedText = str_replace("<br />", "", $writing->handcodedText);
+				$handcodedText = str_replace("<p>", "", $handcodedText);
+				$handcodedText = str_replace("</p>", "", $handcodedText);
+				$export .= $handcodedText;
 			} else {
-				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
+				$writing_role = WYSIWYG_conversion($writing->role, false);
+				$writing_title = WYSIWYG_conversion($writing->title, false);
+				$writing_publisher = WYSIWYG_conversion($writing->publisher, false);
+				$writing_location = WYSIWYG_conversion($writing->location, false);
+				$export .= "<bibcitation>" . PHP_EOL;
+				$export .= "<bibcit.composed>" . PHP_EOL;
+				if(!empty($writing_role)) {
+					$export .= "(" . $writing_role . ")" ;
+				}
+				if(!empty($writing->reprints)){
+					$reprint_text = "";
+					foreach($writing->reprints as $reprint){
+						if(!empty($reprint->title)){
+							$reprint_title = WYSIWYG_conversion($reprint->title, false);
+							$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
+							$reprint_location = WYSIWYG_conversion($reprint->location, false);
+							$reprint_text .= ', published as <title><emphasis n="1">' . $reprint_title . ',</emphasis></title> ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
+						} else {
+							$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
+							$reprint_location = WYSIWYG_conversion($reprint->location, false);
+							$reprint_text .= ', reprinted, ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
+						}
+					}
+					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
+				} else {
+					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
+				}
+				$export .= "</bibcit.composed>" . PHP_EOL;
+				$export .= "</bibcitation>" . PHP_EOL;	
 			}
-			$export .= "</bibcit.composed>" . PHP_EOL;
-			$export .= "</bibcitation>" . PHP_EOL;	
 		}
 	}
 	if(!empty($post->secondary_writings)) {
@@ -876,6 +900,23 @@ function build_SGML_file($post) {
 			}
 			$export .= "</bibcitation>" . PHP_EOL;
 		}
+	}		
+	if(is_array($post->biocrit_obits) || is_object($post->biocrit_obits)) {
+		$export .= '<grouptitle level="2">OBITUARIES</grouptitle>' . PHP_EOL;
+		foreach($post->biocrit_obits as $obit) {
+			$export .= "<bibcitation>" . PHP_EOL;
+			$export .= "<bibcit.composed>" . PHP_EOL;
+			$citation = WYSIWYG_conversion($obit->entry_text, false, false);
+			//strip existing asterisks
+			$export .= str_replace("*", "", $citation);
+			//add asterisk to last entry
+			if($obit->last === true){
+				$export .= "*</bibcit.composed>" . PHP_EOL;
+			} else {
+				$export .= "</bibcit.composed>" . PHP_EOL;
+			}
+			$export .= "</bibcitation>" . PHP_EOL;
+		}
 	}				
 	$export .= "</readinggroup>" . PHP_EOL;
 	$export .= "</bio.foot>" . PHP_EOL;
@@ -889,6 +930,9 @@ function build_SGML_file($post) {
 	$export = iconv('UTF-8', 'windows-1252//TRANSLIT//IGNORE',$export);
 	//$export = iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $export);
 	//$export = utf8_encode($export);
+
+	//strip empty lines
+	$export = preg_replace("/^\s*\n/m", "", $export);
 
 	return $export;
 }
@@ -916,6 +960,9 @@ function sortBiocrit($post) {
 			case "o":
 				array_push($post->biocrit_online, $entry);
 				break;
+			case "ob":
+				array_push($post->biocrit_obits, $entry);
+				break;				
 		}
 	}
 }
@@ -934,6 +981,8 @@ function format_WYSIWYG_tags($text) {
 function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	//convert all non-quotation special characters to codes
 	$text = htmlentities($text);
+	//remove non-breaking spaces
+	$text = str_replace('&nbsp;', '', $text);		
 
 	//strip para tags from sections where they aren't required
 	if($includePara == false) {
@@ -988,6 +1037,45 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	$text = str_replace('</emphasis>,', ',</emphasis>', $text);
 	$text = str_replace('</emphasis>;', ';</emphasis>', $text);
 
+	//11-12-17 find/replace tweaks
+	//eliminate spaces between title and em tags
+	$text = str_replace('<title> <emphasis n="1">', '<title><emphasis n="1">', $text);
+	$text = str_replace('</emphasis> </title>', '</emphasis></title>', $text);
+	//remove spaces before closing tags
+	$text = str_replace(' </emphasis>', '</emphasis>', $text);
+	$text = str_replace(' </title>', '</title>', $text);
+	//eliminate space after em tags
+	$text = str_replace('<emphasis n="1"> ', '<emphasis n="1">', $text);
+	$text = str_replace('<title> ', '<title>', $text);
+	//flip order of em/title tags to title/em
+	$text = str_replace('<emphasis n="1"><title>', '<title><emphasis n="1">', $text);
+	$text = str_replace('</title></emphasis>', '</emphasis></title>', $text);
+
+	//regex
+	// \<([^>\/][^>]*)><\/\1> - captures empty matching tags (no whitespace)
+	//preg_replace("\<([^>\/][^>]*)><\/\1>", "", $text);
+	// \<([^>\/][^>]*)>(\s*)<\/\1> - captures any amount of whitespace between two matching tags
+	//preg_replace("\<([^>\/][^>]*)>(\s*)<\/\1>", "", $text);
+	// \<title>\s*<\/title> - captures empty or whitespace between title tags
+	$text = preg_replace("/\<title>\s*<\/title>/", "", $text);
+	// \<emphasis n="1">\s*<\/emphasis> - captures empty or whitespace between em tags
+	$text = preg_replace('/\<emphasis n="1">\s*<\/emphasis>/', "", $text);
+	//captures empty or whitespace between para tags
+	$text = preg_replace('/\<para>\s*<\/para>/', "", $text);
+	//remove <title> tags within <head> sections
+	$text = preg_replace_callback('/<head n="5">(.*?)<\/head>/',function($matches) {
+		$new_text = str_replace("<title>", "", $matches[1]);
+		$new_text = str_replace("</title>", "", $new_text);
+		return '<head n="5">' . $new_text . '</head>';
+	}, $text);
+	//detect if no space exists after em tag and add one
+	$text = preg_replace_callback('/(<\/emphasis>)([a-zA-Z])/',function($matches) {
+		return $matches[1] . " " . $matches[2];
+	}, $text);
+	$text = preg_replace_callback('/(<\/title>)([a-zA-Z])/',function($matches) {
+		return $matches[1] . " " . $matches[2];
+	}, $text);	
+
 	$text = html_entity_decode($text);
 
 	$text = convert_wyswig_punctuation($text);
@@ -1000,8 +1088,19 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 function convert_wyswig_punctuation($text) {
 	$text = wptexturize($text);
 
+	$text = str_replace('&nbsp;', '', $text);
+
 	//remove spaces between tags
-	$text = str_replace('> <', '><', $text);
+	//$text = str_replace('> <', '><', $text); \>[ ]+\<
+	$text = preg_replace_callback('/\>[ ]+\</', function($matches) {
+		$new_text = "><";
+		return $new_text;
+	}, $text);
+	// $text = preg_replace_callback('(/\>)(\s*)(<\/)/', function($matches) {
+	// 	$new_text = "";
+	// 	return $new_text;
+	// }, $text); 
+
 
 	//remove para tags around subheads
 	$text = str_replace('<para><head n="5">', '<head n="5">', $text);
@@ -1068,13 +1167,11 @@ function convert_wyswig_punctuation($text) {
 	// $text = str_replace("' ", '&rsquo; ', $text);
 	// $text = str_replace("‘ ", '&rsquo; ', $text);
 
-	//remove non-breaking spaces
-	$text = str_replace('&nbsp;', '', $text);
 	//remove empty tags
-	$text = str_replace('<para></para>', '', $text);
 	$text = str_replace('<head n="5"></head>', '', $text);
 	$text = str_replace('<title></title>', '', $text);
 	$text = str_replace('<emphasis n="1"></emphasis>', '', $text);
+	$text = str_replace('<para></para>', '', $text);
 	//ampersand
 	$text = str_replace("&#038;", "&amp;", $text); // & 
 	$text = str_replace("&#38;", "&amp;", $text); // & 

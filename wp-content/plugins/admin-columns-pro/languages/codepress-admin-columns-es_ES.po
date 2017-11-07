@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Admin Columns Pro\n"
 "Report-Msgid-Bugs-To: https://www.admincolumns.com\n"
-"PO-Revision-Date: 2016-03-23 15:14+0000\n"
+"PO-Revision-Date: 2016-03-23 15:40+0000\n"
 "Last-Translator: Tobias Schutter <info@codepress.nl>\n"
 "Language-Team: Spanish (Spain) (http://www.transifex.com/codepress/admin-columns-pro/language/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -357,6 +357,11 @@ msgstr ""
 msgid "+ Add set"
 msgstr ""
 
+#: ../classes/layouts/layouts.php:442
+msgid ""
+"Create new sets to switch between different column views on the %s screen."
+msgstr ""
+
 #: ../classes/layouts/layouts.php:451
 msgid "Add"
 msgstr ""
@@ -439,10 +444,6 @@ msgstr ""
 
 #: ../classes/third-party/wordpress-seo.php:29
 msgid "Enter your SEO Focus Keywords"
-msgstr ""
-
-#: ../classes/columns/post/child-pages.php:17
-msgid "Child Pages"
 msgstr ""
 
 #: ../classes/export-import/classes/export_import.php:241
@@ -700,6 +701,10 @@ msgstr ""
 
 #: ../classes/filtering/classes/post.php:1355
 msgid "Has customer message"
+msgstr ""
+
+#: ../classes/columns/post/child-pages.php:17
+msgid "Child Pages"
 msgstr ""
 
 #: ../classes/inline-edit/classes/model.php:356
@@ -973,21 +978,9 @@ msgstr ""
 msgid "Minimum amount"
 msgstr ""
 
-#: ../../cac-addon-woocommerce/classes/column/shop_order/order-coupons-used.php13,
-#: ../../cac-addon-woocommerce/classes/column/user/coupons-used.php:13
+#: ../../cac-addon-woocommerce/classes/column/user/coupons-used.php13,
+#: ../../cac-addon-woocommerce/classes/column/shop_order/order-coupons-used.php:13
 msgid "Coupons Used"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/shop_order/order-discount.php:17
-msgid "Order Discount"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/shop_order/order-status.php:17
-msgid "Order Status"
-msgstr ""
-
-#: ../../cac-addon-woocommerce/classes/column/shop_order/payment-method.php:17
-msgid "Payment method"
 msgstr ""
 
 #: ../../cac-addon-woocommerce/classes/column/user/order-custom-field.php:13
@@ -1000,4 +993,16 @@ msgstr ""
 
 #: ../../cac-addon-woocommerce/classes/column/user/total-sales.php:13
 msgid "Total Sales"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/classes/column/shop_order/order-discount.php:17
+msgid "Order Discount"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/classes/column/shop_order/order-status.php:17
+msgid "Order Status"
+msgstr ""
+
+#: ../../cac-addon-woocommerce/classes/column/shop_order/payment-method.php:17
+msgid "Payment method"
 msgstr ""

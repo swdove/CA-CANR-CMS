@@ -1,218 +1,178 @@
 <?php
 /*
-Plugin Name: 		Admin Columns - Advanced Custom Fields add-on
-Version: 			1.3.5.2
-Description: 		Show Advanced Custom Fields fields in your admin post overviews and edit them inline! ACF integration Add-on for Admin Columns.
-Author: 			Codepress
-Author URI: 		https://admincolumns.com
+Plugin Name: 		Admin Columns Pro - Advanced Custom Fields (ACF)
+Version: 			2.0.7
+Description: 		Supercharges Admin Columns Pro with very cool ACF columns.
+Author: 			Admin Columns
+Author URI: 		https://www.admincolumns.com
+Plugin URI: 		https://www.admincolumns.com
 Text Domain: 		codepress-admin-columns
 */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} // Exit when access directly
+}
 
-// Addon information
-define( 'CAC_ACF_VERSION', '1.3.5.2' );
-define( 'CAC_ACF_FILE', __FILE__ );
-define( 'CAC_ACF_URL', plugin_dir_url( __FILE__ ) );
-define( 'CAC_ACF_DIR', plugin_dir_path( __FILE__ ) );
+final class ACA_ACF {
 
-/**
- * Main ACF Addon plugin class
- *
- * @since 1.0
- */
-class CPAC_Addon_ACF {
+	CONST CLASS_PREFIX = 'ACA_ACF_';
 
 	/**
-	 * Admin Columns main plugin class instance
-	 *
-	 * @since 1.0
-	 * @var CPAC
+	 * @var int Plugin version
 	 */
-	public $cpac;
+	private $version;
 
 	/**
-	 * Advanced Custom Fields main plugin class instance
-	 *
-	 * @since 1.1
-	 * @var acf
+	 * @var int ACF version
 	 */
-	public $acf;
+	private $acf_version;
 
 	/**
-	 * Main plugin directory
-	 *
-	 * @since 1.0
-	 * @var string
+	 * @var ACA_ACF
 	 */
-	private $plugin_basename;
+	private static $_instance = null;
+
+	/**
+	 * @since 2.0
+	 */
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
+			self::$_instance = new self();
+		}
+
+		return self::$_instance;
+	}
 
 	/**
 	 * Constructor
 	 *
 	 * @since 1.0
 	 */
-	function __construct() {
-
-		$this->plugin_basename = plugin_basename( __FILE__ );
-
-		// load translations from pro version
-		if ( defined( 'CAC_PRO_URL' ) ) {
-			load_plugin_textdomain( 'codepress-admin-columns', false, CAC_PRO_URL . 'languages/' );
-		}
-
-		// Includes
-		require_once dirname( __FILE__ ) . '/utility.php';
-
-		// Plugin-dependent setup
-		add_action( 'cac/loaded', array( $this, 'init' ) );
-		add_action( 'plugins_loaded', array( $this, 'init_acf' ) );
-
-		// Hooks
-		add_filter( 'cac/columns/custom', array( $this, 'add_columns' ) );
-		add_action( 'after_plugin_row_' . $this->plugin_basename, array( $this, 'display_plugin_row_notices' ), 11 );
-		add_filter( 'cac/grouped_columns', array( $this, 'grouped_columns_sort' ) );
+	private function __construct() {
+		add_action( 'after_setup_theme', array( $this, 'init' ) );
 	}
 
 	/**
-	 * Init
-	 *
-	 * @since 1.0
+	 * @since 2.0
 	 */
-	function init( $cpac ) {
-		$this->cpac = $cpac;
-
-		$this->after_setup();
-	}
-
-	/**
-	 * Loads ACF main plugin class instance
-	 * Callback for after ACF is set up
-	 *
-	 * @since 1.1
-	 */
-	public function init_acf() {
-		if ( ! $this->is_acf_active() ) {
+	public function init() {
+		if ( ! is_admin() ) {
 			return;
 		}
 
-		$this->acf = acf();
+		if ( $this->has_missing_dependencies() ) {
+			return;
+		}
+
+		AC()->autoloader()->register_prefix( self::CLASS_PREFIX, $this->get_plugin_dir() . 'classes/' );
+
+		add_action( 'ac/column_groups', array( $this, 'register_column_groups' ) );
+		add_action( 'acp/column_types', array( $this, 'add_columns' ) );
+
+		// Editing
+		add_action( 'ac/table_scripts/editing', array( $this, 'table_scripts_editing' ) );
 	}
 
 	/**
-	 * Fire callbacks for plugin setup completion
-	 *
-	 * @since 1.1
+	 * @param AC_Groups $groups
 	 */
-	public function after_setup() {
+	public function register_column_groups( $groups ) {
+		$groups->register_group( 'acf', __( 'Advanced Custom Fields' ), 11 );
+	}
 
-		/**
-		 * Fires when the Admin Columns ACF plugin is fully loaded
-		 *
-		 * @since 1.1
-		 *
-		 * @param CPAC_Addon_ACF $cpac_wc_instance Main Admin Columns ACF plugin class instance
-		 */
-		do_action( 'cpac-acf/loaded', $this );
+	/**
+	 * @return bool True when there are missing dependencies
+	 */
+	private function has_missing_dependencies() {
+		require_once $this->get_plugin_dir() . 'classes/Dependencies.php';
+
+		$dependencies = new ACA_ACF_Dependencies( __FILE__ );
+
+		$dependencies->is_acp_active( '4.0.3' );
+
+		if ( ! $this->is_acf_active() ) {
+			$dependencies->add_missing( $dependencies->get_search_link( 'Advanced Custom Fields', 'Advanced Custom Fields' ) );
+		}
+
+		return $dependencies->has_missing();
+	}
+
+	/**
+	 * Main plugin directory
+	 *
+	 * @since 1.0
+	 * @return string
+	 */
+	private function get_basename() {
+		return plugin_basename( __FILE__ );
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function get_plugin_dir() {
+		return plugin_dir_path( __FILE__ );
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function get_plugin_url() {
+		return plugin_dir_url( __FILE__ );
+	}
+
+	/**
+	 * Set plugin version
+	 */
+	private function set_version() {
+		$plugins = get_plugins();
+
+		$this->version = $plugins[ $this->get_basename() ]['Version'];
+	}
+
+	/**
+	 * @since 2.0
+	 */
+	public function get_version() {
+		if ( null === $this->version ) {
+			$this->set_version();
+		}
+
+		return $this->version;
 	}
 
 	/**
 	 * Add custom columns
 	 *
-	 * @since 1.0
-	 */
-	public function add_columns( $columns ) {
-
-		// ACF Field column
-		if ( $this->is_acf_active() ) {
-			require_once CAC_ACF_DIR . 'classes/column/acf-field.php';
-
-			$acf_version = explode( '.', $this->get_acf_version() );
-
-			if ( count( $acf_version ) > 1 ) {
-
-				if ( '4' == $acf_version[0] ) {
-					$columns['CPAC_ACF_Column_ACF_Field_ACF4'] = CAC_ACF_DIR . 'classes/column/acf-field-acf4.php';
-				}
-				elseif ( '5' == $acf_version[0] ) {
-					$columns['CPAC_ACF_Column_ACF_Field_ACF5'] = CAC_ACF_DIR . 'classes/column/acf-field-acf5.php';
-				}
-
-				// Remove ACF placeholder column
-				if ( isset( $columns['CPAC_Column_ACF_Placeholder'] ) ) {
-					unset( $columns['CPAC_Column_ACF_Placeholder'] );
-				}
-			}
-		}
-
-		return $columns;
-	}
-
-	/**
-	 * Shows a message below the plugin on the plugins page
+	 * @param AC_ListScreen $list_screen
 	 *
 	 * @since 1.0
 	 */
-	public function display_plugin_row_notices() {
+	public function add_columns( $list_screen ) {
 
-		// Display notice for missing dependencies
-		$missing_dependencies = array();
+		switch ( true ) {
 
-		if ( ! $this->is_cpac_active() ) {
-			$missing_dependencies[] = '<a href="' . admin_url( 'plugin-install.php' ) . '?tab=search&s=Admin+Columns&plugin-search-input=Search+Plugins' . '" target="_blank">' . __( 'Admin Columns', 'codepress-admin-columns' ) . '</a>';
+			case $list_screen instanceof AC_ListScreen_Post :
+				$list_screen->register_column_type( new ACA_ACF_Column );
+
+				break;
+			case $list_screen instanceof AC_ListScreen_Media :
+				$list_screen->register_column_type( new ACA_ACF_Column_Media );
+
+				break;
+			case $list_screen instanceof AC_ListScreen_User :
+				$list_screen->register_column_type( new ACA_ACF_Column_User );
+
+				break;
+			case $list_screen instanceof AC_ListScreen_Comment :
+				$list_screen->register_column_type( new ACA_ACF_Column_Comment );
+
+				break;
+			case $list_screen instanceof ACP_ListScreen_Taxonomy :
+				$list_screen->register_column_type( new ACA_ACF_Column_Taxonomy );
+
+				break;
 		}
-
-		if ( ! $this->is_acf_active() ) {
-			$missing_dependencies[] = '<a href="' . admin_url( 'plugin-install.php' ) . '?tab=search&s=Advanced+Custom+Fields&plugin-search-input=Search+Plugins' . '" target="_blank">' . __( 'Advanced Custom Fields', 'codepress-admin-columns' ) . '</a>';
-		}
-
-		if ( ! empty( $missing_dependencies ) ) {
-			if ( count( $missing_dependencies ) === 1 ) {
-				$missing_list = $missing_dependencies[0];
-			}
-			else {
-				$missing_list = implode( ', ', array_slice( $missing_dependencies, 0, - 1 ) );
-				$missing_list = sprintf( __( '%s and %s', 'codepress-admin-columns' ), $missing_list, implode( '', array_slice( $missing_dependencies, - 1 ) ) );
-			}
-
-			?>
-			<tr class="plugin-update-tr">
-				<td colspan="3" class="plugin-update">
-					<div class="update-message">
-						<?php printf( __( 'The ACF add-on is enabled but not effective. It requires %s in order to work.', 'codepress-admin-columns' ), $missing_list ); ?>
-					</div>
-				</td>
-			</tr>
-			<?php
-		}
-	}
-
-	/**
-	 * place ACF on top of the grouped list
-	 */
-	public function grouped_columns_sort( $grouped_columns ) {
-		$label = __( 'Advanced Custom Fields', 'acf' );
-
-		if ( isset( $grouped_columns[ $label ] ) ) {
-			$acf[ $label ] = $grouped_columns[ $label ];
-			unset( $grouped_columns[ $label ] );
-			$grouped_columns = $acf + $grouped_columns;
-		}
-
-		return $grouped_columns;
-	}
-
-	/**
-	 * Whether the main plugin is active
-	 *
-	 * @since 1.0
-	 *
-	 * @return bool Returns true if the main Admin Columns plugin is active, false otherwise
-	 */
-	public function is_cpac_active() {
-		return class_exists( 'CPAC', false );
 	}
 
 	/**
@@ -222,8 +182,62 @@ class CPAC_Addon_ACF {
 	 *
 	 * @return bool Returns true if ACF is active, false otherwise
 	 */
-	public function is_acf_active() {
-		return function_exists( 'acf' ) && is_object( acf() );
+	private function is_acf_active() {
+		return class_exists( 'acf', false );
+	}
+
+	/**
+	 * @since 2.0
+	 *
+	 * @return bool True when ACF PRO is installed
+	 */
+	public function is_acf_pro() {
+		return 5 === $this->get_acf_major_version();
+	}
+
+	/**
+	 * @since 2.0
+	 *
+	 * @return bool True when ACF Free is installed
+	 */
+	public function is_acf_free() {
+		return 4 === $this->get_acf_major_version();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function get_class_prefix() {
+		return self::CLASS_PREFIX;
+	}
+
+	/**
+	 * @since 2.0
+	 *
+	 * @return bool
+	 */
+	public function get_acf_major_version() {
+		$acf_version = explode( '.', $this->get_acf_version() );
+
+		if ( ! $acf_version || ! isset( $acf_version[0] ) ) {
+			return false;
+		}
+
+		return absint( $acf_version[0] );
+	}
+
+	private function set_acf_version() {
+		if ( $this->is_acf_active() ) {
+			if ( function_exists( 'acf_get_setting' ) ) {
+
+				// Pro
+				$this->acf_version = acf_get_setting( 'version' );
+			} else {
+
+				// Free
+				$this->acf_version = acf()->get_info( 'version' );
+			}
+		}
 	}
 
 	/**
@@ -233,22 +247,48 @@ class CPAC_Addon_ACF {
 	 *
 	 * @return string Currently active ACF plugin version
 	 */
-	public function get_acf_version() {
-		if ( $this->is_acf_active() ) {
-			if ( function_exists( 'acf_get_setting' ) ) {
-				$version = acf_get_setting( 'version' );
-			}
-			else {
-				$version = apply_filters( 'acf/get_info', 'version' );
-			}
-
-			if ( $version ) {
-				return $version;
-			}
+	private function get_acf_version() {
+		if ( null === $this->acf_version ) {
+			$this->set_acf_version();
 		}
 
-		return false;
+		return $this->acf_version;
 	}
+
+	/**
+	 * @param string $field_hash ACF field hash
+	 *
+	 * @return array|false
+	 */
+	public function get_acf_field( $field_hash ) {
+		if ( ! $field_hash ) {
+			return false;
+		}
+
+		$field = false;
+
+		if ( function_exists( 'acf_get_field' ) ) {
+
+			// Pro
+			$field = acf_get_field( $field_hash );
+		} else if ( function_exists( 'get_field_object' ) ) {
+
+			// Free
+			$field = get_field_object( $field_hash );
+		}
+
+		return $field;
+	}
+
+	public function table_scripts_editing() {
+		wp_enqueue_script( 'ac-acf-table', $this->get_plugin_url() . 'assets/js/table.js', array( 'jquery' ), $this->get_version() );
+		wp_enqueue_style( 'ac-acf-table', $this->get_plugin_url() . 'assets/css/table.css' );
+	}
+
 }
 
-new CPAC_Addon_ACF();
+function ac_addon_acf() {
+	return ACA_ACF::instance();
+}
+
+ac_addon_acf();
