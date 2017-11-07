@@ -737,6 +737,7 @@
         $text = str_replace("&amp;", "&#x26;", $text); // &               
         $text = str_replace("&plus;", "&#x2B;", $text); //+
         $text = str_replace("&dollar;", "&#x24;", $text); // $
+        $text = str_replace("&equal;", "&#x3D;", $text); // =
 
         $text = str_replace("&auml;", "&#xe4;", $text); // ä
         $text = str_replace("&Auml;", "&#xc4;", $text); // Ä
@@ -794,6 +795,7 @@
         $text = str_replace("&ntilde;", "&#xf1;", $text); // ñ
         $text = str_replace("&Otilde;", "&#xd5;", $text); // Õ
         $text = str_replace("&otilde;", "&#xf5;", $text); // õ      
+        $text = str_replace("&tilde;", "&#x7e;", $text); // ~
 
 	    $text = str_replace("&scaron;", "&#x161;", $text); // š
         $text = str_replace("&Scaron;", "&#x160;", $text); // Š

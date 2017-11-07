@@ -1041,9 +1041,12 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	//eliminate spaces between title and em tags
 	$text = str_replace('<title> <emphasis n="1">', '<title><emphasis n="1">', $text);
 	$text = str_replace('</emphasis> </title>', '</emphasis></title>', $text);
+	//remove spaces before closing tags
+	$text = str_replace(' </emphasis>', '</emphasis>', $text);
+	$text = str_replace(' </title>', '</title>', $text);
 	//eliminate space after em tags
 	$text = str_replace('<emphasis n="1"> ', '<emphasis n="1">', $text);
-
+	$text = str_replace('<title> ', '<title>', $text);
 	//flip order of em/title tags to title/em
 	$text = str_replace('<emphasis n="1"><title>', '<title><emphasis n="1">', $text);
 	$text = str_replace('</title></emphasis>', '</emphasis></title>', $text);
@@ -1065,6 +1068,13 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 		$new_text = str_replace("</title>", "", $new_text);
 		return '<head n="5">' . $new_text . '</head>';
 	}, $text);
+	//detect if no space exists after em tag and add one
+	$text = preg_replace_callback('/(<\/emphasis>)([a-zA-Z])/',function($matches) {
+		return $matches[1] . " " . $matches[2];
+	}, $text);
+	$text = preg_replace_callback('/(<\/title>)([a-zA-Z])/',function($matches) {
+		return $matches[1] . " " . $matches[2];
+	}, $text);	
 
 	$text = html_entity_decode($text);
 

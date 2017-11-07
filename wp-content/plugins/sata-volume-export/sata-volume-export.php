@@ -1043,6 +1043,8 @@ function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	$text = str_replace('</emphasis>,', ',</emphasis>', $text);
 	$text = str_replace('</emphasis>;', ';</emphasis>', $text);
 
+	//find/replace updates
+
 	$text = html_entity_decode($text);
 	$text = convert_wyswig_punctuation($text);
 
