@@ -528,19 +528,26 @@ function build_SGML_file($post) {
 
 	$export .= "<biography>" . PHP_EOL;
 
-	if(!empty($post->galeData)) {
-		$fake_pen = (substr( $post->pen, 0, 1) === "s");
-		if($fake_pen === true) {
-			$export .= "<galedata>". PHP_EOL;
-			$export .= "<infobase>". PHP_EOL;
-			$export .= "<pen>". PHP_EOL;
-			$export .= "</pen>". PHP_EOL;
-			$export .= "</infobase>". PHP_EOL;
-			$export .= "</galedata>". PHP_EOL;			
-		} else {
-			$export .= $post->galeData . PHP_EOL;
-		}
-	}	
+	//11-19-17 - per Gale, no need to retain contents of galedata tags from import
+	// if(!empty($post->galeData)) {
+	// 	$fake_pen = (substr( $post->pen, 0, 1) === "s");
+	// 	if($fake_pen === true) {
+	// 		$export .= "<galedata>". PHP_EOL;
+	// 		$export .= "<infobase>". PHP_EOL;
+	// 		$export .= "<pen>". PHP_EOL;
+	// 		$export .= "</pen>". PHP_EOL;
+	// 		$export .= "</infobase>". PHP_EOL;
+	// 		$export .= "</galedata>". PHP_EOL;			
+	// 	} else {
+	// 		$export .= $post->galeData . PHP_EOL;
+	// 	}
+	// }	
+	$export .= "<galedata>". PHP_EOL;
+	$export .= "<infobase>". PHP_EOL;
+	$export .= "<pen>". PHP_EOL;
+	$export .= "</pen>". PHP_EOL;
+	$export .= "</infobase>". PHP_EOL;
+	$export .= "</galedata>". PHP_EOL;		
 
 	$export .= "<bio.head>" . PHP_EOL;
 	if(!empty($post->atlasuid)) {
