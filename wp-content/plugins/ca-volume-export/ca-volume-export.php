@@ -902,20 +902,22 @@ function build_SGML_file($post) {
 		}
 	}		
 	if(is_array($post->biocrit_obits) || is_object($post->biocrit_obits)) {
-		$export .= '<grouptitle level="2">OBITUARIES</grouptitle>' . PHP_EOL;
-		foreach($post->biocrit_obits as $obit) {
-			$export .= "<bibcitation>" . PHP_EOL;
-			$export .= "<bibcit.composed>" . PHP_EOL;
-			$citation = WYSIWYG_conversion($obit->entry_text, false, false);
-			//strip existing asterisks
-			$export .= str_replace("*", "", $citation);
-			//add asterisk to last entry
-			if($obit->last === true){
-				$export .= "*</bibcit.composed>" . PHP_EOL;
-			} else {
-				$export .= "</bibcit.composed>" . PHP_EOL;
+		if(!empty($post->biocrit_obits)) {
+			$export .= '<grouptitle level="2">OBITUARIES</grouptitle>' . PHP_EOL;
+			foreach($post->biocrit_obits as $obit) {
+				$export .= "<bibcitation>" . PHP_EOL;
+				$export .= "<bibcit.composed>" . PHP_EOL;
+				$citation = WYSIWYG_conversion($obit->entry_text, false, false);
+				//strip existing asterisks
+				$export .= str_replace("*", "", $citation);
+				//add asterisk to last entry
+				if($obit->last === true){
+					$export .= "*</bibcit.composed>" . PHP_EOL;
+				} else {
+					$export .= "</bibcit.composed>" . PHP_EOL;
+				}
+				$export .= "</bibcitation>" . PHP_EOL;
 			}
-			$export .= "</bibcitation>" . PHP_EOL;
 		}
 	}				
 	$export .= "</readinggroup>" . PHP_EOL;
