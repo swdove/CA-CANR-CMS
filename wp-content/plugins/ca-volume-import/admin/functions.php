@@ -737,7 +737,9 @@
         $text = str_replace("&amp;", "&#x26;", $text); // &               
         $text = str_replace("&plus;", "&#x2B;", $text); //+
         $text = str_replace("&dollar;", "&#x24;", $text); // $
+        $text = str_replace("&pound;", "&#xa3;", $text); // £
         $text = str_replace("&equal;", "&#x3D;", $text); // =
+
 
         $text = str_replace("&auml;", "&#xe4;", $text); // ä
         $text = str_replace("&Auml;", "&#xc4;", $text); // Ä

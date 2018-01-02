@@ -173,6 +173,7 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 		public $location;
 		public $year;
 		public $role;
+		public $original;
 		public $reprints = Array();
 		public $text;		
 	}
@@ -447,6 +448,7 @@ function get_repeater_values($post) {
 				$wrt->location = get_sub_field('loc_writing_location');
 				$wrt->year = get_sub_field('loc_writing_year');
 				$wrt->role = get_sub_field('loc_writing_role');
+				$wrt->original = get_sub_field('loc_original_author');
         		// check if the nested repeater field has rows of data
 				//if( have_rows('loc_reprinted_as') ):
 				if( $writing_row['loc_writing_reprinted'] === true ):
@@ -468,7 +470,8 @@ function get_repeater_values($post) {
 				$wrt->publisher = get_sub_field('misc_writing_publisher');
 				$wrt->location = get_sub_field('misc_writing_location');
 				$wrt->year = get_sub_field('misc_writing_year');
-				$wrt->role = get_sub_field('misc_writing_role');			
+				$wrt->role = get_sub_field('misc_writing_role');	
+				$wrt->original = get_sub_field('misc_original_author');		
         		// check if the nested repeater field has rows of data
 				//if( have_rows('misc_reprinted_as') ):
 				if( $writing_row['misc_writing_reprinted'] === true ):
@@ -817,15 +820,21 @@ function build_SGML_file($post) {
 			$export .= $writingsText . ', <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
 			$export .= "</bibcit.composed>" . PHP_EOL;
 			$export .= "</bibcitation>" . PHP_EOL;	
-		} else {
+		} else { 
+			// LOC and MISC WRITINGS
 			$writing_role = WYSIWYG_conversion($writing->role, false);
 			$writing_title = WYSIWYG_conversion($writing->title, false);
+			$writing_type = WYSIWYG_conversion($writing->type, false);
 			$writing_publisher = WYSIWYG_conversion($writing->publisher, false);
 			$writing_location = WYSIWYG_conversion($writing->location, false);
+			$writing_original = WYSIWYG_conversion($writing->original, false);
 			$export .= "<bibcitation>" . PHP_EOL;
 			$export .= "<bibcit.composed>" . PHP_EOL;
 			if(!empty($writing_role)) {
 				$export .= "(" . $writing_role . ")" ;
+			}
+			if(!empty($writing_original)) {
+				$export .= $writing_original . ", ";
 			}
 			if(!empty($writing->reprints)){
 				$reprint_text = "";
@@ -840,10 +849,20 @@ function build_SGML_file($post) {
 						$reprint_location = WYSIWYG_conversion($reprint->location, false);
 						$reprint_text .= ', reprinted, ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
 					}
-				}				
-				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
+				}
+				if(!empty($writing_type)) {	
+					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> (' . $writing_type . '), ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
+				}
+				else {
+					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
+				}			
 			} else {
-				$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
+				if(!empty($writing_type)) {	
+					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> (' . $writing_type . '), ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.';
+				}
+				else {
+					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
+				}					
 			}
 			$export .= "</bibcit.composed>" . PHP_EOL;
 			$export .= "</bibcitation>" . PHP_EOL;	
