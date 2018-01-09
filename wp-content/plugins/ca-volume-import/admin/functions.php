@@ -722,7 +722,7 @@
         //add line breaks between tags to assist XML conversion                                                       
         $text = str_replace("><", ">\n<", $text);
 
-        // 3/7/17 - convert diacrits to HTML hex code
+        // 3/7/17 - convert diacrits to hex code
         $text = str_replace("&mdash;", "&#x2014;", $text); 
         $text = str_replace("&ldquo;", "&#x201c;", $text);
         $text = str_replace("&rdquo;", "&#x201d;", $text);
@@ -817,6 +817,9 @@
         $text = str_replace("&scedil;", "&#x15F;", $text); // ş  
         $text = str_replace("&inodot;", "&#x131;", $text); // ı
         $text = str_replace("&gbreve;", "&#x11f;", $text); // ğ          
+
+        $text = str_replace("&THORN;", "&#xfe;", $text); // þ
+        $text = str_replace("&eth;", "&#xf0;", $text); // ð          
 
 
         if($xml === false) {
