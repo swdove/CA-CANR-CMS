@@ -22,7 +22,7 @@ class ACP_Editing_TableScreen {
 	 *
 	 * @param AC_ListScreen $list_screen
 	 */
-	public function scripts( $list_screen ) {
+	public function scripts( AC_ListScreen $list_screen ) {
 
 		$columns = $list_screen->get_columns();
 		if ( ! $columns ) {
@@ -40,7 +40,7 @@ class ACP_Editing_TableScreen {
 		}
 
 		$minified = AC()->minified();
-		$plugin_url = ACP()->editing()->get_url();
+		$plugin_url = ACP()->editing()->get_plugin_url();
 		$version = ACP()->editing()->get_version();
 
 		// Libraries
@@ -52,15 +52,16 @@ class ACP_Editing_TableScreen {
 		wp_register_style( 'acp-editing-bootstrap-editable', $plugin_url . 'library/bootstrap-editable/css/bootstrap-editable.css', array(), $version );
 
 		// Main
-		wp_register_script( 'acp-editing-table', $plugin_url . 'assets/js/table' . $minified . '.js', array( 'jquery', 'acp-editing-bootstrap-editable' ), $version );
-		wp_register_style( 'acp-editing-table', $plugin_url . 'assets/css/table' . $minified . '.css', array(), $version );
+		wp_register_script( 'acp-editing-table', $plugin_url . 'assets/js/table.js', array( 'jquery', 'acp-editing-bootstrap-editable' ), $version );
+		wp_register_style( 'acp-editing-table', $plugin_url . 'assets/css/table.css', array(), $version );
 
 		// Allow JS to access the column and item data for this list screen on the edit page
 		wp_localize_script( 'acp-editing-table', 'ACP_Editing_Columns', $column_data );
 		wp_localize_script( 'acp-editing-table', 'ACP_Editing_Items', $column_items );
 		wp_localize_script( 'acp-editing-table', 'ACP_Editing', array(
 			'inline_edit' => array(
-				'active' => $this->preferences()->set_key( $list_screen->get_key() )->get(),
+				'persistent' => $this->persistent_editing( $list_screen ),
+				'active'     => '1' === $this->preferences()->get( $list_screen->get_key() ),
 			),
 			// Translations
 			'i18n'        => array(
@@ -108,7 +109,7 @@ class ACP_Editing_TableScreen {
 		$locale = substr( get_locale(), 0, 2 );
 
 		// Select 2 translations
-		if ( file_exists( $this->get_dir() . 'library/select2/select2_locale_' . $locale . '.js' ) ) {
+		if ( file_exists( ACP()->editing()->get_plugin_dir() . 'library/select2/select2_locale_' . $locale . '.js' ) ) {
 			wp_register_script( 'select2-locale', $plugin_url . 'library/select2/select2_locale_' . $locale . '.js', array( 'jquery' ), $version );
 			wp_enqueue_script( 'select2-locale' );
 		}
@@ -216,9 +217,11 @@ class ACP_Editing_TableScreen {
 		$data = array(
 			'rawvalue'  => $value,
 
-			// Display HTML
+			// Cell HTML
 			'cell_html' => $display_value,
-			'row_html'  => $list_screen->get_single_row( $id ) // Mostly for Default columns
+
+			// Row HTML. Mainly used to fetch the return value from default columns.
+			'row_html'  => $list_screen instanceof AC_ListScreenWP ? $list_screen->get_single_row( $id ) : '',
 		);
 
 		/**
@@ -234,6 +237,15 @@ class ACP_Editing_TableScreen {
 	}
 
 	/**
+	 * @param AC_ListScreen $list_screen
+	 *
+	 * @return bool
+	 */
+	private function persistent_editing( $list_screen ) {
+		return (bool) apply_filters( 'acp/editing/persistent', false, $list_screen );
+	}
+
+	/**
 	 * Ajax callback for storing user preference of the default state of editability on an overview page
 	 *
 	 * @since 3.2.1
@@ -241,8 +253,10 @@ class ACP_Editing_TableScreen {
 	public function ajax_editability_state_save() {
 		check_ajax_referer( 'ac-ajax' );
 
-		$preferences = $this->preferences();
-		$preferences->set_key( filter_input( INPUT_POST, 'list_screen' ) )->update( filter_input( INPUT_POST, 'value' ) );
+		$key = filter_input( INPUT_POST, 'list_screen' );
+		$value = filter_input( INPUT_POST, 'value' ) ? '1' : '0';
+
+		$this->preferences()->set( $key, $value );
 		exit;
 	}
 
@@ -425,13 +439,6 @@ class ACP_Editing_TableScreen {
 	}
 
 	/**
-	 * @since 4.0
-	 */
-	private function get_dir() {
-		return ACP()->editing()->get_dir();
-	}
-
-	/**
 	 * @param string $message
 	 */
 	private function ajax_error( $message ) {
@@ -455,7 +462,7 @@ class ACP_Editing_TableScreen {
 				if ( is_array( $option ) && isset( $option['options'] ) ) {
 					$option['options'] = $this->format_js( $option['options'] );
 					$options[] = $option;
-				} else {
+				} else if ( is_scalar( $option ) ) {
 					$options[] = array(
 						'value' => $index,
 						'label' => html_entity_decode( $option ),
@@ -470,10 +477,10 @@ class ACP_Editing_TableScreen {
 	/**
 	 * Get an instance of preferences for the current user
 	 *
-	 * @return ACP_Editing_Preferences
+	 * @return AC_Preferences
 	 */
-	private function preferences() {
-		return new ACP_Editing_Preferences();
+	public function preferences() {
+		return new AC_Preferences( 'editability_state' );
 	}
 
 }

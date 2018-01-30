@@ -32,6 +32,14 @@ function acp_filtering() {
 }
 
 /**
+ * @since 4.2
+ * @return ACP_Filtering_Helper
+ */
+function acp_filtering_helper() {
+	return ACP()->filtering()->helper();
+}
+
+/**
  * Sorting instance
  *
  * @since 4.0
@@ -50,7 +58,7 @@ function acp_is_version_gte( $version ) {
 }
 
 /**
- * @see ac_register_columns
+ * @see        ac_register_columns
  * @deprecated 4.0
  */
 function cpac_set_storage_model_columns( $list_screen_key, $column_data ) {

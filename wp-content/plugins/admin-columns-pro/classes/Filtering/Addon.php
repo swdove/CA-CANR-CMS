@@ -7,41 +7,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * @since 4.0
  */
-class ACP_Filtering_Addon {
-
-	/**
-	 * @var ACP_Filtering_Helper
-	 */
-	private $helper;
-
-	/**
-	 * @var AC_TableScreen
-	 */
-	private $table_screen;
+class ACP_Filtering_Addon extends AC_Addon {
 
 	public function __construct() {
-		AC()->autoloader()->register_prefix( 'ACP_Filtering', $this->get_dir() . 'classes' );
+		AC()->autoloader()->register_prefix( 'ACP_Filtering', $this->get_plugin_dir() . 'classes' );
 
-		$this->helper = new ACP_Filtering_Helper();
-
-		$this->table_screen = new ACP_Filtering_TableScreen();
+		new ACP_Filtering_TableScreen();
 
 		add_action( 'ac/column/settings', array( $this, 'settings' ) );
 		add_action( 'ac/settings/scripts', array( $this, 'settings_scripts' ) );
 	}
 
 	/**
-	 * @since 4.0
-	 */
-	public function get_url() {
-		return plugin_dir_url( __FILE__ );
-	}
-
-	/**
 	 * @return string
 	 */
-	public function get_dir() {
-		return plugin_dir_path( __FILE__ );
+	protected function get_file() {
+		return __FILE__;
 	}
 
 	/**
@@ -51,12 +32,11 @@ class ACP_Filtering_Addon {
 		return ACP()->get_version();
 	}
 
+	/**
+	 * @return ACP_Filtering_Helper
+	 */
 	public function helper() {
-		return $this->helper;
-	}
-
-	public function table_screen() {
-        return $this->table_screen;
+		return new ACP_Filtering_Helper();
 	}
 
 	/**
@@ -69,31 +49,19 @@ class ACP_Filtering_Addon {
 			return false;
 		}
 
-		$model = $column->filtering();
+		$list_screen = $column->get_list_screen();
 
-		switch ( $column->get_list_screen()->get_meta_type() ) {
-			case 'post' :
-				$model->set_strategy( new ACP_Filtering_Strategy_Post( $model ) );
-
-				break;
-			case 'user' :
-				$model->set_strategy( new ACP_Filtering_Strategy_User( $model ) );
-
-				break;
-			case 'comment' :
-				$model->set_strategy( new ACP_Filtering_Strategy_Comment( $model ) );
-
-				break;
-			default :
-				return false;
+		if ( ! $list_screen instanceof ACP_Filtering_ListScreen ) {
+			return false;
 		}
 
-		return $model;
+		$model = $column->filtering();
+
+		return $model->set_strategy( $list_screen->filtering( $model ) );
 	}
 
 	public function settings_scripts() {
-		wp_enqueue_style( 'acp-filtering-settings', $this->get_url() . '/assets/css/settings' . AC()->minified() . '.css', array(), $this->get_version() );
-		wp_enqueue_script( 'acp-filtering-settings', $this->get_url() . '/assets/js/settings' . AC()->minified() . '.js', array( 'jquery' ), $this->get_version() );
+		wp_enqueue_script( 'acp-filtering-settings', $this->get_plugin_url() . 'assets/js/settings' . AC()->minified() . '.js', array( 'jquery' ), $this->get_version() );
 	}
 
 	/**

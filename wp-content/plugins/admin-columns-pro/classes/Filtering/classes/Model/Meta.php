@@ -30,7 +30,8 @@ class ACP_Filtering_Model_Meta extends ACP_Filtering_Model {
 		      ->join()
 		      ->where( 'meta_value', '!=', '' )
 		      ->where( 'meta_key', $this->column->get_meta_key() )
-		      ->order_by( 'meta_value' );
+		      ->order_by( 'meta_value' )
+		      ->limit( $this->get_limit() );
 
 		if ( $this->column->get_post_type() ) {
 			$query->where_post_type( $this->column->get_post_type() );
@@ -153,18 +154,15 @@ class ACP_Filtering_Model_Meta extends ACP_Filtering_Model {
 	 * @return array
 	 */
 	public function get_filtering_vars( $vars ) {
-
 		if ( $this->is_ranged() ) {
 			return $this->get_filtering_vars_ranged( $vars, $this->get_filter_value() );
 		}
 
 		if ( $this->column->is_serialized() ) {
-
 			// Serialized
 			$vars = $this->get_filtering_vars_serialized( $vars, $this->get_filter_value() );
 
 		} else {
-
 			// Exact
 			$vars['meta_query'][] = array(
 				'key'   => $this->column->get_meta_key(),
@@ -229,8 +227,10 @@ class ACP_Filtering_Model_Meta extends ACP_Filtering_Model {
 
 	/**
 	 * @deprecated 4.0.3
+	 *
 	 * @param array $vars
 	 * @param array $args
+	 *
 	 * @return array
 	 */
 	public function get_filtering_vars_date( $vars, $args ) {

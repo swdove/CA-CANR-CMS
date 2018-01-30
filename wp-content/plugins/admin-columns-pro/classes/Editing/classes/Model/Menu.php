@@ -44,29 +44,30 @@ class ACP_Editing_Model_Menu extends ACP_Editing_Model {
 	 * @return string|false
 	 */
 	private function get_title( $id ) {
-		$object = $this->column->get_list_screen()->get_object( $id );
+		$list_screen = $this->column->get_list_screen();
 
-		// Post
-		if ( isset( $object->post_title ) ) {
-			return $object->post_title;
+		switch ( true ) {
+			case  $list_screen instanceof AC_ListScreen_Post :
+				return get_post_field( 'post_title', $id );
+
+			case $list_screen instanceof ACP_ListScreen_Taxonomy :
+				$term = get_term_by( 'id', $id, $this->column->get_taxonomy() );
+
+				return $term->name;
+
+			case $list_screen instanceof AC_ListScreen_Comment :
+				$comment = get_comment( $id );
+
+				return $comment->comment_ID;
+
+			case $list_screen instanceof AC_ListScreen_User :
+				$user = get_userdata( $id );
+
+				return $user->display_name;
+
+			default:
+				return false;
 		}
-
-		// Term
-		if ( isset( $object->name ) ) {
-			return $object->name;
-		}
-
-		// Comment
-		if ( isset( $object->comment_ID ) ) {
-			return $object->comment_ID;
-		}
-
-		// User
-		if ( isset( $object->display_name ) ) {
-			return $object->display_name;
-		}
-
-		return false;
 	}
 
 	/**
@@ -106,12 +107,12 @@ class ACP_Editing_Model_Menu extends ACP_Editing_Model {
 			}
 
 			$item = array(
-				'menu-item-object-id'   => $id,
-				'menu-item-db-id'       => 0,
-				'menu-item-object'      => $this->column->get_object_type(),
-				'menu-item-type'        => $this->column->get_item_type(),
-				'menu-item-title'       => $this->get_title( $id ),
-				'menu-item-status'      => 'publish',
+				'menu-item-object-id' => $id,
+				'menu-item-db-id'     => 0,
+				'menu-item-object'    => $this->column->get_object_type(),
+				'menu-item-type'      => $this->column->get_item_type(),
+				'menu-item-title'     => $this->get_title( $id ),
+				'menu-item-status'    => 'publish',
 			);
 
 			wp_update_nav_menu_item( $menu_id, 0, $item );

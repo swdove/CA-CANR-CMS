@@ -819,7 +819,9 @@
         $text = str_replace("&gbreve;", "&#x11f;", $text); // ğ          
 
         $text = str_replace("&THORN;", "&#xfe;", $text); // þ
-        $text = str_replace("&eth;", "&#xf0;", $text); // ð          
+        $text = str_replace("&eth;", "&#xf0;", $text); // ð   
+        $text = str_replace("&omacr;", "&#x14d;", $text); // ō
+        $text = str_replace("&umacr;", "&#x16b;", $text); // ū
 
 
         if($xml === false) {

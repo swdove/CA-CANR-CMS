@@ -547,8 +547,7 @@ function build_SGML_file($post) {
 	// }	
 	$export .= "<galedata>". PHP_EOL;
 	$export .= "<infobase>". PHP_EOL;
-	$export .= "<pen>". PHP_EOL;
-	$export .= "</pen>". PHP_EOL;
+	$export .= "<pen></pen>". PHP_EOL;
 	$export .= "</infobase>". PHP_EOL;
 	$export .= "</galedata>". PHP_EOL;		
 
@@ -697,8 +696,8 @@ function build_SGML_file($post) {
 		$export .= "<heritage>" . PHP_EOL;
 		#ETHNICITY
 		if(!empty($post->ethnicity)) {
-			$export .= "<ethnicity>" . PHP_EOL;
-			$export .= $post->ethnicity . PHP_EOL;
+			$export .= "<ethnicity>";
+			$export .= $post->ethnicity;
 			$export .= "</ethnicity>" . PHP_EOL;
 		}
 		#NATIONALITY
@@ -715,9 +714,7 @@ function build_SGML_file($post) {
 	#EDUCATION
 	if(!empty($post->education)) {
 		$export .= "<educate>" . PHP_EOL;
-		$export .= "<composed.educate>" . PHP_EOL;
-		$export .= WYSIWYG_conversion($post->education, false) . PHP_EOL;
-		$export .= "</composed.educate>" . PHP_EOL;
+		$export .= "<composed.educate>" . WYSIWYG_conversion($post->education, false) . "</composed.educate>" . PHP_EOL;
 		$export .= "</educate>" . PHP_EOL;
 	}	
 
@@ -726,18 +723,14 @@ function build_SGML_file($post) {
 		$export .= "<career>" . PHP_EOL;
 		if(!empty($post->workHistory)) {
 			$export .= "<workhistory>" . PHP_EOL;
-			$export .= "<composed.workhist>" . PHP_EOL;
-			$export .= WYSIWYG_conversion($post->workHistory) . PHP_EOL;
-			$export .= "</composed.workhist>" . PHP_EOL;
+			$export .= "<composed.workhist>" . WYSIWYG_conversion($post->workHistory) . "</composed.workhist>" . PHP_EOL;
 			$export .= "</workhistory>" . PHP_EOL;
 		}
 
 		#MILITARY
 		if(!empty($post->military)) {
 			$export .= "<military>" . PHP_EOL;
-			$export .= "<composed.military>" . PHP_EOL;
-			$export .= WYSIWYG_conversion($post->military, false) . PHP_EOL;
-			$export .= "</composed.military>" . PHP_EOL;
+			$export .= "<composed.military>" . WYSIWYG_conversion($post->military, false) . "</composed.military>" . PHP_EOL;
 			$export .= "</military>" . PHP_EOL . PHP_EOL;
 		}
 		$export .= "</career>" . PHP_EOL . PHP_EOL;
@@ -745,48 +738,42 @@ function build_SGML_file($post) {
 
 	#AVOCATION
 	if(!empty($post->avocations)) {
-		$export .= "<avocation>" . PHP_EOL;
-		$export .= WYSIWYG_conversion($post->avocations) . PHP_EOL;
+		$export .= "<avocation>";
+		$export .= WYSIWYG_conversion($post->avocations);
 		$export .= "</avocation>" . PHP_EOL . PHP_EOL;
 	}
 
 	#MEMBER
 	if(!empty($post->member)) {
 		$export .= "<member>" . PHP_EOL;
-		$export .= "<composed.member>" . PHP_EOL;
-		$export .= WYSIWYG_conversion($post->member, false) . PHP_EOL;
-		$export .= "</composed.member>" . PHP_EOL;
+		$export .= "<composed.member>" . WYSIWYG_conversion($post->member, false) . "</composed.member>" . PHP_EOL;
 		$export .= "</member>" . PHP_EOL . PHP_EOL;
 	}
 
 	#AWARD
 	if(!empty($post->awards)) {
 		$export .= "<award>" . PHP_EOL;
-		$export .= "<composed.award>" . PHP_EOL;
-		$export .= WYSIWYG_conversion($post->awards) . PHP_EOL;
-		$export .= "</composed.award>" . PHP_EOL;
+		$export .= "<composed.award>" . WYSIWYG_conversion($post->awards) . "</composed.award>" . PHP_EOL;
 		$export .= "</award>" . PHP_EOL . PHP_EOL;
 	}
 
 	#POLITICS
 	if(!empty($post->politics)) {
-		$export .= "<politics>" . PHP_EOL;
-		$export .= $post->politics . PHP_EOL;
+		$export .= "<politics>";
+		$export .= $post->politics;
 		$export .= "</politics>" . PHP_EOL;
 	}		
 
 	#RELIGION
 	if(!empty($post->religion)) {
-		$export .= "<religion>" . PHP_EOL;
-		$export .= $post->religion . PHP_EOL;
+		$export .= "<religion>";
+		$export .= $post->religion;
 		$export .= "</religion>" . PHP_EOL;
 	}		
 
 	#PERSONAL
 	if(!empty($post->personal)) {
-		$export .= "<composed.personal>" . PHP_EOL;
-		$export .= WYSIWYG_conversion($post->personal, false) . PHP_EOL;
-		$export .= "</composed.personal>" . PHP_EOL;
+		$export .= "<composed.personal>" . WYSIWYG_conversion($post->personal, false) . "</composed.personal>" . PHP_EOL;
 	}
 
 	$export .= "</personal>" . PHP_EOL . PHP_EOL;
@@ -816,9 +803,7 @@ function build_SGML_file($post) {
 			$writingsText = WYSIWYG_conversion($writing->text, false);
 			$writingsText = trim($writingsText);
 			$export .= "<bibcitation>" . PHP_EOL;
-			$export .= "<bibcit.composed>" . PHP_EOL;
-			$export .= $writingsText . ', <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
-			$export .= "</bibcit.composed>" . PHP_EOL;
+			$export .= "<bibcit.composed>" . $writingsText . ', <pubdate><year year="' . $writing->year . '"></pubdate>.' . "</bibcit.composed>" . PHP_EOL;
 			$export .= "</bibcitation>" . PHP_EOL;	
 		} else { 
 			// LOC and MISC WRITINGS
@@ -829,7 +814,7 @@ function build_SGML_file($post) {
 			$writing_location = WYSIWYG_conversion($writing->location, false);
 			$writing_original = WYSIWYG_conversion($writing->original, false);
 			$export .= "<bibcitation>" . PHP_EOL;
-			$export .= "<bibcit.composed>" . PHP_EOL;
+			$export .= "<bibcit.composed>";
 			if(!empty($writing_role)) {
 				$export .= "(" . $writing_role . ")" ;
 			}
@@ -889,9 +874,10 @@ function build_SGML_file($post) {
 		$export .= '<grouptitle level="2">BOOKS</grouptitle>' . PHP_EOL;
 		foreach($post->biocrit_books as $book) {
 			$export .= "<bibcitation>" . PHP_EOL;
-			$export .= "<bibcit.composed>" . PHP_EOL;
+			$export .= "<bibcit.composed>";
 			$citation = WYSIWYG_conversion($book->entry_text, false, false);
-			//strip existing asterisks
+			//strip line breaks and existing asterisks
+			$citation = str_replace("\n", "", $citation);
 			$export .= str_replace("*", "", $citation);
 			//add asterisk to last entry
 			if($book->last === true){
@@ -906,9 +892,10 @@ function build_SGML_file($post) {
 		$export .= '<grouptitle level="2">PERIODICALS</grouptitle>' . PHP_EOL;
 		foreach($post->biocrit_periodicals as $periodical) {
 			$export .= "<bibcitation>" . PHP_EOL;
-			$export .= "<bibcit.composed>" . PHP_EOL;
+			$export .= "<bibcit.composed>";
 			$citation = WYSIWYG_conversion($periodical->entry_text, false, false);
-			//strip existing asterisks
+			//strip line breaks and existing asterisks
+			$citation = str_replace("\n", "", $citation);
 			$export .= str_replace("*", "", $citation);
 			//add asterisk to last entry
 			if($periodical->last === true){
@@ -923,9 +910,10 @@ function build_SGML_file($post) {
 		$export .= '<grouptitle level="2">ONLINE</grouptitle>' . PHP_EOL;
 		foreach($post->biocrit_online as $online) {
 			$export .= "<bibcitation>" . PHP_EOL;
-			$export .= "<bibcit.composed>" . PHP_EOL;
+			$export .= "<bibcit.composed>";
 			$citation = WYSIWYG_conversion($online->entry_text, false, false);
-			//strip existing asterisks
+			//strip line breaks and existing asterisks
+			$citation = str_replace("\n", "", $citation);
 			$export .= str_replace("*", "", $citation);
 			//add asterisk to last entry
 			if($online->last === true){
@@ -941,9 +929,10 @@ function build_SGML_file($post) {
 			$export .= '<grouptitle level="2">OBITUARIES</grouptitle>' . PHP_EOL;
 			foreach($post->biocrit_obits as $obit) {
 				$export .= "<bibcitation>" . PHP_EOL;
-				$export .= "<bibcit.composed>" . PHP_EOL;
+				$export .= "<bibcit.composed>";
 				$citation = WYSIWYG_conversion($obit->entry_text, false, false);
-				//strip existing asterisks
+				//strip line breaks and existing asterisks
+				$citation = str_replace("\n", "", $citation);
 				$export .= str_replace("*", "", $citation);
 				//add asterisk to last entry
 				if($obit->last === true){

@@ -27,11 +27,13 @@ class ACP_Filtering_Model_Post_Date extends ACP_Filtering_Model {
 					'year'  => date( 'Y', $timestamp ),
 					'month' => date( 'm', $timestamp ),
 				);
+
 				break;
 			case 'yearly' :
 				$vars['date_query'][] = array(
 					'year' => $this->get_filter_value(),
 				);
+
 				break;
 			case 'future_past' :
 				$date = date( 'Y-m-d' );
@@ -47,17 +49,17 @@ class ACP_Filtering_Model_Post_Date extends ACP_Filtering_Model {
 						'before'    => $date,
 					);
 				}
+
 				break;
 			case 'range' :
-				$value = $this->get_filter_value();
-
-				if ( $value['min'] || $value['max'] ) {
+				if ( $value = $this->get_filter_value() ) {
 					$vars['date_query'][] = array(
 						'inclusive' => true,
 						'before'    => $value['max'],
 						'after'     => $value['min'],
 					);
 				}
+
 				break;
 			case 'daily' :
 			default :
@@ -85,10 +87,10 @@ class ACP_Filtering_Model_Post_Date extends ACP_Filtering_Model {
 			$format = 'daily';
 		}
 
-		$options = $this->get_date_options_relative( $format );
+		$options = acp_filtering_helper()->get_date_options_relative( $format );
 
 		if ( ! $options ) {
-			$options = $this->get_date_options( $this->get_dates(), $format, 'Y-m-d H:i:s' );
+			$options = acp_filtering_helper()->get_date_options( $this->get_dates(), $format, 'Y-m-d H:i:s' );
 		}
 
 		return array(
@@ -106,12 +108,14 @@ class ACP_Filtering_Model_Post_Date extends ACP_Filtering_Model {
 		global $wpdb;
 
 		$field = sanitize_key( $field );
+		$limit = absint( $this->get_limit() );
 
 		$query = "
 			SELECT $field AS `date`
 			FROM $wpdb->posts
 			WHERE post_type = %s
 			ORDER BY `date`
+			LIMIT {$limit}
 		";
 
 		$sql = $wpdb->prepare( $query, $this->column->get_post_type() );
