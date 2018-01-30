@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0
  */
-class ACP_Sorting_Addon {
+class ACP_Sorting_Addon extends AC_Addon {
 
 	const OPTIONS_KEY = 'ac_sorting';
 
@@ -17,14 +17,12 @@ class ACP_Sorting_Addon {
 	 * @since 1.0
 	 */
 	public function __construct() {
-		AC()->autoloader()->register_prefix( 'ACP_Sorting', $this->get_dir() . 'classes' );
+		AC()->autoloader()->register_prefix( 'ACP_Sorting', $this->get_plugin_dir() . 'classes' );
 
 		// Column
-
 		add_action( 'ac/column/settings', array( $this, 'register_column_settings' ) );
 
 		// Settings screen
-
 		add_action( 'ac/settings/general', array( $this, 'add_settings' ) );
 		add_filter( 'ac/settings/groups', array( $this, 'settings_group' ), 15 );
 		add_action( 'ac/settings/group/sorting', array( $this, 'settings_display' ) );
@@ -32,51 +30,26 @@ class ACP_Sorting_Addon {
 		add_action( 'admin_init', array( $this, 'handle_settings_request' ) );
 
 		// Table screen
-
 		add_action( 'ac/table_scripts', array( $this, 'table_scripts' ) );
 		add_action( 'wp_ajax_acp_reset_sorting', array( $this, 'ajax_reset_sorting' ) );
 
 		// After filtering
-
 		add_action( 'ac/table/list_screen', array( $this, 'init_sorting_preference' ), 11 );
 		add_action( 'ac/table/list_screen', array( $this, 'handle_sorting' ), 11 );
 		add_action( 'ac/table/list_screen', array( $this, 'save_sorting_preference' ), 12 );
 	}
 
-	/**
-	 * Returns the version of this addon
-	 *
-	 * @since 4.0
-	 * @return string Version
-	 */
-	public function get_version() {
-		return ACP()->get_version();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_dir() {
-		return plugin_dir_path( __FILE__ );
-	}
-
-	/**
-	 * Returns the url of this addon
-	 *
-	 * @since 4.0
-	 * @return string
-	 */
-	public function get_url() {
-		return plugin_dir_url( __FILE__ );
+	protected function get_file() {
+		return __FILE__;
 	}
 
 	/**
 	 * Get an instance of preferences for the current user
 	 *
-	 * @return ACP_Sorting_Preferences
+	 * @return AC_Preferences
 	 */
 	public function preferences() {
-		return new ACP_Sorting_Preferences();
+		return new AC_Preferences( 'sorted_by' );
 	}
 
 	/**
@@ -109,21 +82,11 @@ class ACP_Sorting_Addon {
 
 			$list_screen = $column->get_list_screen();
 
-			switch ( true ) {
-
-				case $list_screen instanceof AC_ListScreenPost :
-					add_action( 'pre_get_posts', array( $model->get_strategy(), 'handle_sorting_request' ) );
-
-					break;
-				case $list_screen instanceof AC_ListScreen_User :
-					add_action( 'pre_get_users', array( $model->get_strategy(), 'handle_sorting_request' ) );
-
-					break;
-				case $list_screen instanceof AC_ListScreen_Comment :
-					add_action( 'pre_get_comments', array( $model->get_strategy(), 'handle_sorting_request' ) );
-
-					break;
+			if ( ! $list_screen instanceof ACP_Sorting_ListScreen ) {
+				continue;
 			}
+
+			$model->get_strategy()->manage_sorting();
 		}
 	}
 
@@ -138,12 +101,18 @@ class ACP_Sorting_Addon {
 		return isset( $_GET[ $key ] ) ? $_GET[ $key ] : false;
 	}
 
+	/**
+	 * @return false|string
+	 */
 	private function get_orderby() {
 		return $this->get_request_var( 'orderby' );
 	}
 
+	/**
+	 * @return string 'asc' or 'desc'
+	 */
 	private function get_order() {
-		return $this->get_request_var( 'order' );
+		return $this->get_request_var( 'order' ) === 'desc' ? 'desc' : 'asc';
 	}
 
 	/**
@@ -188,27 +157,36 @@ class ACP_Sorting_Addon {
 
 	/**
 	 * @param AC_ListScreen $list_screen
+	 * @param string        $orderby Query string 'orderby' value
 	 *
-	 * @return array|false Sortable columns names
+	 * @return string Column name
 	 */
-	private function get_default_sortable_columns( AC_ListScreen $list_screen ) {
-		$column_info = $list_screen->get_list_table()->get_column_info();
-
-		if ( empty( $column_info[2] ) ) {
-			return false;
+	private function get_sortable_column_name_from_orderby( AC_ListScreen $list_screen, $orderby ) {
+		if ( ! $list_screen instanceof AC_ListScreenWP ) {
+			return $orderby;
 		}
 
-		return array_keys( $column_info[2] );
+		foreach ( $list_screen->get_default_sortable_columns() as $column_name => $data ) {
+			if ( $data[0] === $orderby ) {
+				return $column_name;
+			}
+		}
+
+		return $orderby;
 	}
 
 	/**
 	 * @param AC_ListScreen $list_screen
 	 */
 	private function get_native_sortables( AC_ListScreen $list_screen ) {
+		if ( ! $list_screen instanceof AC_ListScreenWP ) {
+			return array();
+		}
+
 		$native_sortables = $this->get_stored_default_sortable_columns( $list_screen->get_key() );
 
 		if ( ! $native_sortables ) {
-			$native_sortables = $this->get_default_sortable_columns( $list_screen );
+			$native_sortables = array_keys( $list_screen->get_default_sortable_columns() );
 		}
 
 		return $native_sortables;
@@ -294,26 +272,15 @@ class ACP_Sorting_Addon {
 			return false;
 		}
 
-		$model = $column->sorting();
+		$list_screen = $column->get_list_screen();
 
-		switch ( $column->get_list_screen()->get_meta_type() ) {
-			case 'post' :
-				$model->set_strategy( new ACP_Sorting_Strategy_Post( $model ) );
-
-				break;
-			case 'user' :
-				$model->set_strategy( new ACP_Sorting_Strategy_User( $model ) );
-
-				break;
-			case 'comment' :
-				$model->set_strategy( new ACP_Sorting_Strategy_Comment( $model ) );
-
-				break;
-			default :
-				return false;
+		if ( ! $list_screen instanceof ACP_Sorting_ListScreen ) {
+			return false;
 		}
 
-		return $model;
+		$model = $column->sorting();
+
+		return $model->set_strategy( $list_screen->sorting( $model ) );
 	}
 
 	/**
@@ -391,30 +358,16 @@ class ACP_Sorting_Addon {
 	 *
 	 */
 	public function handle_settings_request() {
-		if ( ! wp_verify_nonce( filter_input( INPUT_POST, '_acnonce' ), 'reset-sorting-preference' ) || ! AC()->user_can_manage_admin_columns() ) {
+		if ( ! AC()->user_can_manage_admin_columns() ) {
+			return;
+		}
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, '_acnonce' ), 'reset-sorting-preference' ) ) {
 			return;
 		}
 
-		global $wpdb;
-		$wpdb->query( "DELETE FROM {$wpdb->usermeta} WHERE meta_key LIKE 'ac_sortedby_%';" );
+		$this->preferences()->reset_for_all_users();
 
 		AC()->notice( __( 'All sorting preferences have been reset.', 'codepress-admin-columns' ) );
-
-	}
-
-	/**
-	 * @param AC_ListScreen $list_screen
-	 *
-	 * @return array|false
-	 */
-	private function get_sorting_preference( $list_screen ) {
-		$preference = $this->preferences()->set_key( $list_screen->get_storage_key() )->get();
-
-		if ( empty( $preference['orderby'] ) || ! $list_screen->get_column_by_name( $preference['orderby'] ) ) {
-			return false;
-		}
-
-		return $preference;
 	}
 
 	/**
@@ -431,16 +384,68 @@ class ACP_Sorting_Addon {
 			return;
 		}
 
+		if ( filter_input( INPUT_GET, 'orderby' ) ) {
+			return;
+		}
+
 		$preference = $this->get_sorting_preference( $list_screen );
 
+		if ( ! $preference ) {
+			$preference = $this->get_sorting_default( $list_screen );
+		}
+
 		// Only load when a preference is set for this screen and no orderby is set
-		if ( empty( $preference['orderby'] ) || empty( $preference['order'] ) || filter_input( INPUT_GET, 'orderby' ) ) {
+		if ( empty( $preference['orderby'] ) || empty( $preference['order'] ) ) {
 			return;
 		}
 
 		// Set $_GET and $_REQUEST (used by WP_User_Query)
 		$_REQUEST['orderby'] = $_GET['orderby'] = $preference['orderby'];
 		$_REQUEST['order'] = $_GET['order'] = $preference['order'];
+	}
+
+	/**
+	 * @param AC_ListScreen $list_screen
+	 *
+	 * @return array
+	 */
+	private function get_sorting_default( AC_ListScreen $list_screen ) {
+		$orderby = $list_screen->get_default_orderby();
+
+		/**
+		 * @param string        $orderby
+		 * @param AC_ListScreen $list_screen
+		 */
+		$orderby = apply_filters( 'acp/sorting/default', $orderby, $list_screen );
+
+		$sorting = array(
+			'orderby' => is_array( $orderby ) && isset( $orderby[0] ) ? $orderby[0] : $orderby,
+			'order'   => is_array( $orderby ) && isset( $orderby[1] ) && $orderby[1] ? 'desc' : 'asc',
+		);
+
+		return $sorting;
+	}
+
+	/**
+	 * @param AC_ListScreen $list_screen
+	 *
+	 * @return array|false
+	 */
+	private function get_sorting_preference( AC_ListScreen $list_screen ) {
+		$preference = $this->preferences()->get( $list_screen->get_storage_key() );
+
+		if ( empty( $preference['orderby'] ) ) {
+			return false;
+		}
+
+		// Maybe column no longer exists
+		$column_name = $this->get_sortable_column_name_from_orderby( $list_screen, $preference['orderby'] );
+
+		if ( ! $list_screen->get_column_by_name( $column_name ) ) {
+			return false;
+		}
+
+		return $preference;
 	}
 
 	/**
@@ -452,8 +457,20 @@ class ACP_Sorting_Addon {
 	 */
 	public function save_sorting_preference( $list_screen ) {
 		if ( $orderby = $this->get_orderby() ) {
-			$this->preferences()->set_key( $list_screen->get_storage_key() )->update( $orderby, $this->get_order() );
+			$this->preferences()->set( $list_screen->get_storage_key(), array(
+				'orderby' => $orderby,
+				'order'   => $this->get_order(),
+			) );
 		}
+	}
+
+	/**
+	 * @param AC_ListScreen $list_screen
+	 *
+	 * @return bool
+	 */
+	public function delete_sorting_preference( $list_screen ) {
+		return $this->preferences()->delete( $list_screen->get_storage_key() );
 	}
 
 	/**
@@ -462,18 +479,37 @@ class ACP_Sorting_Addon {
 	 * @param $list_screen AC_ListScreen
 	 */
 	public function table_scripts( $list_screen ) {
-		wp_enqueue_script( 'acp-sorting', $this->get_url() . 'assets/js/table' . AC()->minified() . '.js', array( 'jquery' ), $this->get_version() );
-
-		$preference = $this->get_sorting_preference( $list_screen );
+		wp_enqueue_script( 'acp-sorting', $this->get_plugin_url() . 'assets/js/table' . AC()->minified() . '.js', array( 'jquery' ), ACP()->get_version() );
 
 		wp_localize_script( 'acp-sorting', 'ACP_Sorting', array(
 			'reset_button' => array(
 				'label'   => __( 'Reset sorting', 'codepress-admin-columns' ),
-				'orderby' => isset( $preference['orderby'] ) ? $preference['orderby'] : false,
+				'orderby' => $this->show_reset_button( $list_screen ),
 			),
 		) );
 
-		wp_enqueue_style( 'acp-sorting', $this->get_url() . 'assets/css/table' . AC()->minified() . '.css', array(), $this->get_version() );
+		wp_enqueue_style( 'acp-sorting', $this->get_plugin_url() . 'assets/css/table' . AC()->minified() . '.css', array(), ACP()->get_version() );
+	}
+
+	/**
+	 * @param AC_ListScreen $list_screen
+	 *
+	 * @return string|false Ordered by column name
+	 */
+	private function show_reset_button( AC_ListScreen $list_screen ) {
+		$default = $this->get_sorting_default( $list_screen );
+
+		if ( $this->get_orderby() === $default['orderby'] && $this->get_order() === $default['order'] ) {
+			return false;
+		}
+
+		$preference = $this->get_sorting_preference( $list_screen );
+
+		if ( ! isset( $preference['orderby'] ) ) {
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
@@ -490,7 +526,7 @@ class ACP_Sorting_Addon {
 
 		$list_screen->set_layout_id( filter_input( INPUT_POST, 'layout' ) );
 
-		$deleted = $this->preferences()->set_key( $list_screen->get_storage_key() )->delete();
+		$deleted = $this->delete_sorting_preference( $list_screen );
 
 		wp_send_json_success( $deleted );
 	}

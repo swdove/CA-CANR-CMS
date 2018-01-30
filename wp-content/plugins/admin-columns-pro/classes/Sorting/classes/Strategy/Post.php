@@ -11,6 +11,10 @@ final class ACP_Sorting_Strategy_Post extends ACP_Sorting_Strategy {
 	 */
 	private $wp_query;
 
+	public function manage_sorting() {
+		add_action( 'pre_get_posts', array( $this, 'handle_sorting_request' ) );
+	}
+
 	/**
 	 * @param WP_Query $wp_query
 	 */
@@ -76,7 +80,7 @@ final class ACP_Sorting_Strategy_Post extends ACP_Sorting_Strategy {
 			return;
 		}
 
-		$post_type = $this->column->get_post_type();
+		$post_type = $this->get_column()->get_post_type();
 
 		// check screen conditions
 		if ( $query->get( 'post_type' ) !== $post_type ) {

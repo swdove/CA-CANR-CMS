@@ -9,12 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * @since 1.0
  */
-class ACP_Editing_Addon {
-
-	/**
-	 * @var ACP_Editing_Helper
-	 */
-	private $helper;
+class ACP_Editing_Addon extends AC_Addon {
 
 	/**
 	 * @var ACP_Editing_TableScreen
@@ -25,16 +20,18 @@ class ACP_Editing_Addon {
 	 * @since 4.0
 	 */
 	function __construct() {
-		AC()->autoloader()->register_prefix( 'ACP_Editing', $this->get_dir() . 'classes' );
+		AC()->autoloader()->register_prefix( 'ACP_Editing', $this->get_plugin_dir() . 'classes' );
 
 		// Settings screen
-
 		add_action( 'ac/column/settings', array( $this, 'register_column_settings' ) );
 		add_action( 'ac/settings/general', array( $this, 'register_general_settings' ) );
-		add_action( 'ac/settings/scripts', array( $this, 'settings_scripts' ) );
 
 		// Table screen
 		$this->table_screen = new ACP_Editing_TableScreen();
+	}
+
+	protected function get_file() {
+		return __FILE__;
 	}
 
 	public function table_screen() {
@@ -48,26 +45,8 @@ class ACP_Editing_Addon {
 		return ACP()->get_version();
 	}
 
-	/**
-	 * @since 4.0
-	 */
-	public function get_dir() {
-		return plugin_dir_path( __FILE__ );
-	}
-
-	/**
-	 * @since 4.0
-	 */
-	public function get_url() {
-		return plugin_dir_url( __FILE__ );
-	}
-
 	public function helper() {
-		if ( null === $this->helper ) {
-			$this->helper = new ACP_Editing_Helper();
-		}
-
-		return $this->helper;
+		return new ACP_Editing_Helper();
 	}
 
 	/**
@@ -80,34 +59,15 @@ class ACP_Editing_Addon {
 			return false;
 		}
 
-		$model = $column->editing();
+		$list_screen = $column->get_list_screen();
 
-		switch ( $column->get_list_screen()->get_meta_type() ) {
-			case 'post' :
-				$model->set_strategy( new ACP_Editing_Strategy_Post( $model ) );
-
-				break;
-			case 'user' :
-				$model->set_strategy( new ACP_Editing_Strategy_User( $model ) );
-
-				break;
-			case 'comment' :
-				$model->set_strategy( new ACP_Editing_Strategy_Comment( $model ) );
-
-				break;
-			case 'term' :
-				$model->set_strategy( new ACP_Editing_Strategy_Taxonomy( $model ) );
-
-				break;
-			case 'site' :
-				$model->set_strategy( new ACP_Editing_Strategy_Site( $model ) );
-
-				break;
+		if ( ! $list_screen instanceof ACP_Editing_ListScreen ) {
+			return false;
 		}
 
-		do_action( 'acp/editing/model', $model, $column );
+		$model = $column->editing();
 
-		return $model;
+		return $model->set_strategy( $list_screen->editing( $model ) );
 	}
 
 	/**
@@ -128,13 +88,6 @@ class ACP_Editing_Addon {
 				)
 			),
 		) );
-	}
-
-	/**
-	 * @since 4.0
-	 */
-	public function settings_scripts() {
-		wp_enqueue_style( 'acp-editing-settings', $this->get_url() . 'assets/css/settings' . AC()->minified() . '.css', array(), $this->get_version() );
 	}
 
 	/**

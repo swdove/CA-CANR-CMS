@@ -983,8 +983,11 @@ function format_WYSIWYG_tags($text) {
 function WYSIWYG_conversion($text, $includePara = true, $includeTitle = true) {
 	//convert all non-quotation special characters to codes
 	$text = htmlentities($text);
+
 	//remove non-breaking spaces
-	$text = str_replace('&nbsp;', '', $text);		
+	//11-29-17 - TAKING THIS OUT BECAUSE HTMLENTITIES CREATES A BUNCH OF RANDOM NBSPS BETWEEN WORDS AND THIS WAS STRIPPING THEM ALL
+	//THIS WILL PROBABLY BREAK SOMETHING ELSE BUT ¯\_(ツ)_/¯
+	//$text = str_replace('&nbsp;', '', $text);		
 
 	//strip para tags from sections where they aren't required
 	if($includePara == false) {
@@ -1179,6 +1182,7 @@ function convert_wyswig_punctuation($text) {
 	$text = str_replace("&#38;", "&amp;", $text); // & 
 	$text = str_replace(" & ", "&amp;", $text); // &   
 	//mdash
+	$text = str_replace('–', '-', $text);
 	$text = str_replace('&#8211;', '&mdash;', $text);
 	$text = str_replace('—', '&mdash;', $text);
 	//square brackets

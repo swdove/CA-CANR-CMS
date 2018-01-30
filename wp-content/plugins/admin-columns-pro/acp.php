@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once 'api.php';
+
 /**
  * The Admin Columns Pro plugin class
  *
  * @since 1.0
  */
-final class ACP {
-
-	const CLASS_PREFIX = 'ACP_';
+final class ACP extends AC_Plugin {
 
 	/**
 	 * License manager class instance
@@ -51,45 +51,44 @@ final class ACP {
 	private $network_admin;
 
 	/**
-	 * @var null|string
+	 * @var ACP_Table_ScreenOptions
 	 */
-	private $version = null;
+	private $screen_options;
 
 	/**
 	 * @since 3.8
 	 */
-	private static $_instance = null;
+	private static $instance = null;
 
 	/**
 	 * @since 3.8
 	 * @return ACP
 	 */
 	public static function instance() {
-		if ( null === self::$_instance ) {
-			self::$_instance = new self();
+		if ( null === self::$instance ) {
+			self::$instance = new self();
 		}
 
-		return self::$_instance;
+		return self::$instance;
 	}
 
 	/**
 	 * ACP constructor.
 	 */
 	private function __construct() {
-		AC()->autoloader()->register_prefix( self::CLASS_PREFIX, $this->get_plugin_dir() . 'classes/' );
-
-		// api functions
-		include_once $this->get_plugin_dir() . 'api.php';
+		AC()->autoloader()->register_prefix( $this->get_prefix(), $this->get_plugin_dir() . 'classes/' );
 
 		$this->editing = new ACP_Editing_Addon();
 		$this->sorting = new ACP_Sorting_Addon();
 		$this->filtering = new ACP_Filtering_Addon();
 		$this->network_admin = new ACP_NetworkAdmin();
+		$this->screen_options = new ACP_Table_ScreenOptions();
+
+		ACP_Export_Addon::instance();
 
 		new ACP_ThirdParty_Addon();
 		new ACP_LayoutScreen_Columns();
 		new ACP_LayoutScreen_Table();
-		new ACP_Table_ScreenOptions();
 
 		add_action( 'init', array( $this, 'localize' ) );
 
@@ -103,44 +102,35 @@ final class ACP {
 		add_action( 'ac/list_screen_groups', array( $this, 'register_list_screen_groups' ) );
 		add_action( 'ac/list_screens', array( $this, 'register_list_screens' ) );
 
-		add_action( 'ac/column_types', array( $this, 'register_columns' ) );
+		add_action( 'ac/column_types', array( $this, 'register_column_native_taxonomies' ) );
 
 		add_action( 'ac/admin_pages', array( $this, 'register_pages' ) );
+
+		add_action( 'ac/table_scripts', array( $this, 'table_scripts' ), 10, 1 );
+
+		// Updater
+		add_action( 'init', array( $this, 'install' ) );
 	}
 
 	/**
-	 * @since 4.0
+	 * @return string
 	 */
-	public function get_plugin_dir() {
-		return plugin_dir_path( __FILE__ );
+	protected function get_file() {
+		return ACP_FILE;
 	}
 
 	/**
-	 * @since 4.0
+	 * @return string
 	 */
-	public function get_plugin_url() {
-		return plugin_dir_url( __FILE__ );
+	protected function get_version_key() {
+		return 'acp_version';
 	}
 
 	/**
-	 * Basename of the plugin, retrieved through plugin_basename function
-	 *
-	 * @since 1.0
-	 * @var string
+	 * @return string
 	 */
-	public function get_basename() {
-		return plugin_basename( ACP_FILE );
-	}
-
-	/**
-	 * @since 4.0
-	 */
-	public function get_version() {
-		if ( null === $this->version ) {
-			$this->version = AC()->get_plugin_version( ACP_FILE );
-		}
-
-		return $this->version;
+	public function get_prefix() {
+		return 'ACP_';
 	}
 
 	/**
@@ -211,8 +201,8 @@ final class ACP {
 	/**
 	 * @since 4.0
 	 */
-	public function layouts( AC_ListScreen $listScreen ) {
-		return new ACP_Layouts( $listScreen );
+	public function layouts( AC_ListScreen $list_screen ) {
+		return new ACP_Layouts( $list_screen );
 	}
 
 	/**
@@ -220,6 +210,13 @@ final class ACP {
 	 */
 	public function network_admin() {
 		return $this->network_admin;
+	}
+
+	/**
+	 * @since 4.0.12
+	 */
+	public function screen_options() {
+		return $this->screen_options;
 	}
 
 	/**
@@ -238,80 +235,6 @@ final class ACP {
 		}
 
 		return $links;
-	}
-
-	/**
-	 * @param AC_ListScreen $list_screen
-	 */
-	public function register_columns( AC_ListScreen $list_screen ) {
-
-		// Pro columns
-		switch ( true ) {
-
-			case $list_screen instanceof AC_ListScreen_Post :
-				$list_screen->register_column_types_from_dir( $this->get_plugin_dir() . 'classes/Column/Post', self::CLASS_PREFIX );
-
-				break;
-			case $list_screen instanceof AC_ListScreen_Media :
-				$list_screen->register_column_types_from_dir( $this->get_plugin_dir() . 'classes/Column/Media', self::CLASS_PREFIX );
-
-				break;
-			case $list_screen instanceof AC_ListScreen_Comment :
-				$list_screen->register_column_types_from_dir( $this->get_plugin_dir() . 'classes/Column/Comment', self::CLASS_PREFIX );
-
-				break;
-			case $list_screen instanceof AC_ListScreen_User :
-				$list_screen->register_column_types_from_dir( $this->get_plugin_dir() . 'classes/Column/User', self::CLASS_PREFIX );
-
-				break;
-		}
-
-		// Applies to ALL list screens
-		$list_screen->register_column_type( new ACP_Column_CustomField );
-		$list_screen->register_column_type( new ACP_Column_Menu );
-
-		// Native Taxonomy columns
-		$this->register_native_taxonomy_columns( $list_screen );
-
-		/**
-		 * Register column types
-		 *
-		 * @param AC_ListScreen $list_screen
-		 */
-		do_action( 'acp/column_types', $list_screen );
-	}
-
-	/**
-	 * Register Taxonomy columns that are set by WordPress. These native columns are registered
-	 * by setting 'show_admin_column' to 'true' as an argument in register_taxonomy();
-	 * Only supports Post Types.
-	 *
-	 * @see register_taxonomy
-	 *
-	 * @param AC_ListScreen $list_screen
-	 */
-	private function register_native_taxonomy_columns( AC_ListScreen $list_screen ) {
-		if ( ! $list_screen instanceof AC_ListScreenPost ) {
-			return;
-		}
-
-		$taxonomies = get_taxonomies(
-			array(
-				'show_ui'           => 1,
-				'show_admin_column' => 1,
-				'_builtin'          => 0,
-			),
-			'object'
-		);
-
-		foreach ( $taxonomies as $taxonomy ) {
-			if ( in_array( $list_screen->get_post_type(), $taxonomy->object_type ) ) {
-				$column = new ACP_Column_NativeTaxonomy();
-				$column->set_type( 'taxonomy-' . $taxonomy->name );
-
-				$list_screen->register_column_type( $column );
-			}
-		}
 	}
 
 	/**
@@ -346,7 +269,7 @@ final class ACP {
 		 *
 		 * @param array $post_types List of active post type names
 		 */
-		return apply_filters( 'acp/taxonomies', $taxonomies );
+		return (array) apply_filters( 'acp/taxonomies', $taxonomies );
 	}
 
 	/**
@@ -361,29 +284,71 @@ final class ACP {
 	 * @since 4.0
 	 */
 	public function register_list_screens() {
+		$list_screens = array();
 
-		if ( $taxonomies = $this->get_taxonomies() ) {
-			foreach ( $taxonomies as $taxonomy ) {
-				AC()->register_list_screen( new ACP_ListScreen_Taxonomy( $taxonomy ) );
-			}
+		// Post types
+		foreach ( AC()->get_post_types() as $post_type ) {
+			$list_screens[] = new ACP_ListScreen_Post( $post_type );
 		}
 
-		if ( is_multisite() ) {
+		$list_screens[] = new ACP_ListScreen_Media();
+		$list_screens[] = new ACP_ListScreen_Comment();
 
-			AC()->register_list_screen( new AC_ListScreen_User() );
+		foreach ( $this->get_taxonomies() as $taxonomy ) {
+			$list_screens[] = new ACP_ListScreen_Taxonomy( $taxonomy );
+		}
+
+		$list_screens[] = new ACP_ListScreen_User();
+
+		if ( is_multisite() ) {
 
 			// Settings UI
 			if ( AC()->admin_columns_screen()->is_current_screen() ) {
 
 				// Main site
 				if ( is_main_site() ) {
-					AC()->register_list_screen( new ACP_ListScreen_MSUser() );
-					AC()->register_list_screen( new ACP_ListScreen_MSSite() );
+					$list_screens[] = new ACP_ListScreen_MSUser();
+					$list_screens[] = new ACP_ListScreen_MSSite();
 				}
 			} // Table screen
 			else {
-				AC()->register_list_screen( new ACP_ListScreen_MSUser() );
-				AC()->register_list_screen( new ACP_ListScreen_MSSite() );
+				$list_screens[] = new ACP_ListScreen_MSUser();
+				$list_screens[] = new ACP_ListScreen_MSSite();
+			}
+		}
+
+		foreach ( $list_screens as $list_screen ) {
+			AC()->register_list_screen( $list_screen );
+		}
+	}
+
+	/**
+	 * Register Taxonomy columns that are set by WordPress. These native columns are registered
+	 * by setting 'show_admin_column' to 'true' as an argument in register_taxonomy();
+	 * Only supports Post Types.
+	 *
+	 * @see register_taxonomy
+	 */
+	public function register_column_native_taxonomies( AC_ListScreen $list_screen ) {
+		if ( ! $list_screen instanceof AC_ListScreenPost ) {
+			return;
+		}
+
+		$taxonomies = get_taxonomies(
+			array(
+				'show_ui'           => 1,
+				'show_admin_column' => 1,
+				'_builtin'          => 0,
+			),
+			'object'
+		);
+
+		foreach ( $taxonomies as $taxonomy ) {
+			if ( in_array( $list_screen->get_post_type(), $taxonomy->object_type ) ) {
+				$column = new ACP_Column_NativeTaxonomy();
+				$column->set_type( 'taxonomy-' . $taxonomy->name );
+
+				$list_screen->register_column_type( $column );
 			}
 		}
 	}
@@ -404,6 +369,13 @@ final class ACP {
 			</div>
 			<?php
 		endif;
+	}
+
+	/**
+	 * @param AC_ListScreen $list_screen
+	 */
+	public function table_scripts() {
+		wp_enqueue_style( 'acp-table', ACP()->get_plugin_url() . "assets/css/table.css", array(), AC()->get_version() );
 	}
 
 }

@@ -4,20 +4,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class ACP_Filtering_Cache {
-
-	const CACHE_PREFIX = 'filtering-';
+final class ACP_Filtering_Cache {
 
 	/**
-	 * @var string Cache id
+	 * @var string
 	 */
-	private $cache_id;
+	private $key;
 
 	/**
-	 * @param string $name
+	 * @param string $key
 	 */
-	public function __construct( $name ) {
-		$this->set_cache_id( md5( self::CACHE_PREFIX . $name ) ); // 32 characters
+	public function __construct( $key ) {
+		$this->set_key( $key );
 	}
 
 	/**
@@ -26,48 +24,50 @@ class ACP_Filtering_Cache {
 	 * @param string $name
 	 * @source https://core.trac.wordpress.org/ticket/15058
 	 */
-	private function set_cache_id( $name ) {
-		$this->cache_id = substr( $name, 0, 40 );
+	private function set_key( $key ) {
+		$this->key = md5( $key );
 	}
 
 	/**
-	 * @see get_transient
-	 * @return mixed
+	 * @param mixed       $data
+	 * @param null|string $expiration
+	 */
+	public function put( $data, $expiration = null ) {
+		update_site_option( 'ac_cache_data_' . $this->key, $data );
+
+		$this->set_expiration( $expiration );
+	}
+
+	/**
+	 * @return string|false
 	 */
 	public function get() {
-		return get_site_transient( $this->cache_id );
+		return get_site_option( 'ac_cache_data_' . $this->key );
 	}
 
 	/**
-	 * @see set_transient
-	 *
-	 * @param mixed $value
-	 * @param int $time Default is "no expiration"
+	 * @return bool
 	 */
-	public function set( $value, $expiration = 0 ) {
-		set_site_transient( $this->cache_id, $value, $expiration );
+	public function is_expired() {
+		$expired = get_site_option( 'ac_cache_expires_' . $this->key );
+
+		return ! $expired || time() > $expired;
 	}
 
 	/**
-	 * @see delete_transient
+	 * @param null|int $expiration Expiration in seconds
 	 */
-	public function delete() {
-		delete_site_transient( $this->cache_id );
-	}
-
-	/**
-	 * Time left on cache in seconds, unless it's being done with an external cache
-	 *
-	 * @return int|string Time left in seconds
-	 */
-	public function time_left() {
-
-		// external cache does not have a timer available
-		if ( wp_using_ext_object_cache() ) {
-			return 'external';
+	public function set_expiration( $expiration = null ) {
+		if ( null === $expiration || ! preg_match( '/^[1-9][0-9]*$/', $expiration ) ) {
+			$expiration = 10;
 		}
 
-		return max( get_option( '_site_transient_timeout_' . $this->cache_id ) - time(), 0 );
+		update_site_option( 'ac_cache_expires_' . $this->key, time() + $expiration );
+	}
+
+	public function delete() {
+		delete_site_option( 'ac_cache_data_' . $this->key );
+		delete_site_option( 'ac_cache_expires_' . $this->key );
 	}
 
 }

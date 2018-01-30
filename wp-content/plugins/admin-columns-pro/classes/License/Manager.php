@@ -680,8 +680,8 @@ class ACP_License_Manager {
 	}
 
 	public function register_admin_scripts() {
-		wp_register_style( 'acp-license-manager', ACP()->get_plugin_url() . "assets/css/license-manager" . AC()->minified() . ".css", array(), ACP()->get_version() );
-		wp_register_script( 'acp-license-manager', ACP()->get_plugin_url() . "assets/js/license-manager" . AC()->minified() . ".js", array( 'jquery' ), ACP()->get_version() );
+		wp_register_style( 'acp-license-manager', ACP()->get_plugin_url() . "assets/css/license-manager.css", array(), ACP()->get_version() );
+		wp_register_script( 'acp-license-manager', ACP()->get_plugin_url() . "assets/js/license-manager.js", array( 'jquery' ), ACP()->get_version() );
 	}
 
 	/**

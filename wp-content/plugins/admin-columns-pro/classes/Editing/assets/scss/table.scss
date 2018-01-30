@@ -403,6 +403,29 @@ table.wp-list-table tbody {
 			margin-top: -2px;
 		}
 	}
+
+	.multi-input-container {
+		.single-input {
+			width: 210px;
+
+			.buttons {
+				width: 50px;
+				display: inline-block;
+				vertical-align: middle;
+				margin-left: 5px;
+
+				span {
+					cursor: pointer;
+					margin-right: 5px;
+				}
+			}
+
+			input {
+				width: 150px;
+			}
+		}
+	}
+
 }
 
 .select2-drop {
