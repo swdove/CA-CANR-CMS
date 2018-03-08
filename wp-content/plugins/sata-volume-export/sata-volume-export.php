@@ -175,7 +175,9 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 		public $role;
 		public $original;
 		public $reprints = Array();
-		public $text;		
+		public $text;	
+		public $isHandcoded;
+		public $handcodedText;
 	}
 
 	class Reprint {
@@ -442,26 +444,31 @@ function get_repeater_values($post) {
         	if( get_row_layout() == 'loc_writing' ):
 			//$writing = get_sub_field('loc_writing_title');
 				$wrt->id = "loc";
-				$wrt->title = get_sub_field('loc_writing_title');
-				$wrt->type = get_sub_field('loc_writing_type');
-				$wrt->publisher = get_sub_field('loc_writing_publisher');
-				$wrt->location = get_sub_field('loc_writing_location');
-				$wrt->year = get_sub_field('loc_writing_year');
-				$wrt->role = get_sub_field('loc_writing_role');
-				$wrt->original = get_sub_field('loc_original_author');
-        		// check if the nested repeater field has rows of data
-				//if( have_rows('loc_reprinted_as') ):
-				if( $writing_row['loc_writing_reprinted'] === true ):
-			 		// loop through the rows of data
-					$rpt = new Reprint();
-			    	while ( have_rows('loc_reprinted_as') ) : $loc_row = the_row(true);
-						$rpt->title = get_sub_field('loc_reprinted_title');
-						$rpt->publisher = get_sub_field('loc_reprinted_publisher');
-						$rpt->location = get_sub_field('loc_reprinted_location');
-						$rpt->year = get_sub_field('loc_reprinted_year');
-						array_push($wrt->reprints, $rpt);
-					endwhile;
-				endif;
+				$wrt->isHandcoded = get_sub_field("loc_is_handcoded");
+				if($wrt->isHandcoded === false) {
+					$wrt->title = get_sub_field('loc_writing_title');
+					$wrt->type = get_sub_field('loc_writing_type');
+					$wrt->publisher = get_sub_field('loc_writing_publisher');
+					$wrt->location = get_sub_field('loc_writing_location');
+					$wrt->year = get_sub_field('loc_writing_year');
+					$wrt->role = get_sub_field('loc_writing_role');
+					$wrt->original = get_sub_field('loc_original_author');
+					// check if the nested repeater field has rows of data
+					//if( have_rows('loc_reprinted_as') ):
+					if( $writing_row['loc_writing_reprinted'] === true ):
+						// loop through the rows of data
+						$rpt = new Reprint();
+						while ( have_rows('loc_reprinted_as') ) : $loc_row = the_row(true);
+							$rpt->title = get_sub_field('loc_reprinted_title');
+							$rpt->publisher = get_sub_field('loc_reprinted_publisher');
+							$rpt->location = get_sub_field('loc_reprinted_location');
+							$rpt->year = get_sub_field('loc_reprinted_year');
+							array_push($wrt->reprints, $rpt);
+						endwhile;
+					endif;
+				} else {
+					$wrt->handcodedText = get_sub_field('loc_handcoded_text');
+				}
 				array_push($post->writings, $wrt);
 			elseif( get_row_layout() == 'misc_writing' ):
 				$wrt->id = "misc";
@@ -807,56 +814,69 @@ function build_SGML_file($post) {
 			$export .= "</bibcitation>" . PHP_EOL;	
 		} else { 
 			// LOC and MISC WRITINGS
-			$writing_role = WYSIWYG_conversion($writing->role, false);
-			$writing_title = WYSIWYG_conversion($writing->title, false);
-			$writing_type = WYSIWYG_conversion($writing->type, false);
-			$writing_publisher = WYSIWYG_conversion($writing->publisher, false);
-			$writing_location = WYSIWYG_conversion($writing->location, false);
-			$writing_original = WYSIWYG_conversion($writing->original, false);
-			$export .= "<bibcitation>" . PHP_EOL;
-			$export .= "<bibcit.composed>";
-			if(!empty($writing_role)) {
-				$export .= "(" . $writing_role . ")" ;
-			}
-			if(!empty($writing_original)) {
-				$export .= $writing_original . ", ";
-			}
-			if(!empty($writing->reprints)){
-				$reprint_text = "";
-				foreach($writing->reprints as $reprint){
-					if(!empty($reprint->title)){
-						$reprint_title = WYSIWYG_conversion($reprint->title, false);
-						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
-						$reprint_location = WYSIWYG_conversion($reprint->location, false);
-						$reprint_text .= ', published as <title><emphasis n="1">' . $reprint_title . ',</emphasis></title> ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
-					} else {
-						$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
-						$reprint_location = WYSIWYG_conversion($reprint->location, false);
-						$reprint_text .= ', reprinted, ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
+			if($writing->isHandcoded) {
+				$handcodedText = str_replace("<br />", "", $writing->handcodedText);
+				$handcodedText = str_replace("<p>", "", $handcodedText);
+				$handcodedText = str_replace("</p>", "", $handcodedText);
+				$export .= $handcodedText;
+			} else {				
+				$writing_role = WYSIWYG_conversion($writing->role, false);
+				$writing_title = WYSIWYG_conversion($writing->title, false);
+				$writing_type = WYSIWYG_conversion($writing->type, false);
+				$writing_publisher = WYSIWYG_conversion($writing->publisher, false);
+				$writing_location = WYSIWYG_conversion($writing->location, false);
+				$writing_original = WYSIWYG_conversion($writing->original, false);
+				$export .= "<bibcitation>" . PHP_EOL;
+				$export .= "<bibcit.composed>";
+				if(!empty($writing_role)) {
+					$export .= "(" . $writing_role . ")" ;
+				}
+				if(!empty($writing_original)) {
+					$export .= $writing_original . ", ";
+				}
+				if(!empty($writing->reprints)){
+					$reprint_text = "";
+					foreach($writing->reprints as $reprint){
+						if(!empty($reprint->title)){
+							$reprint_title = WYSIWYG_conversion($reprint->title, false);
+							$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
+							$reprint_location = WYSIWYG_conversion($reprint->location, false);
+							$reprint_text .= ', published as <title><emphasis n="1">' . $reprint_title . ',</emphasis></title> ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
+						} else {
+							$reprint_publisher = WYSIWYG_conversion($reprint->publisher, false);
+							$reprint_location = WYSIWYG_conversion($reprint->location, false);
+							$reprint_text .= ', reprinted, ' . $reprint_publisher . ' (' . $reprint_location . '), <pubdate><year year="' . $reprint->year . '"></pubdate>';
+						}
 					}
+					if(!empty($writing_type)) {	
+						$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> (' . $writing_type . '), ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
+					}
+					else {
+						$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
+					}			
+				} else {
+					if(!empty($writing_type)) {	
+						$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> (' . $writing_type . '), ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.';
+					}
+					else {
+						$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
+					}					
 				}
-				if(!empty($writing_type)) {	
-					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> (' . $writing_type . '), ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
-				}
-				else {
-					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>' . $reprint_text ;
-				}			
-			} else {
-				if(!empty($writing_type)) {	
-					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> (' . $writing_type . '), ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.';
-				}
-				else {
-					$export .= '<title><emphasis n="1">' . $writing_title . ',</emphasis></title> ' . $writing_publisher . ' (' . $writing_location . '), <pubdate><year year="' . $writing->year . '"></pubdate>.' ;
-				}					
+				$export .= "</bibcit.composed>" . PHP_EOL;
+				$export .= "</bibcitation>" . PHP_EOL;	
 			}
-			$export .= "</bibcit.composed>" . PHP_EOL;
-			$export .= "</bibcitation>" . PHP_EOL;	
 		}
 	}
 	if(!empty($post->secondary_writings)) {
 		$export .= WYSIWYG_conversion($post->secondary_writings) . PHP_EOL;
 	}	
 	$export .= "</workgroup>" . PHP_EOL;
+
+	if(!empty($post->adaptations)) {
+		$export .= '<adaptations>';
+		$export .= WYSIWYG_conversion($post->adaptations) . PHP_EOL;
+		$export .= '</adaptations>';
+	}	
 	$export .= "</works>" . PHP_EOL . PHP_EOL;
 
 	$export .= '<narrative type="sidelights">' . PHP_EOL; 

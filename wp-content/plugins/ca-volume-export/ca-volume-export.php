@@ -835,8 +835,14 @@ function build_SGML_file($post) {
 	}
 	if(!empty($post->secondary_writings)) {
 		$export .= WYSIWYG_conversion($post->secondary_writings) . PHP_EOL;
-	}	
+	}		
 	$export .= "</workgroup>" . PHP_EOL;
+	
+	if(!empty($post->adaptations)) {
+		$export .= '<adaptations>';
+		$export .= WYSIWYG_conversion($post->adaptations) . PHP_EOL;
+		$export .= '</adaptations>';
+	}		
 	$export .= "</works>" . PHP_EOL . PHP_EOL;
 
 	$export .= '<narrative type="sidelights">' . PHP_EOL;

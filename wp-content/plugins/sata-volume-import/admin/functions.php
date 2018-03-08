@@ -328,12 +328,18 @@
 		                        $birthdate_field_key = getFieldKey($fields, "birth_date"); 
                                 if($entry->bio_body->personal->birth->birthdate->year) {
                                     $birth_year = (string) $entry->bio_body->personal->birth->birthdate->year->attributes();
+                                } else {
+                                    $birth_year = "";
                                 }                           
                                 if($entry->bio_body->personal->birth->birthdate->month) {
                                     $birth_month = (string) $entry->bio_body->personal->birth->birthdate->month->attributes();
+                                } else {
+                                    $birth_month = "";
                                 }
                                 if($entry->bio_body->personal->birth->birthdate->day) {
                                     $birth_day= (string) $entry->bio_body->personal->birth->birthdate->day->attributes();
+                                } else {
+                                    $birth_day = "";
                                 }                                                           
                                 $birthdate = array (
 	                                array (
@@ -369,15 +375,20 @@
                             #DEATHDATE
                             if($entry->bio_body->personal->death) {
 		                        $deathdate_field_key = getFieldKey($fields, "death_date");
-
                                 if($entry->bio_body->personal->death->deathdate->year) {
                                     $death_year = (string) $entry->bio_body->personal->death->deathdate->year->attributes();
+                                } else {
+                                    $death_year = "";
                                 }
                                 if($entry->bio_body->personal->death->deathdate->month) {
                                     $death_month = (string) $entry->bio_body->personal->death->deathdate->month->attributes();
+                                } else {
+                                    $death_month = "";
                                 }
                                 if($entry->bio_body->personal->death->deathdate->day) {
                                     $death_day= (string) $entry->bio_body->personal->death->deathdate->day->attributes(); 
+                                } else {
+                                    $death_day = "";
                                 }                                                     
 
                                 $deathhdate = array (
