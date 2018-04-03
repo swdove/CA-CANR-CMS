@@ -127,11 +127,20 @@
 
                     // 3/9/17 - force tags into biocrit for organization
                     // check if book biocrit citations exist
-                    $has_books= strpos($text, '<grouptitle level="2">BOOKS</grouptitle>');
+                    $has_books = strpos($text, '<grouptitle level="2">BOOKS</grouptitle>');
+                    //check if periodicals exit
+                    $has_periodicals = strpos($text, '<grouptitle level="2">PERIODICALS</grouptitle>');
                     // check if online citations exist
                     $has_online = strpos($text, '<grouptitle level="2">ONLINE</grouptitle>');
 
-                    if ($has_books !== false && $has_online !== false) { //if books, periodicals and online exist
+                    if($has_online == true && $has_books == false && $has_periodicals == false) {
+                        $online_only = true;
+                    } 
+
+                    if($online_only) {
+                        $text = str_replace('<grouptitle level="2">ONLINE</grouptitle>', '<online>', $text);
+                        $text = str_replace('</readinggroup>', '</online></readinggroup>', $text);
+                    } elseif ($has_books !== false && $has_online !== false) { //if books, periodicals and online exist
                         $text = str_replace('<grouptitle level="2">BOOKS</grouptitle>', '<books>', $text);
                         $text = str_replace('<grouptitle level="2">PERIODICALS</grouptitle>', '</books><periodicals>', $text);
                         $text = str_replace('<grouptitle level="2">ONLINE</grouptitle>', '</periodicals><online>', $text);
@@ -143,7 +152,7 @@
                     } elseif($has_books === false && $has_online === false) { // if periodicals exist
                         $text = str_replace('<grouptitle level="2">PERIODICALS</grouptitle>', '<periodicals>', $text);
                         $text = str_replace('</readinggroup>', '</periodicals></readinggroup>', $text);
-                    }                     
+                    }                   
                     //split string into array on line breaks
 	                $exploded = explode("\n", $text);
                     //clean up empty array indexes
@@ -216,6 +225,7 @@
 
                             #GENDER
                             $gender_field_key = getFieldKey($fields, "gender");
+                            $gender = "";
                             $gender = (string) $entry->bio_head->bioname->mainname->attributes();
                             $gender = ucfirst($gender); //uppercase
                             update_field( $gender_field_key, $gender, $post->ID );  
@@ -278,12 +288,18 @@
 		                        $birthdate_field_key = getFieldKey($fields, "birth_date"); 
                                 if($entry->bio_body->personal->birth->birthdate->year) {
                                     $birth_year = (string) $entry->bio_body->personal->birth->birthdate->year->attributes();
+                                } else {
+                                    $birth_year = "";
                                 }                           
                                 if($entry->bio_body->personal->birth->birthdate->month) {
                                     $birth_month = (string) $entry->bio_body->personal->birth->birthdate->month->attributes();
+                                } else {
+                                    $birth_month = "";
                                 }
                                 if($entry->bio_body->personal->birth->birthdate->day) {
                                     $birth_day= (string) $entry->bio_body->personal->birth->birthdate->day->attributes();
+                                } else {
+                                    $birth_day = "";
                                 }                                                           
                                 $birthdate = array (
 	                                array (
@@ -319,15 +335,20 @@
                             #DEATHDATE
                             if($entry->bio_body->personal->death) {
 		                        $deathdate_field_key = getFieldKey($fields, "death_date");
-
                                 if($entry->bio_body->personal->death->deathdate->year) {
                                     $death_year = (string) $entry->bio_body->personal->death->deathdate->year->attributes();
+                                } else {
+                                    $death_year = "";
                                 }
                                 if($entry->bio_body->personal->death->deathdate->month) {
                                     $death_month = (string) $entry->bio_body->personal->death->deathdate->month->attributes();
+                                } else {
+                                    $death_month = "";
                                 }
                                 if($entry->bio_body->personal->death->deathdate->day) {
                                     $death_day= (string) $entry->bio_body->personal->death->deathdate->day->attributes(); 
+                                } else {
+                                    $death_day = "";
                                 }                                                     
 
                                 $deathhdate = array (
@@ -591,7 +612,12 @@
                             }                           
 
                             #ADAPTATIONS
-
+                            $adaptations_field_key = getFieldKey($fields, "adaptations");
+                            $adaptations_text = (string) $entry->bio_body->works->adaptations;
+                            $adaptations_text = convertText_postxml($adaptations_text);
+                            $adaptations_text = stripLineBreaks($adaptations_text);
+                            update_field( $adaptations_field_key, $adaptations_text, $post->ID ); 
+                            
                             #SIDELIGHTS
                            	$narrative_field_key = getFieldKey($fields, "narrative");
                             $narrative_text = (string) $entry->bio_body->narrative;
@@ -622,18 +648,20 @@
                             }                              
 
                             #PERIODICALS
-		                    $periodicals_field_key = getFieldKey($fields, "biocrit_entries");
-                            $periodicals = array ();
-                            foreach($entry->bio_foot->readinggroup->periodicals->bibcitation as $citation) {
-                                $text = (string) $citation->bibcit_composed;
-                                $text = convertText_postxml($text);
-                                $text = stripLineBreaks($text);                                
-                                $bib_text = array (
-                                    "biocrit_entry" => $text
-                                );
-                                array_push($periodicals, $bib_text);
-                            }                                              
-                            update_field( $periodicals_field_key, $periodicals, $post->ID );                            
+                            if($entry->bio_foot->readinggroup->periodicals) {
+                                $periodicals_field_key = getFieldKey($fields, "biocrit_entries");
+                                $periodicals = array ();                            
+                                foreach($entry->bio_foot->readinggroup->periodicals->bibcitation as $citation) {
+                                    $text = (string) $citation->bibcit_composed;
+                                    $text = convertText_postxml($text);
+                                    $text = stripLineBreaks($text);                                
+                                    $bib_text = array (
+                                        "biocrit_entry" => $text
+                                    );
+                                    array_push($periodicals, $bib_text);
+                                }                                              
+                                update_field( $periodicals_field_key, $periodicals, $post->ID ); 
+                            }                           
 
                             #ONLINE
                             if($entry->bio_foot->readinggroup->online) {
@@ -763,12 +791,14 @@
 
         $text = str_replace("&Acirc;", "&#xc2;", $text); // Â 
         $text = str_replace("&acirc;", "&#xe2;", $text); // â
+        $text = str_replace("&ccirc;", "&#265;", $text); // ĉ 
         $text = str_replace("&Ecirc;", "&#xca;", $text); // Ê 
         $text = str_replace("&ecirc;", "&#xea;", $text); // ê  
         $text = str_replace("&Icirc;", "&#xce;", $text); // Î 
         $text = str_replace("&icirc;", "&#238;", $text); // î 
         $text = str_replace("&Ocirc;", "&#xd4;", $text); // Ô 
         $text = str_replace("&ocirc;", "&#xf4;", $text); // ô 
+        $text = str_replace("&scirc;", "&#349;", $text); // ŝ     
         $text = str_replace("&Ucirc;", "&#xdb;", $text); // Û 
         $text = str_replace("&ucirc;", "&#xfb;", $text); // û                                     
 
@@ -822,6 +852,8 @@
         $text = str_replace("&eth;", "&#xf0;", $text); // ð   
         $text = str_replace("&omacr;", "&#x14d;", $text); // ō
         $text = str_replace("&umacr;", "&#x16b;", $text); // ū
+
+        $text = str_replace("&odblac;", "&#x151;", $text); // ő
 
 
         if($xml === false) {

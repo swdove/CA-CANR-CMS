@@ -108,6 +108,11 @@
                                  echo "<b><i> " . $title . "</i></b>, ";
                               }                           
                         ?>  
+                        <?php $with = get_sub_field( "loc_writing_with" );
+                            if( $with ) { 
+                               echo $with . ", ";
+                            }
+                        ?>                        
                         <?php the_sub_field('loc_writing_publisher'); ?>
                         <?php $location = get_sub_field( "loc_writing_location" );
                             if( $location ) { 
@@ -153,6 +158,11 @@
                                  echo "<b><i> " . $title . "</i></b>, ";
                               }    
                         ?>
+                        <?php $with = get_sub_field( "loc_writing_with" );
+                            if( $with ) { 
+                               echo $with . ", ";
+                            }
+                        ?>                            
                         <?php the_sub_field('misc_writing_publisher'); ?>
                         <?php $location = get_sub_field( "misc_writing_location" );
                             if( $location ) { 
