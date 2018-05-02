@@ -767,7 +767,7 @@
         $text = str_replace("&dollar;", "&#x24;", $text); // $
         $text = str_replace("&pound;", "&#xa3;", $text); // £
         $text = str_replace("&equal;", "&#x3D;", $text); // =
-
+        $text = str_replace("&equals;", "&#x3D;", $text); // =
 
         $text = str_replace("&auml;", "&#xe4;", $text); // ä
         $text = str_replace("&Auml;", "&#xc4;", $text); // Ä
@@ -854,6 +854,9 @@
         $text = str_replace("&umacr;", "&#x16b;", $text); // ū
 
         $text = str_replace("&odblac;", "&#x151;", $text); // ő
+        $text = str_replace("&zcaron;", "&#x17E;", $text); // ž
+        $text = str_replace("&Zcaron;", "&#x17D;", $text); // Ž
+        $text = str_replace("&amacr;", "&#x101;", $text); // ā
 
 
         if($xml === false) {
