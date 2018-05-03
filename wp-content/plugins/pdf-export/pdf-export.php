@@ -93,7 +93,9 @@ class PDFAddress {
 }
 
 class PDFWriting {
-    public $id;
+	public $id;
+	public $isHandcoded;
+	public $handCodedEntry;
     public $title;
     public $type;
     public $publisher;
@@ -228,6 +230,8 @@ function export_pdf ($author='', $category='', $post_type='', $status='', $start
 	header('Content-disposition: attachment; filename='.$zipname);
 	header('Content-Length: ' . filesize($zipname));
 	readfile($zipname);
+
+	unlink($zipname);  
 }
 
 function pdf_parse_export_values($post) {
@@ -408,43 +412,53 @@ function pdf_get_repeater_values($post) {
         	if( get_row_layout() == 'loc_writing' ):
 			//$writing = get_sub_field('loc_writing_title');
 				$wrt->id = "loc";
-				$wrt->title = get_sub_field('loc_writing_title');
-				$wrt->type = get_sub_field('loc_writing_type');
-				$wrt->publisher = get_sub_field('loc_writing_publisher');
-				$wrt->location = get_sub_field('loc_writing_location');
-				$wrt->year = get_sub_field('loc_writing_year');
-        		// check if the nested repeater field has rows of data
-        		if( have_rows('loc_reprinted_as') ):
-			 		// loop through the rows of data
-					$rpt = new PDFReprint();
-			    	while ( have_rows('loc_reprinted_as') ) : the_row();
-						$rpt->title = get_sub_field('loc_reprinted_title');
-						$rpt->publisher = get_sub_field('loc_reprinted_publisher');
-						$rpt->location = get_sub_field('loc_reprinted_location');
-						$rpt->year = get_sub_field('loc_reprinted_year');
-						array_push($wrt->reprints, $rpt);
-					endwhile;
-				endif;
+				$wrt->isHandcoded = get_sub_field("loc_is_handcoded");
+				if($wrt->isHandcoded === false) {
+					$wrt->title = get_sub_field('loc_writing_title');
+					$wrt->type = get_sub_field('loc_writing_type');
+					$wrt->publisher = get_sub_field('loc_writing_publisher');
+					$wrt->location = get_sub_field('loc_writing_location');
+					$wrt->year = get_sub_field('loc_writing_year');
+					// check if the nested repeater field has rows of data
+					if( have_rows('loc_reprinted_as') ):
+						 // loop through the rows of data
+						$rpt = new PDFReprint();
+						while ( have_rows('loc_reprinted_as') ) : the_row();
+							$rpt->title = get_sub_field('loc_reprinted_title');
+							$rpt->publisher = get_sub_field('loc_reprinted_publisher');
+							$rpt->location = get_sub_field('loc_reprinted_location');
+							$rpt->year = get_sub_field('loc_reprinted_year');
+							array_push($wrt->reprints, $rpt);
+						endwhile;
+					endif;
+				} else {
+					$wrt->handcodedEntry = get_sub_field("loc_handcoded_text");
+				}			
 				array_push($post->writings, $wrt);
 			elseif( get_row_layout() == 'misc_writing' ):
 				$wrt->id = "misc";
-				$wrt->title = get_sub_field('misc_writing_title');
-				$wrt->type = get_sub_field('misc_writing_type');
-				$wrt->publisher = get_sub_field('misc_writing_publisher');
-				$wrt->location = get_sub_field('misc_writing_location');
-				$wrt->year = get_sub_field('misc_writing_year');			
-        		// check if the nested repeater field has rows of data
-        		if( have_rows('misc_reprinted_as') ):
-			 		// loop through the rows of data
-					$rpt = new PDFReprint();
-			    	while ( have_rows('misc_reprinted_as') ) : the_row();
-						$rpt->title = get_sub_field('misc_reprinted_title');
-						$rpt->publisher = get_sub_field('misc_reprinted_publisher');
-						$rpt->location = get_sub_field('misc_reprinted_location');
-						$rpt->year = get_sub_field('misc_reprinted_year');
-						array_push($wrt->reprints, $rpt);
-					endwhile;
-				endif;
+				$wrt->isHandcoded = get_sub_field("misc_is_handcoded");
+				if($wrt->isHandcoded === false) {
+					$wrt->title = get_sub_field('misc_writing_title');
+					$wrt->type = get_sub_field('misc_writing_type');
+					$wrt->publisher = get_sub_field('misc_writing_publisher');
+					$wrt->location = get_sub_field('misc_writing_location');
+					$wrt->year = get_sub_field('misc_writing_year');			
+					// check if the nested repeater field has rows of data
+					if( have_rows('misc_reprinted_as') ):
+						// loop through the rows of data
+						$rpt = new PDFReprint();
+						while ( have_rows('misc_reprinted_as') ) : the_row();
+							$rpt->title = get_sub_field('misc_reprinted_title');
+							$rpt->publisher = get_sub_field('misc_reprinted_publisher');
+							$rpt->location = get_sub_field('misc_reprinted_location');
+							$rpt->year = get_sub_field('misc_reprinted_year');
+							array_push($wrt->reprints, $rpt);
+						endwhile;
+					endif;
+				} else {
+					$wrt->handcodedEntry = get_sub_field("misc_handcoded_text");
+				}
 				array_push($post->writings, $wrt);
 			elseif( get_row_layout() == 'writings_subhead' ):
 				$wrt->id = "subhead";
@@ -607,43 +621,51 @@ function build_PDF_file($post) {
                 //$pdf->Ln();              
             }              
             elseif($writing->id == "misc") {
-                $wrt = "   * ";
-                if(!empty($writing->role)) {
-                    $wrt .= $writing->role;
-                }
-                if($writing->type){
-                    $wrt .= "<b><i>" . $writing->title . "</i></b> (" . $writing->type . "), ";
-                } else {
-                    $wrt .= "<b><i>" . $writing->title . "</i></b>, ";
-                }
-                $wrt .= $writing->publisher;
-                if($writing->location) {
-                    $wrt .= " (" . $writing->location . "), ";
-                }
-                $wrt .= $writing->year;
-                $wrt = pdf_convert_wyswig_punctuation($wrt);
+				$wrt = "   * ";
+				if ($writing->isHandcoded === false) { 
+					if(!empty($writing->role)) {
+						$wrt .= $writing->role;
+					}
+					if($writing->type){
+						$wrt .= "<b><i>" . $writing->title . "</i></b> (" . $writing->type . "), ";
+					} else {
+						$wrt .= "<b><i>" . $writing->title . "</i></b>, ";
+					}
+					$wrt .= $writing->publisher;
+					if($writing->location) {
+						$wrt .= " (" . $writing->location . "), ";
+					}
+					$wrt .= $writing->year;
+					$wrt = pdf_convert_wyswig_punctuation($wrt);
+				} else {
+					$wrt .= convert_handcoded_entry($writing->handcodedEntry);
+				}
                 $pdf->SetFont('Arial','',12);
                 $pdf->WriteHTML($wrt);
                 $pdf->Ln();
                // $pdf->Cell(0,10,"   * " . $wrt,0,1);
                 //$pdf->Ln();                
             }
-            elseif($writing->id == "loc") {
-                $wrt = "   * ";
-                if(!empty($writing->role)) {
-                    $wrt .= $writing->role;
-                }
-                if($writing->type){
-                    $wrt .= "<b><i>" . $writing->title . "</i></b> (" . $writing->type . "), ";
-                } else {
-                    $wrt .= "<b><i>" . $writing->title . "</i></b>, ";
-                }
-                $wrt .= $writing->publisher;
-                if($writing->location) {
-                    $wrt .= " (" . $writing->location . "), ";
-                }
-                $wrt .= $writing->year;
-                $wrt = pdf_convert_wyswig_punctuation($wrt);
+            elseif($writing->id == "loc") {				
+				$wrt = "   * ";
+				if ($writing->isHandcoded === false) {
+					if(!empty($writing->role)) {
+						$wrt .= $writing->role;
+					}
+					if($writing->type){
+						$wrt .= "<b><i>" . $writing->title . "</i></b> (" . $writing->type . "), ";
+					} else {
+						$wrt .= "<b><i>" . $writing->title . "</i></b>, ";
+					}
+					$wrt .= $writing->publisher;
+					if($writing->location) {
+						$wrt .= " (" . $writing->location . "), ";
+					}
+					$wrt .= $writing->year;
+					$wrt = pdf_convert_wyswig_punctuation($wrt);
+				} else {
+					$wrt .= convert_handcoded_entry($writing->handcodedEntry);
+				}
                 $pdf->SetFont('Arial','',12);
                 $pdf->WriteHTML($wrt);
                 $pdf->Ln();
@@ -710,6 +732,33 @@ function stripPara($text){
     $text = str_replace('<p>', '', $text);
     $text = str_replace('</p>', '', $text);
     return $text;
+}
+
+function convert_handcoded_entry($text) {
+	$return_text = "";
+	//get misc.
+	preg_match('/composed>(.*?)<title>/s', $text, $misc);
+	if (count($misc) > 0 ){
+		$misc_text = preg_replace( "/\r|\n/", "", $misc[1]);
+		$misc_text = str_replace('<br />', '', $misc_text);
+		$return_text .=  $misc_text;
+	}
+	// get title
+	preg_match('/<title><emphasis n="1">(.*?)<\/emphasis><\/title>/s', $text, $titles);
+	if (count($titles) > 0 ){
+		$return_text .= ' <b>' . $titles[1] . '</b>';
+	}
+	//get publisher
+	preg_match('/<\/title>(.*?)<pubdate>/s', $text, $publishers);
+	if (count($publishers) > 0 ){
+		$return_text .= $publishers[1];
+	}
+	//get date
+	preg_match('/year="(.*?)"/s', $text, $years);
+	if (count($years) > 0 ){
+		$return_text .= $years[1];
+	}	
+	return $return_text;
 }
 
 function pdf_convert_wyswig_punctuation($text) {    

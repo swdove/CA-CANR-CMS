@@ -244,6 +244,8 @@ function sata_export_wp_xml($author='', $category='', $post_type='', $status='',
 	header('Content-disposition: attachment; filename='.$zipname);
 	header('Content-Length: ' . filesize($zipname));
 	readfile($zipname);
+
+	unlink($zipname);  
 }
 
 function parse_export_values($post) {
