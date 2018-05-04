@@ -97,9 +97,14 @@
                   <?php if(get_sub_field("loc_is_handcoded")===false): ?>
                         <?php $role = get_sub_field( "loc_writing_role" );
                             if( $role ) { 
-                               echo "(" . $role . ")";
+                               echo "(" . $role . ") ";
                             }
                         ?>
+                        <?php $with = get_sub_field( "loc_writing_with" );
+                            if( $with ) { 
+                              echo "(" . $with . "), ";
+                           }
+                        ?>                           
                       	<?php $title = get_sub_field( "loc_writing_title" );
                               $type = get_sub_field( "loc_writing_type" );
                               if ($type) {
@@ -107,12 +112,7 @@
                               } else {
                                  echo "<b><i> " . $title . "</i></b>, ";
                               }                           
-                        ?>  
-                        <?php $with = get_sub_field( "loc_writing_with" );
-                            if( $with ) { 
-                               echo $with . ", ";
-                            }
-                        ?>                        
+                        ?>                      
                         <?php the_sub_field('loc_writing_publisher'); ?>
                         <?php $location = get_sub_field( "loc_writing_location" );
                             if( $location ) { 
@@ -147,9 +147,14 @@
                   <?php elseif( get_row_layout() == 'misc_writing' ): ?>
                         <?php $role = get_sub_field( "misc_writing_role" );
                             if( $role ) { 
-                               echo "(" . $role . ")";
+                               echo "(" . $role . ") ";
                             }
-                        ?>                  
+                        ?>   
+                        <?php $with = get_sub_field( "misc_writing_with" );
+                            if( $with ) { 
+                               echo "(" . $with . "), ";
+                            }
+                        ?>                                          
                         <?php $title = get_sub_field( "misc_writing_title" );
                               $type = get_sub_field( "misc_writing_type" );
                               if ($type) {
@@ -157,12 +162,7 @@
                               } else {
                                  echo "<b><i> " . $title . "</i></b>, ";
                               }    
-                        ?>
-                        <?php $with = get_sub_field( "loc_writing_with" );
-                            if( $with ) { 
-                               echo $with . ", ";
-                            }
-                        ?>                            
+                        ?>                        
                         <?php the_sub_field('misc_writing_publisher'); ?>
                         <?php $location = get_sub_field( "misc_writing_location" );
                             if( $location ) { 
